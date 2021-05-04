@@ -1,0 +1,151 @@
+body,
+table,
+tr,
+td {
+    font-family: sans-serif, 'Franklin Gothic Medium', 'Arial Narrow', Arial;
+}
+
+.taskListDetailCell {
+    no-padding-top: 18px;
+}
+
+body {
+    background-color: #dcdcdc;
+}
+
+.contentTable {
+    width: 90%;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+h2 {
+    padding-top: 18px;
+    margin-bottom: 4px;
+    vertical-align: middle;
+}
+
+h2 div {
+    display: flex;
+    align-items: center;
+}
+
+h2 div span {
+    margin-left: 4px;
+}
+
+small {
+    font-size: x-small;
+}
+
+.editTitle {
+    font-size: larger;
+}
+
+#tableEdit {
+    margin-top: 18px;
+    margin-bottom: 8px;
+}
+
+#tableEdit td {
+    font-size: smaller;
+}
+
+#editTaskTitle {
+    width: 320px;
+    font-family: sans-serif, 'Franklin Gothic Medium', 'Arial Narrow', Arial;
+    font-size: 10pt;
+}
+
+#editTaskNotes {
+    width: 320px;
+    font-family: sans-serif, 'Franklin Gothic Medium', 'Arial Narrow', Arial;
+    font-size: 10pt;
+}
+
+#tableControls td {
+    font-size: smaller;
+    font-weight: bold;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.5, 1.5);
+    margin-right: 10px;
+}
+
+.editLink {
+    display: none;
+}
+
+.editImageWrapper {
+    display: block;
+    margin-top: 8px;
+}
+
+.editImage {
+    height: 16px;
+    width: 16px;
+}
+
+.deleteLink {
+    display: none;
+}
+
+.deleteImageWrapper {
+    display: block;
+    margin-top: 8px;
+}
+
+.deleteImage {
+    height: 16px;
+    width: 16px;
+}
+
+.controlButton {
+    height: 32px;
+    width: 32px;
+}
+
+
+/* Login page */
+
+.login {
+    background-image: url('images/chessboard-3d.jpg');
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-color: black;
+}
+
+.tableBorder {
+    border-collapse: collapse;
+    border: none;
+}
+
+.tableBorder td {
+    border-collapse: collapse;
+    border: none;
+}
+
+.tableLogin {
+    border-top: 1px solid white;
+    border-left: 1px solid white;
+    border-right: 1px solid darkslategray;
+    border-bottom: 1px solid darkslategray;
+    border-radius: 6px;
+}
+
+.button {
+    padding: 6px 12px 6px 12px;
+    border-top: 1px solid white;
+    border-left: 1px solid white;
+    border-right: 1px solid darkslategray;
+    border-bottom: 1px solid darkslategray;
+    border-radius: 3px;
+}
+
+.button:active {
+    border-top: 1px solid darkslategray;
+    border-left: 1px solid darkslategray;
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+}

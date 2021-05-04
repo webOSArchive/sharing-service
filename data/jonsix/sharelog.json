@@ -1,0 +1,12 @@
+{
+    "sharephrase": "is cool",
+    "password": "cGFzcyAxMjM=",
+    "sharetype": "string",
+    "shares": [
+        {
+            "guid": "999",
+            "type": "plain",
+            "content": "Welcome to the sharing service!"
+        }
+    ]
+}

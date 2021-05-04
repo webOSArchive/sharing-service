@@ -1,0 +1,12 @@
+{
+    "sharephrase": "is cool",
+    "password": "Hashed password",
+    "allowedTypes": "onlyphoto",
+    "shares": [
+        {
+            "guid": "999",
+            "type": "Text",
+            "content": "Welcome to the sharing service!"
+        }
+    ]
+}

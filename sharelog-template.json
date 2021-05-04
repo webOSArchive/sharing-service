@@ -1,0 +1,10 @@
+{
+    "sharephrase": "Share Phrase",
+    "password": "Hashed password",
+    "sharetype": "string",
+    "shares": [{
+        "guid": "999",
+        "type": "plain",
+        "content": "Welcome to the sharing service!"
+    }]
+}

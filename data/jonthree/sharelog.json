@@ -1,0 +1,120 @@
+{
+    "sharephrase": "is cool",
+    "password": "cGFzcyAxMjM=",
+    "sharetype": "all",
+    "shares": [
+        {
+            "guid": "999",
+            "type": "text\/plain",
+            "content": "Welcome to the sharing service!"
+        },
+        {
+            "guid": "608d6225eeaf5",
+            "contenttype": null,
+            "content": {
+                "name": "John",
+                "age": 30,
+                "car": null
+            }
+        },
+        {
+            "guid": "608d6241e042a",
+            "contenttype": "application\/json",
+            "content": {
+                "name": "John",
+                "age": 30,
+                "car": null
+            }
+        },
+        {
+            "guid": "608d62dd10e16",
+            "contenttype": "application\/json",
+            "content": {
+                "name": "John",
+                "age": 30,
+                "car": null
+            }
+        },
+        {
+            "guid": "608d637d60be5",
+            "contenttype": "application\/json",
+            "content": {
+                "name": "John",
+                "age": 30,
+                "car": null
+            }
+        },
+        {
+            "guid": "608d63d1d32ee",
+            "contenttype": "application\/json",
+            "content": {
+                "name": "John",
+                "age": 30,
+                "car": null
+            }
+        },
+        {
+            "guid": "608d63e787c25",
+            "contenttype": "application\/json",
+            "content": {
+                "name": "John",
+                "age": 30,
+                "car": null
+            }
+        },
+        {
+            "guid": "608d6431ef9ab",
+            "contenttype": "application\/json",
+            "content": {
+                "name": "John",
+                "age": 30,
+                "car": null
+            }
+        },
+        {
+            "guid": "608d64bf67989",
+            "contenttype": "application\/json",
+            "content": {
+                "name": "John",
+                "age": 30,
+                "car": null
+            }
+        },
+        {
+            "guid": "608d656776d98",
+            "contenttype": "application\/json",
+            "content": {
+                "name": "John",
+                "age": 30,
+                "car": null
+            }
+        },
+        {
+            "guid": "608d68ab72967",
+            "contenttype": "application\/json",
+            "content": {
+                "name": "John",
+                "age": 30,
+                "car": null
+            }
+        },
+        {
+            "guid": "608d6b791dabf",
+            "contenttype": "application\/json",
+            "content": {
+                "name": "John",
+                "age": 30,
+                "car": null
+            }
+        },
+        {
+            "guid": "608d6c0983574",
+            "contenttype": "application\/json",
+            "content": {
+                "name": "John",
+                "age": 30,
+                "car": null
+            }
+        }
+    ]
+}

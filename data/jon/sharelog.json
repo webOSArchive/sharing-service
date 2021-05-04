@@ -1,0 +1,10 @@
+{
+    "twowords": null,
+    "shares": [
+        {
+            "guid": "999",
+            "type": "Text",
+            "content": "Welcome to the sharing service!"
+        }
+    ]
+}
