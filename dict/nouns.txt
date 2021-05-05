@@ -5286,7 +5286,6 @@ torpedo
 torquer
 torrent
 torsion
-torture
 tossing
 tourist
 trachea

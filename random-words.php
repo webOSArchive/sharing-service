@@ -1,6 +1,4 @@
 <?php
-header('Content-Type: text/plain');
-
 $rand_text = trim(get_random_word("adjectives"));
 $rand_text = $rand_text . " " . trim(get_random_word("nouns"));
 

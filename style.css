@@ -5,14 +5,6 @@ td {
     font-family: sans-serif, 'Franklin Gothic Medium', 'Arial Narrow', Arial;
 }
 
-.taskListDetailCell {
-    no-padding-top: 18px;
-}
-
-body {
-    background-color: #dcdcdc;
-}
-
 .contentTable {
     width: 90%;
     margin-left: 0.5em;
@@ -38,67 +30,9 @@ small {
     font-size: x-small;
 }
 
-.editTitle {
-    font-size: larger;
-}
-
-#tableEdit {
-    margin-top: 18px;
-    margin-bottom: 8px;
-}
-
-#tableEdit td {
-    font-size: smaller;
-}
-
-#editTaskTitle {
-    width: 320px;
-    font-family: sans-serif, 'Franklin Gothic Medium', 'Arial Narrow', Arial;
-    font-size: 10pt;
-}
-
-#editTaskNotes {
-    width: 320px;
-    font-family: sans-serif, 'Franklin Gothic Medium', 'Arial Narrow', Arial;
-    font-size: 10pt;
-}
-
-#tableControls td {
-    font-size: smaller;
-    font-weight: bold;
-}
-
 input[type="checkbox"] {
     transform: scale(1.5, 1.5);
     margin-right: 10px;
-}
-
-.editLink {
-    display: none;
-}
-
-.editImageWrapper {
-    display: block;
-    margin-top: 8px;
-}
-
-.editImage {
-    height: 16px;
-    width: 16px;
-}
-
-.deleteLink {
-    display: none;
-}
-
-.deleteImageWrapper {
-    display: block;
-    margin-top: 8px;
-}
-
-.deleteImage {
-    height: 16px;
-    width: 16px;
 }
 
 .controlButton {
@@ -114,6 +48,22 @@ input[type="checkbox"] {
     background-position: center bottom;
     background-repeat: no-repeat;
     background-color: white;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: black;
+    text-decoration: underline;
+}
+
+.explainer {
+    font-size: small;
+    font-style: italic;
+    padding: 20px;
 }
 
 .tableBorder {
