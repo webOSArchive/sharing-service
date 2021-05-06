@@ -1,10 +1,4 @@
 config.php
-discord/config.json
-discord/node_modules
-discord/package-lock.json
-discord/.index..swp
-data/chatlog.json
+data/
 .htaccess
-index.html
-custom/
 docker/
