@@ -14,7 +14,7 @@ function create_new_user($username, $sharephrase, $password, $errorhandler = def
             $errorhandler("username not valid: must not be OS reserved word");
             return;
         }
-        
+
         //check for valid sharephrase
         $sharephrase = strtolower($sharephrase);
         if (preg_match('/[^a-z ]/', $sharephrase))
@@ -22,7 +22,7 @@ function create_new_user($username, $sharephrase, $password, $errorhandler = def
             $errorhandler("sharephrase not valid: use combinations provided by service");
             return;
         }
-    
+
         //check for valid password
         $password = strtolower($password);
         if (preg_match('/[^A-Za-z0-9 ]/', $password))
@@ -32,13 +32,13 @@ function create_new_user($username, $sharephrase, $password, $errorhandler = def
         } else {
             $password = base64_encode($password);
         }
-    
+
         //re-run the username uniqueness check
         if (file_exists("data/" . $username)) {
             $errorhandler("user or service name already in use");
             return;
         }
-    
+
         //try create the folder
         if (!is_dir("data")){
             $errorhandler("data folder could not be found on server");
@@ -53,7 +53,7 @@ function create_new_user($username, $sharephrase, $password, $errorhandler = def
                 return;
             }
         }
-    
+
         //try create the data file
         try {
             //Load the template, populate this user's values, and save as a new file
