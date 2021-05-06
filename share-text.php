@@ -49,14 +49,16 @@ if (isset($request_headers["content-type"]) && $request_headers["content-type"] 
 
 //Make sure the file exists and can be loaded
 $newid = uniqid();
+
 $sharedata = get_share_data($auth['username'], $auth['sharephrase'], gracefuldeath_json);
 
 $updatedsharedata = add_share_data($postdata, $sharedata, $auth['sharephrase'], $reqtype, $newid, gracefuldeath_json);
+$file = "data/" . strtolower($auth['username']) . "/sharelog.json";
 $written = file_put_contents($file, json_encode($updatedsharedata, JSON_PRETTY_PRINT));
 
 //Output the results
 if (!$written) {
-    gracefuldeath_json("failed to write to file");
+    gracefuldeath_json("failed to write to file " . $file);
 } else {
     echo "{\"success\":\"" . make_url_from_contentid($newid, $auth['username'], "string") . "\"}";
 }
