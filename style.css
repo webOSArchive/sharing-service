@@ -27,7 +27,7 @@ h2 div span {
 }
 
 small {
-    font-size: x-small;
+    font-size: smaller;
 }
 
 input[type="checkbox"] {

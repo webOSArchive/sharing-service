@@ -33,7 +33,7 @@
                         <table width="400" height="100%" bgcolor="white" border="0" class="tableOption">
                             <tr>
                                 <td colspan="3" align="center">
-                                    <a href="web-new-user.php">
+                                    <a href="web-agreement.php">
                                     <img src="images/icon-128.png" style="margin-top:8px;" id="imgIcon"/><br/>
                                     <b>Create your own Share space</b><br/>
                                     </a>

@@ -1,5 +1,6 @@
 <?php
 include("common.php");
+include("functions.php");
 
 header('Content-Type: application/json');
 
@@ -52,7 +53,7 @@ $file = "data/" . ($auth['username'] . "/sharelog.json");
 $newid = uniqid();
 $sharedata = get_share_data($file, $auth['sharephrase'], gracefuldeath_json);
 
-$updatedsharedata = add_share_data($postdata, $sharedata, $auth['sharephrase'], $reqtype, $newid);
+$updatedsharedata = add_share_data($postdata, $sharedata, $auth['sharephrase'], $reqtype, $newid, gracefuldeath_json);
 $written = file_put_contents($file, json_encode($updatedsharedata, JSON_PRETTY_PRINT));
 
 //Output the results
@@ -62,21 +63,5 @@ if (!$written) {
     echo "{\"success\":\"" . make_url_from_contentid($newid, $auth['username'], "string") . "\"}";
 }
 exit();
-
-function add_share_data($newsharedata, $oldsharedata, $sharephrase, $contenttype, $newid){
-    global $config;
-
-    if ($oldsharedata['sharephrase'] != $sharephrase || $sharephrase == $config['readonlykey'])
-        gracefuldeath_json("not authorized: sharephrase not valid or read-only");
-
-    $updatedsharedata = $oldsharedata;
-    $newshareentry = new stdClass();
-    $newshareentry->guid = $newid;
-    $newshareentry->contenttype = $contenttype;
-    $newshareentry->content = $newsharedata;
-    array_push($updatedsharedata['shares'], $newshareentry);
-
-    return $updatedsharedata;
-}
 
 ?>
