@@ -8,11 +8,11 @@ function create_new_user($username, $sharephrase, $password, $errorhandler = def
         if (preg_match('/[^a-z]/', $username))
         {
             $errorhandler("username not valid: must be one word, alphabetic characters only");
-            return null;
+            return;
         }
         if (in_array($username, $disallowed)) {
             $errorhandler("username not valid: must not be OS reserved word");
-            return null;
+            return;
         }
         
         //check for valid sharephrase
@@ -20,7 +20,7 @@ function create_new_user($username, $sharephrase, $password, $errorhandler = def
         if (preg_match('/[^a-z ]/', $sharephrase))
         {
             $errorhandler("sharephrase not valid: use combinations provided by service");
-            return null;
+            return;
         }
     
         //check for valid password
@@ -28,7 +28,7 @@ function create_new_user($username, $sharephrase, $password, $errorhandler = def
         if (preg_match('/[^A-Za-z0-9 ]/', $password))
         {
             $errorhandler("password not valid: use only letters, numbers and spaces");
-            return null;
+            return;
         } else {
             $password = base64_encode($password);
         }
@@ -36,13 +36,13 @@ function create_new_user($username, $sharephrase, $password, $errorhandler = def
         //re-run the username uniqueness check
         if (file_exists("data/" . $username)) {
             $errorhandler("user or service name already in use");
-            return null;
+            return;
         }
     
         //try create the folder
         if (!is_dir("data")){
             $errorhandler("data folder could not be found on server");
-            return null;
+            return;
         } else {
             try {
                 mkdir("data/" . $username);
@@ -50,7 +50,7 @@ function create_new_user($username, $sharephrase, $password, $errorhandler = def
             catch (exception $e)
             {
                 $errorhandler("could not create user storage: check permissions on server.");
-                return null;
+                return;
             }
         }
     
@@ -72,14 +72,14 @@ function create_new_user($username, $sharephrase, $password, $errorhandler = def
         catch (exception $e)
         {
             $errorhandler("could not create sharelog in user storage: check for valid template and permissions on server");
-            return null;
+            return;
         }
         return "{\"success\":\"new user created!\"}";
     } else {
         $errorhandler("post data payload incomplete, missing username, sharephrase or password");
-        return null;
+        return;
     }
-    return null;
+    return;
 }
 
 function add_share_data($newsharedata, $oldsharedata, $sharephrase, $contenttype, $newid, $errorhandler = default_error_handler){
@@ -87,11 +87,11 @@ function add_share_data($newsharedata, $oldsharedata, $sharephrase, $contenttype
 
     if (!isset($newsharedata) || !isset($oldsharedata) || !isset($sharephrase) || !isset($contenttype) || !isset($newid)) {
         $errorhandler("functional call missing required parameters!");
-        return null;
+        return;
     }
     if ($oldsharedata['sharephrase'] != $sharephrase || $sharephrase == $config['readonlykey']) {
         $errorhandler("not authorized: sharephrase not valid or read-only");
-        return null;
+        return;
     }
 
     $updatedsharedata = $oldsharedata;

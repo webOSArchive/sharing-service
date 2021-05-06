@@ -17,8 +17,7 @@ if (count($shareparts) > 1) {
     }
 
     //Make sure the file exists and can be loaded
-    $file = "data/" . ($username . "/sharelog.json");
-    $jsondata = get_share_data($file, $config['readonlykey'], graceful_death);
+    $jsondata = get_share_data($username, $config['readonlykey'], graceful_death);
     foreach ($jsondata['shares'] as $share => $value) {
         //print_r($value);
         if ($contentid == $value['guid'])

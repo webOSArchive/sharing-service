@@ -13,8 +13,7 @@ if (!isset($postraw) || $postraw == "")
 $postdata = json_decode($postraw); 
 
 //Make sure the file exists and can be loaded
-$file = "data/" . ($auth['username'] . "/sharelog.json");
-$jsondata = get_share_data($file, $auth['sharephrase'], gracefuldeath_json);
+$jsondata = get_share_data($auth['username'], $auth['sharephrase'], gracefuldeath_json);
 
 //Make sure this share content is valid and allowed
 $allowedtype = $jsondata['sharetype'];
@@ -49,9 +48,8 @@ if (isset($request_headers["content-type"]) && $request_headers["content-type"] 
 }
 
 //Make sure the file exists and can be loaded
-$file = "data/" . ($auth['username'] . "/sharelog.json");
 $newid = uniqid();
-$sharedata = get_share_data($file, $auth['sharephrase'], gracefuldeath_json);
+$sharedata = get_share_data($auth['username'], $auth['sharephrase'], gracefuldeath_json);
 
 $updatedsharedata = add_share_data($postdata, $sharedata, $auth['sharephrase'], $reqtype, $newid, gracefuldeath_json);
 $written = file_put_contents($file, json_encode($updatedsharedata, JSON_PRETTY_PRINT));

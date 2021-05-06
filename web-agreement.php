@@ -1,7 +1,6 @@
 <?php
-    //setcookie("grandmaster", "", time() - 3600);
+    setcookie("credential", "", time() - 3600, "/");
     include("common.php");
-
 ?>
 
 <html>

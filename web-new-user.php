@@ -1,5 +1,4 @@
 <?php
-    //setcookie("grandmaster", "", time() - 3600);
     include("common.php");
     include("functions.php");
     header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
@@ -8,17 +7,12 @@
 
     if (isset($_POST["txtUserName"]) && isset($_POST["txtSharephrase"]) && isset($_POST["txtPassword"]))
     {
-        $create_result = @create_new_user($_POST["txtUserName"], $_POST["txtUserName"], $_POST["txtUserName"], gracefuldeath_html);
+        $create_result = @create_new_user($_POST["txtUserName"], $_POST["txtSharephrase"], $_POST["txtPassword"], gracefuldeath_html);
         if (isset($create_result)) {
-            setcookie("sharephrase", $_POST["txtSharephrase"], time() + (3600), "/");
-            setcookie("password", $_POST["txtPassword"], time() + (3600), "/");
+            setcookie("credential", $_POST["txtPassword"], time() + (3600), "/");
             header('Location: web-get-shares.php?username=' . $_POST["txtUserName"]);
         }
     } 
-
-    function gracefuldeath_html($error) {
-        echo "ERROR: " . $error;
-    }
 ?>
 
 <html>
@@ -31,6 +25,10 @@
     <meta http-equiv="pragma" content="no-cache">
 
     <script>
+        function swapTech() {
+            document.getElementById("imgNewWords").style.display = "inline";
+        }
+
         function getNewWords() {
             if (typeof XMLHttpRequest === "function") {
                 var xhr = new XMLHttpRequest();
@@ -66,10 +64,10 @@
                                     <form method="POST">
                                         <table style="margin: 18px;">
                                             <tr><td>User Name: </td><td><input type="text" name="txtUserName" id="txtUserName"></td></tr>
-                                            <tr><td>Share Phrase:  </td><td><input type="text" id="txtSharephrase" name="txtSharephrase" value="<?php include("random-words.php"); ?>">&nbsp;<img src="images/refresh.png" style="height:20px;width:20px; vertical-align:middle" onclick="getNewWords()"></td></tr>
+                                            <tr><td>Share Phrase:  </td><td><input type="text" id="txtSharephrase" name="txtSharephrase" value="<?php include("random-words.php"); ?>">&nbsp;<img src="images/refresh.png" id="imgNewWords" style="display:none; height:20px;width:20px; vertical-align:middle" onclick="getNewWords()"></td></tr>
                                             <tr><td>Admin Password: </td><td><input type="text" id="txtPassword" name="txtPassword"></td></tr>
                                         </table>
-                                        <input type="submit" value="Let's Go!">
+                                        <input type="submit" value="Let's Go!"><br/><br/><small><a href="index.php">Cancel</a></small>
                                     </form>
                                 </td>
                             </tr>

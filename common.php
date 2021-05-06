@@ -66,10 +66,14 @@ function get_authorization($errorhandler = gracefuldeath_json) {
     );
 }
 
-function get_share_data($file, $sharephrase, $errorhandler = gracefuldeath_json) {
+function get_share_data($username, $credential, $errorhandler = gracefuldeath_json) {
     global $config;
-    if (!file_exists($file))
+
+    $file = "data/" . strtolower($username) . "/sharelog.json";
+    if (!file_exists($file)) {
         $errorhandler("share service or user name not found or data file could not be opened.");
+        return;
+    }
 
     try {
         $sharedata = file_get_contents($file);
@@ -77,12 +81,16 @@ function get_share_data($file, $sharephrase, $errorhandler = gracefuldeath_json)
     }
     catch (exception $e) {
         $errorhandler("sharedata content could not be loaded");
+        return;
     }
 
     //Make sure the file belongs to the requesting user
-    $checkphrase = strtolower($jsondata['sharephrase']);
-    if ($sharephrase != $checkphrase && $sharephrase != $config['readonlykey'])
-        $errorhandler("not authorized: sharephrase does not match");
+    $checkphrase = $jsondata['sharephrase'];
+    $adminpass = $jsondata['password'];
+    if ($credential != $checkphrase && base64_encode($credential) != $adminpass && $credential != $config['readonlykey']) {
+        $errorhandler("not authorized: credentials do not match any known key");
+        return;
+    }
 
     return $jsondata;
 }
@@ -166,6 +174,10 @@ function gracefuldeath_json($message) {
     if (!isset($message) || $message == "")
         $message = "unknown error occurred";
     die ("{\"error\":\"". $message ."\"}");
+}
+
+function gracefuldeath_html($error) {
+    echo "ERROR: " . $error;
 }
 
 ?>

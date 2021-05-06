@@ -50,6 +50,18 @@ input[type="checkbox"] {
     background-color: white;
 }
 
+.login-header {
+    background-color:black; color:white; width:100%; text-align:right
+}
+
+.login-header a {
+    color: white;
+}
+
+.login-header a:hover {
+    color: white; font-style: italic;
+}
+
 a {
     color: black;
     text-decoration: none;
