@@ -39,8 +39,8 @@ if (isset($request_headers["content-type"]) && $request_headers["content-type"] 
             if (!is_JSON($postraw)) {
                 gracefuldeath_json("posted json could not be parsed: it may be too long or malformed");
             } else {
-		$postdata = json_decode($postraw);
-	    }
+                $postdata = json_decode($postraw);
+            }
         }
     }
     else {
