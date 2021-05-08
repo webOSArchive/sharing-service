@@ -142,8 +142,8 @@
                                     <form method="post" enctype="multipart/form-data">
                                         Enter the info for the person or service you want to share with, then pick an image to share with them...<br>
                                         <table style="margin: 18px;">
-                                            <tr><td>User Name: </td><td><input type="text" name="txtUsername" id="txtUsername"></td></tr>
-                                            <tr><td>Share Phrase:  </td><td><input type="text" id="txtSharephrase" name="txtSharephrase" value=""></td></tr>
+                                            <tr><td>User Name: </td><td><input type="text" name="txtUsername" id="txtUsername" value="<?php echo $_POST['txtUsername']?>"></td></tr>
+                                            <tr><td>Share Phrase:  </td><td><input type="text" id="txtSharephrase" name="txtSharephrase" value="<?php echo $_POST['txtSharephrase']?>"></td></tr>
                                             <tr><td>Photo: </td><td><input type="file" name="frmImage" /></td></tr>
                                         </table>
                                         <input type="submit" value="Share"><br/><br/><small><a href="index.php">Cancel</a></small>
