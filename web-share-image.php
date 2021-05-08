@@ -64,7 +64,7 @@
             gracefuldeath_later("A server error occurred uploading your file (Code: " . $_FILES['frmImage']['error'] . ")<br>Your file may be too big, or the server may be misconfigured.");
         }
     } 
-    
+
     function gracefuldeath_later($message) {
         global $error_message;
         $error_message = $message;
@@ -99,7 +99,10 @@
                                 <td colspan="3" align="center">
                                     <p>      
                                     <?php
-                                    if (isset($imagePreview) && isset($imageDownload)) {
+                                    if (isset($error_message)) {
+                                        echo "<span style='color:red;'>Error: " . $error_message . "</span>";
+                                    }
+                                    else {
                                         echo "<a href='" . $imageDownload . "'>";
                                         echo "<img src='" . $imagePreview . "' style='height: 64px; margin-top:8px; vertical-align:middle;'>";  
                                         echo "</a>";
@@ -113,9 +116,6 @@
                                         echo "<td>Public Download Link:</td><td> <a href='" . $imageDownload . "'>" . $imageDownload . "</a></td>";
                                         echo "</tr>";
                                         echo "</table>";
-                                    }
-                                    if (isset($error_message)) {
-                                        echo "<span style='color:red;'>Error: " . $error_message . "</span>";
                                     }
                                     ?>
                                 </td>
