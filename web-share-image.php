@@ -45,16 +45,20 @@
                     
                     //Move the image into place
                     $postdata = $newfile;
-                    move_uploaded_file($_FILES['frmImage']['tmp_name'], $newfile);
+                    if (move_uploaded_file($_FILES['frmImage']['tmp_name'], $newfile)) {
+                        //Add a record to the user's share data
+                        $updatedsharedata = add_share_data($postdata, $sharedata, $auth['sharephrase'], $_FILES['frmImage']['type'], $newid, gracefuldeath_later);
+                        if (isset($updatedsharedata) && $updatedsharedata != "") {
+                            $file = "data/" . strtolower($auth['username']) . "/sharelog.json";
+                            $written = file_put_contents($file, json_encode($updatedsharedata, JSON_PRETTY_PRINT));
+                        }
 
-                    //Add a record to the user's share data
-                    $updatedsharedata = add_share_data($postdata, $sharedata, $auth['sharephrase'], $_FILES['frmImage']['type'], $newid, gracefuldeath_later);
-                    $file = "data/" . strtolower($auth['username']) . "/sharelog.json";
-                    $written = file_put_contents($file, json_encode($updatedsharedata, JSON_PRETTY_PRINT));
-
-                    if ($written) {
-                        $imagePreview = make_url_from_contentid($newid, $auth['username'], "i");
-                        $imageDownload = make_url_from_contentid($newid, $auth['username'], "download");
+                        if ($written) {
+                            $imagePreview = make_url_from_contentid($newid, $auth['username'], "i");
+                            $imageDownload = make_url_from_contentid($newid, $auth['username'], "download");
+                        }
+                    } else {
+                        gracefuldeath_later("Could not move uploaded file to share directory. Check server permissions.");
                     }
                 }
             }
