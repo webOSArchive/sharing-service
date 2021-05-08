@@ -5,6 +5,6 @@
     "shares": [{
         "guid": "999",
         "type": "plain",
-        "content": "Welcome to the sharing service!"
+        "contenttype": "Welcome to the sharing service!"
     }]
 }

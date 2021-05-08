@@ -5,12 +5,12 @@
     header("Cache-Control: post-check=0, pre-check=0", false);
     header("Pragma: no-cache");
 
-    if (isset($_POST["txtUserName"]) && isset($_POST["txtSharephrase"]) && isset($_POST["txtPassword"]))
+    if (isset($_POST["txtUsername"]) && isset($_POST["txtSharephrase"]) && isset($_POST["txtPassword"]))
     {
-        $create_result = @create_new_user($_POST["txtUserName"], $_POST["txtSharephrase"], $_POST["txtPassword"], gracefuldeath_html);
+        $create_result = @create_new_user($_POST["txtUsername"], $_POST["txtSharephrase"], $_POST["txtPassword"], gracefuldeath_html);
         if (isset($create_result)) {
             setcookie("credential", $_POST["txtPassword"], time() + (3600), "/");
-            header('Location: web-get-shares.php?username=' . $_POST["txtUserName"]);
+            header('Location: web-get-shares.php?username=' . $_POST["txtUsername"]);
         }
     } 
 ?>
@@ -46,7 +46,7 @@
     </script>
 
 </head>
-<body class="login">
+<body class="login" onload="swapTech()">
 
 
 <table width="100%" height="100%" border="0" id="tableLayout">
@@ -63,7 +63,7 @@
                                     <p class="explainer">A Share space let's people share content with you from the web, or webOS mobile devices. Your user name is public, and will be used to make public links to content. Your Share Phrase is something you give to only those who you want to get content from -- if you only want to share with yourself, that's OK: just keep the Share Phrase private! And finally, your admin password is super private -- you can use it to change your settings, or delete content.</p>
                                     <form method="POST">
                                         <table style="margin: 18px;">
-                                            <tr><td>User Name: </td><td><input type="text" name="txtUserName" id="txtUserName"></td></tr>
+                                            <tr><td>User Name: </td><td><input type="text" name="txtUsername" id="txtUserName"></td></tr>
                                             <tr><td>Share Phrase:  </td><td><input type="text" id="txtSharephrase" name="txtSharephrase" value="<?php include("random-words.php"); ?>">&nbsp;<img src="images/refresh.png" id="imgNewWords" style="display:none; height:20px;width:20px; vertical-align:middle" onclick="getNewWords()"></td></tr>
                                             <tr><td>Admin Password: </td><td><input type="text" id="txtPassword" name="txtPassword"></td></tr>
                                         </table>

@@ -37,7 +37,7 @@ function get_authorization($errorhandler = gracefuldeath_json) {
     }
     else {
         //check for encoding
-        if (base64_encode(base64_decode($$_GET["sharephrase"])) !== $$_GET["sharephrase"]){
+        if (base64_encode(base64_decode($_GET["sharephrase"])) !== $_GET["sharephrase"]){
             $errorhandler("refusing to use querystring share-phrase in the clear: base64 encode and retry");
         }
         $sharephrase = $_GET["sharephrase"];
@@ -71,7 +71,7 @@ function get_share_data($username, $credential, $errorhandler = gracefuldeath_js
 
     $file = "data/" . strtolower($username) . "/sharelog.json";
     if (!file_exists($file)) {
-        $errorhandler("share service or user name not found or data file could not be opened.");
+        $errorhandler("share user or service name not found or data file could not be opened.");
         return;
     }
 
@@ -88,7 +88,7 @@ function get_share_data($username, $credential, $errorhandler = gracefuldeath_js
     $checkphrase = $jsondata['sharephrase'];
     $adminpass = $jsondata['password'];
     if ($credential != $checkphrase && base64_encode($credential) != $adminpass && $credential != $config['readonlykey']) {
-        $errorhandler("not authorized: credentials do not match any known key");
+        $errorhandler("not authorized: credentials do not match any known key " . $credential);
         return;
     }
 
@@ -127,10 +127,24 @@ function convert_shares_to_public_schema($data) {
 }
 
 function make_url_from_contentid($contentid, $user, $type) {
-    if ($type == "string")
-        $functionName = "t";
-    else
-        $functionName = "i";
+    switch ($type) {
+        case "string":
+            $functionName = "t";
+            break;
+        case "i":
+            $functionName = "i";
+            break;
+        case "image":
+            $functionName = "image";
+            break;
+        case "download":
+            $functionName = "download";
+            break;
+        default:
+            gracefuldeath_html("no valid type specified");
+            return;
+    }
+
     if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')   
         $url = "https://";
     else

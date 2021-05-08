@@ -1,4 +1,5 @@
 <?php
+
 include("common.php");
 
 $sharehandle = $_SERVER['QUERY_STRING'];
@@ -22,20 +23,15 @@ if (count($shareparts) > 1) {
         //print_r($value);
         if ($contentid == $value['guid'])
         {
-            if ($value['contenttype'] == "application/json") {
-                header('Content-Type: application/json');
-                print_r(json_encode($value['content']));
-            }
-            else {
-                header('Content-Type: text/plain');
-                print_r($value['content']);
-            }
+            //echo $value['content'] . "<br>";
+            //echo $value['contenttype'] . "<br>";
+            header('Content-Type '. $value['contenttype']);
+            $fp = fopen($value['content'], 'rb');
+            fpassthru($fp);
         }
     }
 
 } else {
     gracefuldeath_html("content request malformed!");
 }
-
-
 ?>
