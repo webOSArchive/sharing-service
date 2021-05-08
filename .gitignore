@@ -1,4 +1,4 @@
 config.php
-data/
+data/*
 .htaccess
 docker/
