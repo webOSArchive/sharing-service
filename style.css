@@ -81,9 +81,14 @@ a:hover {
     padding: 20px;
 }
 
+.pageExplainer {
+    margin-left: 20px; margin-right: 20px;
+}
+
 .tableBorder {
     border-collapse: collapse;
     border: none;
+    min-width:390px; width: 80%;
 }
 
 .tableBorder td {

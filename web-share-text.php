@@ -23,13 +23,7 @@
     <title>webOS Share</title>
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="images/icon.png" type="image/png">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1" />
-    <meta http-equiv="pragma" content="no-cache">
-
-    <script>
-        
-    </script>
+    <?php include("web-meta.php") ?>
 </head>
 <body class="login">
 <div class="login-header"><a href="index.php">Cancel</a>&nbsp;</div>
@@ -39,7 +33,7 @@
         <?php
         if ((isset($imagePreview) && isset($imageDownload)) || isset($error_message)) {
         ?>
-            <table width="800" border="1" class="tableBorder">
+            <table class="tableBorder">
                 <tr>
                     <td>
                         <table width="100%" height="100%" bgcolor="white" border="0" class="tableOption">
@@ -75,7 +69,7 @@
         <?php
         }
         ?>
-            <table width="800" height="400" border="1" class="tableBorder">
+            <table class="tableBorder">
                 <tr>
                     <td>
                         <table width="100%" height="100%" bgcolor="white" border="0" class="tableOption">
@@ -84,7 +78,9 @@
                                     <p><img src="images/share-text.png" style="height: 64px; width: 64px; margin-top:8px; vertical-align:middle;" id="imgIcon"/>
                                     &nbsp;<b>Share text</b></p>
                                     <form method="post" enctype="multipart/form-data">
-                                        Enter the info for the person or service you want to share with, the type of text,<br>then type or paste the content to share...<br>
+                                        <div class="pageExplainer">
+                                        Enter the info for the person or service you want to share with, the type of text, then type or paste the content to share...
+                                        </div>
                                         <table style="margin: 18px;">
                                             <tr><td>User Name: </td><td><input type="text" name="txtUsername" id="txtUsername" value="<?php echo $_POST['txtUsername']?>"></td></tr>
                                             <tr><td>Share Phrase:  </td><td><input type="text" id="txtSharephrase" name="txtSharephrase" value="<?php echo $_POST['txtSharephrase']?>"></td></tr>
@@ -98,7 +94,7 @@
                                             </tr>
                                         </table>
                                         <p>
-                                                <textarea id="txtContent" name="txtContent" style="width: 600px; height: 280px;"></textarea>
+                                                <textarea id="txtContent" name="txtContent" style="width: 100%; height: 280px;"></textarea>
                                         </p>
                                         <input type="submit" value="Share"><br/><br/><span class='cancel'><a href="index.php">Cancel</a></span>
                                     </form>
