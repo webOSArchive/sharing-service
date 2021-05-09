@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1" />
     <meta http-equiv="pragma" content="no-cache">
 </head>
-<body class="login" style="margin: 0px;">
+<body class="login">
 <div class="login-header"><a href="web-login.php">Login</a>&nbsp;</div>
 <table width="100%" height="95%" border="0" id="tableLayout">
     <tr>
@@ -25,7 +25,7 @@
                                 <td colspan="3" align="center">
                                     <a href="web-share-type.php">
                                     <img src="images/share-plus.png" style="margin-top:8px;" id="imgIcon"/><br/><br/>
-                                    <b>Share something new</b><br/>
+                                    <b>Share with someone</b><br/>
                                     </a>
                                     &nbsp;
                                 </td>
