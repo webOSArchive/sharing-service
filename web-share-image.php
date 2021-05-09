@@ -144,7 +144,7 @@
                                         <table style="margin: 18px;">
                                             <tr><td>User Name: </td><td><input type="text" name="txtUsername" id="txtUsername" value="<?php echo $_POST['txtUsername']?>"></td></tr>
                                             <tr><td>Share Phrase:  </td><td><input type="text" id="txtSharephrase" name="txtSharephrase" value="<?php echo $_POST['txtSharephrase']?>"></td></tr>
-                                            <tr><td>Photo: </td><td><input type="file" name="frmImage" /></td></tr>
+                                            <tr><td>Photo: </td><td><input type="file" name="frmImage" accept="image/gif, image/jpeg, image/png" /></td></tr>
                                         </table>
                                         <input type="submit" value="Share"><br/><br/><span class='cancel'><a href="index.php">Cancel</a></span>
                                     </form>
