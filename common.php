@@ -229,7 +229,8 @@ function alphaID($in, $to_num = false, $pad_up = false, $pass_key = null) {
     }
 
     for ($t = ($in != 0 ? floor(log($in, $base)) : 0); $t >= 0; $t--) {
-            $bcp = bcpow($base, $t);
+            //bcp = bcpow($base, $t);
+            $bcp = $base * $t;
             $a   = floor($in / $bcp) % $base;
             $out = $out . substr($index, $a, 1);
             $in  = $in - ($a * $bcp);
