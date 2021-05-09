@@ -10,4 +10,3 @@
 <link rel="stylesheet" href="style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1" />
 <meta http-equiv="pragma" content="no-cache">
-<title>Check Mate - Your To Do List Anywhere</title>
