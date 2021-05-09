@@ -24,7 +24,7 @@ if (count($shareparts) > 1) {
         {
             if ($value['contenttype'] == "application/json") {
                 header('Content-Type: application/json');
-                print_r(json_encode($value['content']));
+                print_r(json_encode($value['content'], JSON_PRETTY_PRINT));
             }
             else {
                 header('Content-Type: text/plain');

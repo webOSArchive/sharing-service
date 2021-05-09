@@ -7,7 +7,7 @@ header('Content-Type: application/json');
 $auth = get_authorization();
 
 //Make sure we can get the input
-$postraw = file_get_contents('php://input', false, null, 0, 5000); //TODO: make max size configurable
+$postraw = file_get_contents('php://input', false, null, 0, $config['maxtextlength']); //TODO: better error for cropped text
 if (!isset($postraw) || $postraw == "")
     gracefuldeath_json("no data posted to share");
 

@@ -2,9 +2,10 @@
     "sharephrase": "Share Phrase",
     "password": "Hashed password",
     "sharetype": "string",
+    "sharelength": 10,
     "shares": [{
         "guid": "999",
-        "type": "plain",
-        "contenttype": "Welcome to the sharing service!"
+        "contenttype": "text\/plain",
+        "content": "Welcome to the sharing service!"
     }]
 }

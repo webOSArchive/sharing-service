@@ -111,3 +111,10 @@ a:hover {
     border-right: 1px solid white;
     border-bottom: 1px solid white;
 }
+
+/* Web UI */
+
+.shareDescriptor { min-width: 120px; padding: 8px; text-align: center; }
+.shareContent { padding: 18px; text-align: left; }
+.shareLinks { margin-top: 12px; font-size: smaller; color: black }
+.shareLinks a { color: darkblue; }

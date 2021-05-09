@@ -127,6 +127,8 @@ function convert_shares_to_public_schema($data) {
 }
 
 function make_url_from_contentid($contentid, $user, $type) {
+    global $config;
+    
     switch ($type) {
         case "string":
             $functionName = "t";
@@ -149,7 +151,10 @@ function make_url_from_contentid($contentid, $user, $type) {
         $url = "https://";
     else
         $url = "http://";
-    $url.= $_SERVER['HTTP_HOST'];   
+    if (isset($config['shorturl']) && $config['shorturl'] != "")
+        $url.=$config['shorturl'];
+    else
+        $url.= $_SERVER['HTTP_HOST'];   
     $url.= $_SERVER['REQUEST_URI'];  
     $url = strtok($url, "?");
     $page = basename($_SERVER['PHP_SELF']);
@@ -159,8 +164,7 @@ function make_url_from_contentid($contentid, $user, $type) {
     return $url;
 }
 
-function base64url_encode($data)
-{
+function base64url_encode($data){
   // First of all you should encode $data to Base64 string
   $b64 = base64_encode($data);
 
@@ -176,8 +180,7 @@ function base64url_encode($data)
   return rtrim($url, '=');
 }
 
-function base64url_decode($data, $strict = false)
-{
+function base64url_decode($data, $strict = false){
   // Convert Base64URL to Base64 by replacing “-” with “+” and “_” with “/”
   $b64 = strtr($data, '-_', '+/');
   // Decode Base64 string and return the original data
