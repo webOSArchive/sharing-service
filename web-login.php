@@ -43,11 +43,11 @@
     </script>
 </head>
 <body class="login" onload="swapTech()">
-
+<div class="login-header"><a href="index.php">Cancel</a>&nbsp;</div>
 <table width="100%" height="95%" border="0" id="tableLayout">
     <tr>
         <td width="100%" height="100%" border="0" id="tdLayout" align="center">
-            <table width="800" height="400" border="1" class="tableBorder">
+            <table class="tableBorder">
                 <tr>
                     <td>
                         <table width="100%" height="100%" bgcolor="white" border="0" class="tableOption">
@@ -61,7 +61,7 @@
                                             <tr><td>User Name: </td><td><input type="text" name="txtUserName" id="txtUserName" value="<?php echo $lastUsername ?>"></td></tr>
                                             <tr><td>Password:  </td><td><input type="password" id="txtCredential" name="txtCredential">&nbsp;<img src="images/eyeball.png" id="imgTogglePass" style="display:none;height:20px;width:20px; vertical-align:middle" onclick="togglePassword()"></td></tr>
                                         </table>
-                                        <input type="submit" value="Let's Go!"><br/><br/><span class='cancel'><a href="index.php">Cancel</a></span>
+                                        <input type="submit" value="Let's Go!">
                                     </form>
                                 </td>
                             </tr>

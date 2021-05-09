@@ -102,6 +102,9 @@ a:hover {
     border-right: 1px solid black;
     border-bottom: 1px solid black;
     border-radius: 12px;
+    background-image: linear-gradient(white, lightgray);
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 .button {

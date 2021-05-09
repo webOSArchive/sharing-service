@@ -2,8 +2,8 @@
     include("common.php");
     include("functions.php");
     $auth = array(
-        'username' => $_POST['txtUsername'],
-        'sharephrase' => $_POST['txtSharephrase'],
+        'username' => strtolower($_POST['txtUsername']),
+        'sharephrase' => strtolower($_POST['txtSharephrase']),
     );
     $error_message = null;
 
@@ -96,7 +96,7 @@
                                         <p>
                                                 <textarea id="txtContent" name="txtContent" style="width: 100%; height: 280px;"></textarea>
                                         </p>
-                                        <input type="submit" value="Share"><br/><br/><span class='cancel'><a href="index.php">Cancel</a></span>
+                                        <input type="submit" value="Share">
                                     </form>
                                 </td>
                             </tr>

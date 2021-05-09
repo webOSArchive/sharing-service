@@ -2,8 +2,8 @@
     include("common.php");
     include("functions.php");
     $auth = array(
-        'username' => $_POST['txtUsername'],
-        'sharephrase' => $_POST['txtSharephrase'],
+        'username' => strtolower($_POST['txtUsername']),
+        'sharephrase' => strtolower($_POST['txtSharephrase']),
     );
     $error_message = null;
 
@@ -23,7 +23,7 @@
                     $valid_file = false;
                 }
                 if (!in_array($_FILES['frmImage']['type'], $supported_content_types)) {
-                    gracefuldeath_later('Oops! That file type is not allowed');
+                    gracefuldeath_later('The type of file you uploaded is not allowed by this user or service.');
                     $valid_file = false;
                 }
                 if ($valid_file) {
@@ -142,7 +142,7 @@
                                             <tr><td>Share Phrase:  </td><td><input type="text" id="txtSharephrase" name="txtSharephrase" value="<?php echo $_POST['txtSharephrase']?>"></td></tr>
                                             <tr><td>Photo: </td><td><input type="file" name="frmImage" accept="image/gif, image/jpeg, image/png" /></td></tr>
                                         </table>
-                                        <input type="submit" value="Share"><br/><br/><span class='cancel'><a href="index.php">Cancel</a></span>
+                                        <input type="submit" value="Share">
                                     </form>
                                 </td>
                             </tr>

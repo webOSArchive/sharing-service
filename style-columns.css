@@ -16,9 +16,12 @@
   .table {
     border:0px; 
   }
+
   .tableOption {
-      background-image: linear-gradient(white, lightgray);
-  }
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
   /* Create equal columns that floats next to each other */
   .column {
     float: left;

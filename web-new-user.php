@@ -66,7 +66,7 @@
                                             <tr><td>Share Phrase:  </td><td><input type="text" id="txtSharephrase" name="txtSharephrase" value="<?php include("random-words.php"); ?>">&nbsp;<img src="images/refresh.png" id="imgNewWords" style="display:none; height:20px;width:20px; vertical-align:middle" onclick="getNewWords()"></td></tr>
                                             <tr><td>Admin Password: </td><td><input type="text" id="txtPassword" name="txtPassword"></td></tr>
                                         </table>
-                                        <input type="submit" value="Let's Go!"><br/><br/><span class='cancel'><a href="index.php">Cancel</a></span>
+                                        <input type="submit" value="Let's Go!">
                                     </form>
                                 </td>
                             </tr>

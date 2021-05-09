@@ -68,8 +68,10 @@ function get_authorization($errorhandler = gracefuldeath_json) {
 
 function get_share_data($username, $credential, $errorhandler = gracefuldeath_json) {
     global $config;
+    $username = strtolower($username);
+    $credential = strtolower($credential);
 
-    $file = "data/" . strtolower($username) . "/sharelog.json";
+    $file = "data/" . $username . "/sharelog.json";
     if (!file_exists($file)) {
         $errorhandler("share user or service name not found or data file could not be opened.");
         return;
