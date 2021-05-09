@@ -12,7 +12,7 @@ if (!isset($postraw) || $postraw == "")
     gracefuldeath_json("no data posted to share");
 
 //Make sure the file exists and can be loaded
-$jsondata = get_share_data($auth['username'], $auth['sharephrase'], gracefuldeath_json);
+$jsondata = get_share_data($auth['username'], $auth['sharephrase'], 'gracefuldeath_json');
 
 //Make sure this share content is valid and allowed
 $allowedtype = $jsondata['sharetype'];
