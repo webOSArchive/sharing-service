@@ -41,17 +41,18 @@ input[type="checkbox"] {
 }
 
 
-/* Login page */
+/* Web UI page */
 
 .login {
     background-imageOff: url('images/chessboard-3d.jpg');
     background-position: center bottom;
     background-repeat: no-repeat;
     background-color: white;
+    margin: 0px;
 }
 
 .login-header {
-    background-color:black; color:white; width:100%; text-align:right
+    background-color:black; color:white; text-align:right; padding: 8px;
 }
 
 .login-header a {
@@ -112,9 +113,8 @@ a:hover {
     border-bottom: 1px solid white;
 }
 
-/* Web UI */
-
 .shareDescriptor { min-width: 120px; padding: 8px; text-align: center; }
 .shareContent { padding: 18px; text-align: left; }
 .shareLinks { margin-top: 12px; font-size: smaller; color: black }
 .shareLinks a { color: darkblue; }
+.cancel a { color: darkred; font-size: smaller;}

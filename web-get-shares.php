@@ -23,7 +23,7 @@ $sharedata = convert_shares_to_public_schema($jsondata);
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1" />
     <meta http-equiv="pragma" content="no-cache">
 </head>
-<body style="margin: 0px;">
+<body class="login">
 <div class="login-header"><a href="index.php">Log Out</a>&nbsp;</div>
 <div style="margin: 10px;">
 <h1><img src="images/icon-128.png" style="height:64px;width:64px; vertical-align:middle">&nbsp; <?php echo $_GET["username"] ?> Share Space</h2>

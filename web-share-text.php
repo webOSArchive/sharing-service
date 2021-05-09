@@ -32,7 +32,8 @@
     </script>
 </head>
 <body class="login">
-<table width="100%" height="100%" border="0" id="tableLayout">
+<div class="login-header"><a href="index.php">Cancel</a>&nbsp;</div>
+<table width="100%" height="95%" border="0" id="tableLayout">
     <tr>
         <td width="100%" height="100%" border="0" id="tdLayout" align="center">
         <?php
@@ -99,7 +100,7 @@
                                         <p>
                                                 <textarea id="txtContent" name="txtContent" style="width: 600px; height: 280px;"></textarea>
                                         </p>
-                                        <input type="submit" value="Share"><br/><br/><small><a href="index.php">Cancel</a></small>
+                                        <input type="submit" value="Share"><br/><br/><span class='cancel'><a href="index.php">Cancel</a></span>
                                     </form>
                                 </td>
                             </tr>

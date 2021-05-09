@@ -12,8 +12,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1" />
     <meta http-equiv="pragma" content="no-cache">
 </head>
-<body class="login" style="margin: 0px;">
-<div class="login-header"><a href="web-login.php">Login</a>&nbsp;</div>
+<body class="login">
+<div class="login-header"><a href="index.php">Cancel</a>&nbsp;</div>
 <table width="100%" height="95%" border="0" id="tableLayout">
     <tr>
         <td width="100%" height="100%" border="0" id="tdLayout" align="center">
