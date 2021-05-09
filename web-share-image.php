@@ -14,7 +14,7 @@
             //Make sure the share exists and can be loaded
             $sharedata = get_share_data($auth['username'], $auth['sharephrase'], gracefuldeath_later);
             if ($sharedata) {
-                $newid = uniqid();
+                $newid = uniq_alphaid();
 
                 $valid_file = true;
                 //Make sure the uploaded image is allowed
