@@ -37,7 +37,8 @@
                                         ?>
                                         </small>
                                         </div>
-                                    <a href="web-new-user.php?agreed">I Agree</a> &nbsp;&nbsp; <a href="index.php">Disagree</a>
+                                    <a href="web-new-user.php?agreed">I Agree</a> &nbsp;&nbsp; <a href="index.php">Disagree</a><br/>
+                                    &nbsp;
                                 </td>
                             </tr>
                         </table>
