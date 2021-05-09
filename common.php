@@ -206,7 +206,8 @@ function alphaID($in, $to_num = false, $pad_up = false, $pass_key = null) {
     $len = strlen($in) - 1;
 
     for ($t = $len; $t >= 0; $t--) {
-        $bcp = bcpow($base, $len - $t);
+        //$bcp = bcpow($base, $len - $t);
+        $bcp = $base * ($len - $t);
         $out = $out + strpos($index, substr($in, $t, 1)) * $bcp;
     }
 
