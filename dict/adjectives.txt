@@ -1613,7 +1613,6 @@ judicial
 juiciest
 juvenile
 katangan
-killable
 knightly
 ladylike
 laureate
@@ -2139,7 +2138,6 @@ custodial
 customary
 dancelike
 deadliest
-deathward
 debatable
 deceitful
 deceptive

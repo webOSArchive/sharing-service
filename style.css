@@ -53,6 +53,8 @@ input[type="checkbox"] {
 
 .login-header {
     background-color:black; color:white; text-align:right; padding: 8px;
+    background-image: url('images/icon-32-white.png');
+    background-repeat: no-repeat;
 }
 
 .login-header a {

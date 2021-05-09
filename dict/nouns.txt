@@ -3051,7 +3051,6 @@ kennel
 kernel
 kettle
 kidney
-killer
 kimono
 kitten
 klaxon
@@ -3199,7 +3198,6 @@ mucker
 mucosa
 mullah
 mumble
-murder
 murmur
 muscle
 museum
@@ -4599,7 +4597,6 @@ keynote
 kicking
 kickoff
 kidding
-killing
 kiloton
 kindred
 kingdom
@@ -5207,7 +5204,6 @@ subsidy
 subsoil
 subtype
 suction
-suicide
 sulfide
 sulphur
 summary
@@ -6314,7 +6310,6 @@ movement
 mucilage
 mudguard
 mudwagon
-murderer
 mushroom
 musician
 mustache
