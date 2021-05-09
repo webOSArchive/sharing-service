@@ -7,7 +7,7 @@
 
     if (isset($_POST["txtUsername"]) && isset($_POST["txtSharephrase"]) && isset($_POST["txtPassword"]))
     {
-        $create_result = @create_new_user($_POST["txtUsername"], $_POST["txtSharephrase"], $_POST["txtPassword"], gracefuldeath_html);
+        $create_result = @create_new_user($_POST["txtUsername"], $_POST["txtSharephrase"], $_POST["txtPassword"], 'gracefuldeath_html');
         if (isset($create_result)) {
             setcookie("credential", $_POST["txtPassword"], time() + (3600), "/");
             header('Location: web-get-shares.php?username=' . $_POST["txtUsername"]);

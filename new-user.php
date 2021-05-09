@@ -21,7 +21,7 @@ catch (Exception $e) {
 }
 
 if (isset($postdata->username) && $postdata->username != "" && isset($postdata->sharephrase) && $postdata->sharephrase != "" && isset($postdata->password) && $postdata->password != "") {
-    echo(create_new_user($postdata->username, $postdata->sharephrase, $postdata->password, gracefuldeath_json));
+    echo(create_new_user($postdata->username, $postdata->sharephrase, $postdata->password, 'gracefuldeath_json'));
 } else {
     gracefuldeath_json("post data payload incomplete, missing username, sharephrase or password");
 }

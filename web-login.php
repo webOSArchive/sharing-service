@@ -8,7 +8,7 @@
 
     if (isset($_POST["txtUserName"]) && isset($_POST["txtCredential"]))
     {
-        $login_result = @get_share_data($_POST["txtUserName"], $_POST["txtCredential"], gracefuldeath_html);
+        $login_result = @get_share_data($_POST["txtUserName"], $_POST["txtCredential"], 'gracefuldeath_html');
         if (isset($login_result)) {
             setcookie("credential", $_POST["txtCredential"], time() + (3600), "/");
             header('Location: web-get-shares.php?username=' . $_POST["txtUserName"]);

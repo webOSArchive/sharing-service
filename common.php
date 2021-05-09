@@ -12,7 +12,7 @@ $supported_content_types = [
 ];
 
 //This function gets the authorization data sent and validates that it exists, but does NOT perform the authorization
-function get_authorization($errorhandler = gracefuldeath_json) {
+function get_authorization($errorhandler = 'gracefuldeath_json') {
     global $config;
     //Make sure they sent a client id
     $request_headers = get_request_headers();
@@ -66,7 +66,7 @@ function get_authorization($errorhandler = gracefuldeath_json) {
     );
 }
 
-function get_share_data($username, $credential, $errorhandler = gracefuldeath_json) {
+function get_share_data($username, $credential, $errorhandler = 'gracefuldeath_json') {
     global $config;
     $username = strtolower($username);
     $credential = strtolower($credential);
@@ -207,7 +207,7 @@ function alphaID($in, $to_num = false, $pad_up = false, $pass_key = null) {
 
     for ($t = $len; $t >= 0; $t--) {
         //$bcp = bcpow($base, $len - $t);
-        $bcp = $base * ($len - $t);
+        $bcp = $base * ($len - $t);   //HACK: bcpow is missing
         $out = $out + strpos($index, substr($in, $t, 1)) * $bcp;
     }
 
@@ -230,7 +230,9 @@ function alphaID($in, $to_num = false, $pad_up = false, $pass_key = null) {
 
     for ($t = ($in != 0 ? floor(log($in, $base)) : 0); $t >= 0; $t--) {
             //bcp = bcpow($base, $t);
-            $bcp = $base * $t;
+            if ($base == 0)
+                $base = 2;  //HACK: Make sure we don't divide by zero
+            $bcp = $base * $t;  //HACK: bcpow is missing
             $a   = floor($in / $bcp) % $base;
             $out = $out . substr($index, $a, 1);
             $in  = $in - ($a * $bcp);

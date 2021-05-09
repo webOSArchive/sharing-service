@@ -9,7 +9,7 @@ if (!isset($_GET["username"]) || !isset($_COOKIE["credential"])) {
 include("common.php");
 
 //Make sure the file exists and can be loaded
-$jsondata = get_share_data($_GET["username"], $_COOKIE["credential"], gracefuldeath_html);
+$jsondata = get_share_data($_GET["username"], $_COOKIE["credential"], 'gracefuldeath_html');
 //Load and return only the task list
 $sharedata = convert_shares_to_public_schema($jsondata);
 ?>

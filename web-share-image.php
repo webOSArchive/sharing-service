@@ -12,7 +12,7 @@
         if(!$_FILES['frmImage']['error'])
         {
             //Make sure the share exists and can be loaded
-            $sharedata = get_share_data($auth['username'], $auth['sharephrase'], gracefuldeath_later);
+            $sharedata = get_share_data($auth['username'], $auth['sharephrase'], 'gracefuldeath_later');
             if ($sharedata) {
                 $newid = uniq_alphaid();
 
@@ -46,7 +46,7 @@
                     $postdata = $newfile;
                     if (move_uploaded_file($_FILES['frmImage']['tmp_name'], $newfile)) {
                         //Add a record to the user's share data
-                        $updatedsharedata = add_share_data($postdata, $sharedata, $auth['sharephrase'], $_FILES['frmImage']['type'], $newid, gracefuldeath_later);
+                        $updatedsharedata = add_share_data($postdata, $sharedata, $auth['sharephrase'], $_FILES['frmImage']['type'], $newid, 'gracefuldeath_later');
                         if (isset($updatedsharedata) && $updatedsharedata != "") {
                             $file = "data/" . strtolower($auth['username']) . "/sharelog.json";
                             $written = file_put_contents($file, json_encode($updatedsharedata, JSON_PRETTY_PRINT));

@@ -52,8 +52,8 @@ if (isset($request_headers["content-type"]) && $request_headers["content-type"] 
 
 //Get and update share file
 $newid = uniq_alphaid();
-$sharedata = get_share_data($auth['username'], $auth['sharephrase'], gracefuldeath_json);
-$updatedsharedata = add_share_data($postdata, $sharedata, $auth['sharephrase'], $reqtype, $newid, gracefuldeath_json);
+$sharedata = get_share_data($auth['username'], $auth['sharephrase'], 'gracefuldeath_json');
+$updatedsharedata = add_share_data($postdata, $sharedata, $auth['sharephrase'], $reqtype, $newid, 'gracefuldeath_json');
 $file = "data/" . strtolower($auth['username']) . "/sharelog.json";
 $written = file_put_contents($file, json_encode($updatedsharedata, JSON_PRETTY_PRINT));
 
