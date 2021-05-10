@@ -1,13 +1,10 @@
 <?php
     include("common.php");
     include("functions.php");
-    header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-    header("Cache-Control: post-check=0, pre-check=0", false);
-    header("Pragma: no-cache");
 
     if (isset($_POST["txtUsername"]) && isset($_POST["txtSharephrase"]) && isset($_POST["txtPassword"]))
     {
-        $create_result = @create_new_user($_POST["txtUsername"], $_POST["txtSharephrase"], $_POST["txtPassword"], 'gracefuldeath_html');
+        $create_result = @create_new_user($_POST["txtUsername"], $_POST["txtSharephrase"], $_POST["txtPassword"], 'gracefuldeath_later');
         if (isset($create_result)) {
             setcookie("credential", $_POST["txtPassword"], time() + (3600), "/");
             header('Location: web-get-shares.php?username=' . $_POST["txtUsername"]);
@@ -51,6 +48,28 @@
 <table width="100%" height="95%" border="0" id="tableLayout">
     <tr>
         <td width="100%" height="100%" border="0" id="tdLayout" align="center">
+            <?php
+            if (isset($error_message)) {
+            ?>
+                <table class="tableBorder">
+                    <tr>
+                        <td>
+                            <table width="100%" height="100%" bgcolor="white" border="0" class="tableOption">
+                                <tr>
+                                    <td colspan="3" align="center">
+                                        <p>      
+                                        <?php
+                                            echo "<span style='color:red;'>Error: " . $error_message . "</span>";
+                                        ?>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            <?php
+            }
+            ?>
             <table width="800" height="400" border="1" class="tableBorder">
                 <tr>
                     <td>

@@ -46,15 +46,16 @@
                     $postdata = $newfile;
                     if (move_uploaded_file($_FILES['frmImage']['tmp_name'], $newfile)) {
                         //Add a record to the user's share data
-                        $updatedsharedata = add_share_data($postdata, $sharedata, $auth['sharephrase'], $_FILES['frmImage']['type'], $newid, 'gracefuldeath_later');
+                        $updatedsharedata = add_share_item($postdata, $sharedata, $auth['sharephrase'], $_FILES['frmImage']['type'], $newid, 'gracefuldeath_later');
                         if (isset($updatedsharedata) && $updatedsharedata != "") {
                             $file = "data/" . strtolower($auth['username']) . "/sharelog.json";
                             $written = file_put_contents($file, json_encode($updatedsharedata, JSON_PRETTY_PRINT));
-                        }
-
-                        if ($written) {
-                            $imagePreview = make_url_from_contentid($newid, $auth['username'], "i");
-                            $imageDownload = make_url_from_contentid($newid, $auth['username'], "download");
+                            if ($written) {
+                                $imagePreview = make_url_from_contentid($newid, $auth['username'], "i");
+                                $imageDownload = make_url_from_contentid($newid, $auth['username'], "download");
+                            }
+                        } else {
+                            gracefuldeath_json("Failed to build new share data");
                         }
                     } else {
                         gracefuldeath_later("Could not move uploaded file to share directory. Check server permissions.");
@@ -67,11 +68,6 @@
             gracefuldeath_later("A server error occurred uploading your file (Code: " . $_FILES['frmImage']['error'] . ")<br>Your file may be too big, or the server may be misconfigured.");
         }
     } 
-
-    function gracefuldeath_later($message) {
-        global $error_message;
-        $error_message = $message;
-    }
 ?>
 
 <html>
@@ -109,7 +105,7 @@
                                         echo "&nbsp;<b>Image Shared!</b></p>";
                                         echo "<table style='margin: 18px;font-size: smaller;'>";
                                         echo "<tr>";
-                                        echo "<td>Public View Link:</td><td> <span class='shareLinks'><a href='" . $imagePreview . "'>" . $imagePreview . "</a></span></tr>";
+                                        echo "<td>Public View Link:</td><td> <span class='shareLinks'><a href='" . $imagePreview . "' target='_blank'>" . $imagePreview . "</a></span></tr>";
                                         echo "</tr><tr>";
                                         echo "<td>Public Download Link:</td><td> <span class='shareLinks'><a href='" . $imageDownload . "'>" . $imageDownload . "</a></span></td>";
                                         echo "</tr>";

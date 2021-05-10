@@ -1,4 +1,8 @@
 <?php
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
 $config = include('config.php');
 
 $supported_content_types = [
@@ -46,8 +50,8 @@ function get_authorization($errorhandler = 'gracefuldeath_json') {
 
     //Password is optional in authentication
     if (!isset($_GET["password"])){
-        if (array_key_exists('Password', $request_headers)) {
-            $password = $request_headers['Password'];
+        if (array_key_exists('password', $request_headers)) {
+            $password = $request_headers['password'];
         }
     }
     else {
@@ -273,6 +277,11 @@ function gracefuldeath_json($message) {
 
 function gracefuldeath_html($error) {
     echo "ERROR: " . $error;
+}
+
+function gracefuldeath_later($message) {
+    global $error_message;
+    $error_message = $message;
 }
 
 ?>

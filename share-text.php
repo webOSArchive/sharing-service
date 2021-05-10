@@ -53,15 +53,19 @@ if (isset($request_headers["content-type"]) && $request_headers["content-type"] 
 //Get and update share file
 $newid = uniq_alphaid();
 $sharedata = get_share_data($auth['username'], $auth['sharephrase'], 'gracefuldeath_json');
-$updatedsharedata = add_share_data($postdata, $sharedata, $auth['sharephrase'], $reqtype, $newid, 'gracefuldeath_json');
-$file = "data/" . strtolower($auth['username']) . "/sharelog.json";
-$written = file_put_contents($file, json_encode($updatedsharedata, JSON_PRETTY_PRINT));
+$updatedsharedata = add_share_item($postdata, $sharedata, $auth['sharephrase'], $reqtype, $newid, 'gracefuldeath_json');
+if (isset($updatedsharedata)) {
+    $file = "data/" . strtolower($auth['username']) . "/sharelog.json";
+    $written = file_put_contents($file, json_encode($updatedsharedata, JSON_PRETTY_PRINT));
 
-//Output the results
-if (!$written) {
-    gracefuldeath_json("failed to write to file " . $file);
+    //Output the results
+    if (!$written) {
+        gracefuldeath_json("failed to write to file " . $file);
+    } else {
+        echo "{\"success\":\"" . make_url_from_contentid($newid, $auth['username'], "string") . "\"}";
+    }
 } else {
-    echo "{\"success\":\"" . make_url_from_contentid($newid, $auth['username'], "string") . "\"}";
+    gracefuldeath_json("failed to build new share data");
 }
 exit();
 

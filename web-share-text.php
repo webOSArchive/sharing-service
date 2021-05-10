@@ -11,11 +11,6 @@
     {
         echo "Saving content: " . $_POST['txtContent'];
     } 
-
-    function gracefuldeath_later($message) {
-        global $error_message;
-        $error_message = $message;
-    }
 ?>
 
 <html>
@@ -53,7 +48,7 @@
                                         echo "&nbsp;<b>Image Shared!</b></p>";
                                         echo "<table style='margin: 18px;font-size: smaller;'>";
                                         echo "<tr>";
-                                        echo "<td>Public View Link:</td><td> <span class='shareLinks'><a href='" . $imagePreview . "'>" . $imagePreview . "</a></span></tr>";
+                                        echo "<td>Public View Link:</td><td> <span class='shareLinks'><a href='" . $imagePreview . "' target='_blank'>" . $imagePreview . "</a></span></tr>";
                                         echo "</tr><tr>";
                                         echo "<td>Public Download Link:</td><td> <span class='shareLinks'><a href='" . $imageDownload . "'>" . $imageDownload . "</a></span></td>";
                                         echo "</tr>";

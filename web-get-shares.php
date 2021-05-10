@@ -38,20 +38,20 @@ foreach($sharedata->shares as $thisshare)
             $textLink = make_url_from_contentid($thisshare['guid'], $_GET["username"], "string");
             echo "<td class='shareDescriptor'><b>Text</b></td>";
             echo "<td class='shareContent'>" . trim(substr($thisshare['content'], 0, 100)) . "<br>";
-            echo "<div class='shareLinks'><b>Public View Link:</b> <a href='" . $textLink . "'>" . $textLink . "</a></div></td>";
+            echo "<div class='shareLinks'><b>Public View Link:</b> <a href='" . $textLink . "' target='_blank'>" . $textLink . "</a></div></td>";
             break;
         case "application/json":
             $textLink = make_url_from_contentid($thisshare['guid'], $_GET["username"], "string");
             echo "<td class='shareDescriptor'><b>JSON</b></td>";
             echo "<td class='shareContent'>" . trim(substr(json_encode($thisshare['content']), 0, 100)) . "<br>";
-            echo "<div class='shareLinks'><b>Public View Link:</b> <a href='" . $textLink . "'>" . $textLink . "</a></div></td>";
+            echo "<div class='shareLinks'><b>Public View Link:</b> <a href='" . $textLink . "' target='_blank'>" . $textLink . "</a></div></td>";
             break;
         default:
             $imagePreview = make_url_from_contentid($thisshare['guid'], $_GET["username"], "image");
             $imageLoad = make_url_from_contentid($thisshare['guid'], $_GET["username"], "i");
             $imageDownload = make_url_from_contentid($thisshare['guid'], $_GET["username"], "download");
             echo "<td class='shareDescriptor'><img src='" . $imageLoad . "' style='height: 64px' vertical-align:middle></td>";
-            echo "<td class='shareContent'><div class='shareLinks'><b>Public View Link:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b> <a href='" . $imagePreview . "'>" . $imagePreview . "</a><br>";
+            echo "<td class='shareContent'><div class='shareLinks'><b>Public View Link:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b> <a href='" . $imagePreview . "' target='_blank'>" . $imagePreview . "</a><br>";
             echo "<b>Public Download Link:</b> <a href='" . $imageDownload . "'>" . $imageDownload . "</a></div></td>";
             break;
      }

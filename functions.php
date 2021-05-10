@@ -1,5 +1,5 @@
 <?php
-function create_new_user($username, $sharephrase, $password, $errorhandler = default_error_handler) {
+function create_new_user($username, $sharephrase, $password, $errorhandler = 'default_error_handler') {
     if (isset($username) && $username != "" && isset($sharephrase) && $sharephrase != "" && isset($password) && $password != "") {
 
         //check for valid username
@@ -82,10 +82,10 @@ function create_new_user($username, $sharephrase, $password, $errorhandler = def
     return;
 }
 
-function add_share_data($newsharedata, $oldsharedata, $sharephrase, $contenttype, $newid, $errorhandler = default_error_handler){
+function add_share_item($newshareitem, $oldsharedata, $sharephrase, $contenttype, $newid, $errorhandler = 'default_error_handler'){
     global $config;
 
-    if (!isset($newsharedata) || !isset($oldsharedata) || !isset($sharephrase) || !isset($contenttype) || !isset($newid)) {
+    if (!isset($newshareitem) || !isset($oldsharedata) || !isset($sharephrase) || !isset($contenttype) || !isset($newid)) {
         $errorhandler("functional call missing required parameters!");
         return;
     }
@@ -98,9 +98,35 @@ function add_share_data($newsharedata, $oldsharedata, $sharephrase, $contenttype
     $newshareentry = new stdClass();
     $newshareentry->guid = $newid;
     $newshareentry->contenttype = $contenttype;
-    $newshareentry->content = $newsharedata;
+    $newshareentry->content = $newshareitem;
     array_push($updatedsharedata['shares'], $newshareentry);
+    //TODO: If number of share items is longer than allowed, pop oldest item
 
+    return $updatedsharedata;
+}
+
+function remove_share_item($itemid, $oldsharedata, $password, $errorhandler = 'default_error_handler') {
+    global $config;
+
+    if (!isset($itemid) || !isset($oldsharedata) || !isset($password)) {
+        $errorhandler("functional call missing required parameters!");
+        return;
+    }
+    if (base64_decode($oldsharedata['password']) != $password || $password == $config['readonlykey']) {
+        $errorhandler("not authorized: password not valid or read-only");
+        return;
+    }
+
+    $newShares = [];
+    foreach ($oldsharedata['shares'] as $share => $value) {
+        if ($itemid != $value['guid'])
+        {
+            array_push($newShares, $value);
+        }
+    }
+
+    $updatedsharedata = $oldsharedata;
+    $updatedsharedata['shares'] = $newShares;
     return $updatedsharedata;
 }
 
