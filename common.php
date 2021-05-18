@@ -125,33 +125,31 @@ function is_JSON($string){
     return is_string($string) && is_array(json_decode($string, true)) ? true : false;
 }
 
-function convert_shares_to_public_schema($data) {
+function convert_shares_to_public_schema($data, $username) {
     class userdata {};
     $thisuserdata = new userdata();
-    $thisuserdata->shares = $data['shares'];
+    $thisuserdata->shares = array_reverse($data['shares']);
+    //for each share, if its an image type, add a thumbnail
+    $newShares = [];
+    foreach ($thisuserdata->shares as $share) {
+        if (strrpos($share['contenttype'], "image") !== false) {
+            $share['content'] = make_url_from_contentid($share['guid'], $username, 'i');
+            $share['thumbnail'] = make_url_from_contentid($share['guid'], $username, 'ithumb');
+            array_push($newShares, $share);
+        } else {
+            $share['thumbnail'] = make_url_from_contentid($share['guid'], $username, 'tthumb');
+            array_push($newShares, $share);
+        }
+    }
+    $thisuserdata->shares = $newShares;
+
     return $thisuserdata;
 }
 
 function make_url_from_contentid($contentid, $user, $type) {
     global $config;
-    
-    switch ($type) {
-        case "string":
-            $functionName = "t";
-            break;
-        case "i":
-            $functionName = "i";
-            break;
-        case "image":
-            $functionName = "image";
-            break;
-        case "download":
-            $functionName = "download";
-            break;
-        default:
-            gracefuldeath_html("no valid type specified");
-            return;
-    }
+
+    $functionName = $type;
 
     if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')   
         $url = "https://";

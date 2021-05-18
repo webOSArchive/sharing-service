@@ -51,6 +51,7 @@
                             $file = "data/" . strtolower($auth['username']) . "/sharelog.json";
                             $written = file_put_contents($file, json_encode($updatedsharedata, JSON_PRETTY_PRINT));
                             if ($written) {
+                                $imageThumb = make_url_from_contentid($newid, $auth['username'], "ithumb");
                                 $imagePreview = make_url_from_contentid($newid, $auth['username'], "i");
                                 $imageDownload = make_url_from_contentid($newid, $auth['username'], "download");
                             }
@@ -98,7 +99,7 @@
                                     }
                                     else {
                                         echo "<a href='" . $imageDownload . "'>";
-                                        echo "<img src='" . $imagePreview . "' style='height: 64px; margin-top:8px; vertical-align:middle;'>";  
+                                        echo "<img src='" . $imageThumb . "' style='height: 64px; margin-top:8px; vertical-align:middle;'>";  
                                         echo "</a>";
                                         $imagePreview = str_replace("i.php", "image.php", $imagePreview);
                                     

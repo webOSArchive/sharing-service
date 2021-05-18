@@ -11,7 +11,7 @@ include("common.php");
 //Make sure the file exists and can be loaded
 $jsondata = get_share_data($_GET["username"], $_COOKIE["credential"], 'gracefuldeath_html');
 //Load and return only the task list
-$sharedata = convert_shares_to_public_schema($jsondata);
+$sharedata = convert_shares_to_public_schema($jsondata, $_GET["username"]);
 ?>
 
 <html>
@@ -35,13 +35,13 @@ foreach($sharedata->shares as $thisshare)
      echo "<tr>";
      switch ($thisshare['contenttype']) {
          case "text/plain":
-            $textLink = make_url_from_contentid($thisshare['guid'], $_GET["username"], "string");
+            $textLink = make_url_from_contentid($thisshare['guid'], $_GET["username"], "t");
             echo "<td class='shareDescriptor'><b>Text</b></td>";
             echo "<td class='shareContent'>" . trim(substr($thisshare['content'], 0, 100)) . "<br>";
             echo "<div class='shareLinks'><b>Public View Link:</b> <a href='" . $textLink . "' target='_blank'>" . $textLink . "</a></div></td>";
             break;
         case "application/json":
-            $textLink = make_url_from_contentid($thisshare['guid'], $_GET["username"], "string");
+            $textLink = make_url_from_contentid($thisshare['guid'], $_GET["username"], "t");
             echo "<td class='shareDescriptor'><b>JSON</b></td>";
             echo "<td class='shareContent'>" . trim(substr(json_encode($thisshare['content']), 0, 100)) . "<br>";
             echo "<div class='shareLinks'><b>Public View Link:</b> <a href='" . $textLink . "' target='_blank'>" . $textLink . "</a></div></td>";

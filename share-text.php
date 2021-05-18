@@ -62,7 +62,7 @@ if (isset($updatedsharedata)) {
     if (!$written) {
         gracefuldeath_json("failed to write to file " . $file);
     } else {
-        echo "{\"success\":\"" . make_url_from_contentid($newid, $auth['username'], "string") . "\"}";
+        echo "{\"success\":\"" . make_url_from_contentid($newid, $auth['username'], "t") . "\"}";
     }
 } else {
     gracefuldeath_json("failed to build new share data");

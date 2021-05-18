@@ -94,11 +94,16 @@ function add_share_item($newshareitem, $oldsharedata, $sharephrase, $contenttype
         return;
     }
 
+    //calculate time stamp
+    $now = new DateTime("now", new DateTimeZone("UTC"));
+    $now = $now->format('Y-m-d H:i:s');
+
     $updatedsharedata = $oldsharedata;
     $newshareentry = new stdClass();
     $newshareentry->guid = $newid;
     $newshareentry->contenttype = $contenttype;
     $newshareentry->content = $newshareitem;
+    $newshareentry->timestamp = $now;
     array_push($updatedsharedata['shares'], $newshareentry);
     //TODO: If number of share items is longer than allowed, pop oldest item
 

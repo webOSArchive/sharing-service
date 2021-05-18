@@ -9,7 +9,7 @@ $auth = get_authorization();
 $jsondata = get_share_data($auth['username'], $auth['sharephrase'], 'gracefuldeath_json');
 
 //Load and return only the task list
-$sharedata = convert_shares_to_public_schema($jsondata);
+$sharedata = convert_shares_to_public_schema($jsondata, $auth['username']);
 print_r (json_encode($sharedata));
 exit();
 ?>
