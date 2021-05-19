@@ -5,6 +5,8 @@ include("functions.php");
 header('Content-Type: application/json');
 
 $auth = get_authorization();
+print_r($auth);
+die;
 if (!isset($auth['password']))
     gracefuldeath_json("no password in request");
 
@@ -21,10 +23,10 @@ if (!isset($_GET["itemid"])) {
 }
 
 //Make sure the file exists and can be loaded
-$jsondata = get_share_data($auth['username'], $auth['sharephrase'], 'gracefuldeath_json');
+$jsondata = get_share_data($auth['username'], $auth['credential'], 'gracefuldeath_json');
 
 //Load and return only the task list
-$updatedsharedata = remove_share_item($itemid, $jsondata, $auth['password'], 'gracefuldeath_json');
+$updatedsharedata = remove_share_item($itemid, $jsondata, $auth['username'], $auth['password'], 'gracefuldeath_json');
 if (isset($updatedsharedata)) {
     $file = "data/" . strtolower($auth['username']) . "/sharelog.json";
     $written = file_put_contents($file, json_encode($updatedsharedata, JSON_PRETTY_PRINT));

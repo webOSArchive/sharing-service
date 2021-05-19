@@ -3,7 +3,7 @@
     include("functions.php");
     $auth = array(
         'username' => strtolower($_POST['txtUsername']),
-        'sharephrase' => strtolower($_POST['txtSharephrase']),
+        'credential' => strtolower($_POST['txtSharephrase']),
     );
     $error_message = null;
 

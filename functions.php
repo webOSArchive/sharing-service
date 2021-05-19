@@ -82,15 +82,15 @@ function create_new_user($username, $sharephrase, $password, $errorhandler = 'de
     return;
 }
 
-function add_share_item($newshareitem, $oldsharedata, $sharephrase, $contenttype, $newid, $errorhandler = 'default_error_handler'){
+function add_share_item($newshareitem, $oldsharedata, $username, $credential, $contenttype, $newid, $errorhandler = 'default_error_handler'){
     global $config;
 
-    if (!isset($newshareitem) || !isset($oldsharedata) || !isset($sharephrase) || !isset($contenttype) || !isset($newid)) {
+    if (!isset($newshareitem) || !isset($oldsharedata) || !isset($credential) || !isset($contenttype) || !isset($newid)) {
         $errorhandler("functional call missing required parameters!");
         return;
     }
-    if ($oldsharedata['sharephrase'] != $sharephrase || $sharephrase == $config['readonlykey']) {
-        $errorhandler("not authorized: sharephrase not valid or read-only");
+    if (($oldsharedata['sharephrase'] != $credential && base64_decode($oldsharedata['password']) != $credential) || $credential == $config['readonlykey']) {
+        $errorhandler("not authorized: credentials not valid or read-only");
         return;
     }
 
@@ -105,23 +105,28 @@ function add_share_item($newshareitem, $oldsharedata, $sharephrase, $contenttype
     $newshareentry->content = $newshareitem;
     $newshareentry->timestamp = $now;
     array_push($updatedsharedata['shares'], $newshareentry);
-    //TODO: If number of share items is longer than allowed, pop oldest item
-
+ 
+    //If number of share items exceeds maximum after this post, clean-up the overflow
+    while (count($updatedsharedata['shares']) > $config['maxsharelength']) {
+        remove_share_content($oldsharedata, $updatedsharedata['shares'][0]['guid'], $username);
+        array_shift($updatedsharedata['shares']);
+    }
     return $updatedsharedata;
 }
 
-function remove_share_item($itemid, $oldsharedata, $password, $errorhandler = 'default_error_handler') {
+function remove_share_item($itemid, $oldsharedata, $username, $credential, $errorhandler = 'default_error_handler') {
     global $config;
 
-    if (!isset($itemid) || !isset($oldsharedata) || !isset($password)) {
+    if (!isset($itemid) || !isset($oldsharedata) || !isset($credential)) {
         $errorhandler("functional call missing required parameters!");
         return;
     }
-    if (base64_decode($oldsharedata['password']) != $password || $password == $config['readonlykey']) {
-        $errorhandler("not authorized: password not valid or read-only");
+    if (base64_decode($oldsharedata['password']) != $credential || $credential == $config['readonlykey']) {
+        $errorhandler("not authorized: credentials not valid or read-only");
         return;
     }
 
+    remove_share_content($oldsharedata, $itemid, $username);
     $newShares = [];
     foreach ($oldsharedata['shares'] as $share => $value) {
         if ($itemid != $value['guid'])
@@ -133,6 +138,24 @@ function remove_share_item($itemid, $oldsharedata, $password, $errorhandler = 'd
     $updatedsharedata = $oldsharedata;
     $updatedsharedata['shares'] = $newShares;
     return $updatedsharedata;
+}
+
+function remove_share_content($oldsharedata, $itemid, $username) {
+    foreach ($oldsharedata['shares'] as $share => $value) {
+        if ($itemid == $value['guid'])
+        {
+            if (strrpos($value['contenttype'], "image") !== false) {
+                $file = $value['content'];
+                if (file_exists($file)) {
+                    unlink($file);
+                }
+                $file = str_replace($itemid, "thumb-".$itemid, $file);
+                if (file_exists($file)) {
+                    unlink($file);
+                }
+            }
+        }
+    }
 }
 
 function default_error_handler($error) {

@@ -48,25 +48,9 @@ function get_authorization($errorhandler = 'gracefuldeath_json') {
     }
     $sharephrase = strtolower($sharephrase);
 
-    //Password is optional in authentication
-    if (!isset($_GET["password"])){
-        if (array_key_exists('password', $request_headers)) {
-            $password = $request_headers['password'];
-        }
-    }
-    else {
-        if (base64_encode(base64_decode($$_GET["password"])) !== $$_GET["password"]){
-            $errorhandler("refusing to use querystring password in the clear: base64 encode and retry");
-        }
-        $password = $_GET["password"];
-    }
-    if (isset($password))
-        $password = base64_decode($password);
-
     return array(
         'username' => $username,
-        'sharephrase' => $sharephrase,
-        'password' => $password
+        'credential' => $sharephrase
     );
 }
 
@@ -94,7 +78,7 @@ function get_share_data($username, $credential, $errorhandler = 'gracefuldeath_j
     $checkphrase = $jsondata['sharephrase'];
     $adminpass = $jsondata['password'];
     if ($credential != $checkphrase && base64_encode($credential) != $adminpass && $credential != $config['readonlykey']) {
-        $errorhandler("not authorized: credentials do not match any known key " . $credential);
+        $errorhandler("not authorized: credentials do not match any known key");
         return;
     }
 
@@ -125,9 +109,12 @@ function is_JSON($string){
     return is_string($string) && is_array(json_decode($string, true)) ? true : false;
 }
 
-function convert_shares_to_public_schema($data, $username) {
+function convert_shares_to_public_schema($data, $username, $credential) {
     class userdata {};
     $thisuserdata = new userdata();
+    $thisuserdata->accessLevel = "share";
+    if (base64_encode($credential) == $data['password'])
+        $thisuserdata->accessLevel = "admin";
     $thisuserdata->shares = array_reverse($data['shares']);
     //for each share, if its an image type, add a thumbnail
     $newShares = [];
@@ -135,11 +122,17 @@ function convert_shares_to_public_schema($data, $username) {
         if (strrpos($share['contenttype'], "image") !== false) {
             $share['content'] = make_url_from_contentid($share['guid'], $username, 'i');
             $share['thumbnail'] = make_url_from_contentid($share['guid'], $username, 'ithumb');
-            array_push($newShares, $share);
         } else {
             $share['thumbnail'] = make_url_from_contentid($share['guid'], $username, 'tthumb');
-            array_push($newShares, $share);
+
         }
+        //Filter out types not allowed by the current share config
+        if ($data['sharetype'] == "all" 
+            || ($data['sharetype'] == "image" && strrpos($share['contenttype'], "image") !== false) 
+            || ($data['sharetype'] == "string" && strrpos($share['contenttype'], "image") === false)
+            || ($data['sharetype'] == $share['contenttype'])) {
+                array_push($newShares, $share);
+            }
     }
     $thisuserdata->shares = $newShares;
 

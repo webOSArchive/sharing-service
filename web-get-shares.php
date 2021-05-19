@@ -11,7 +11,7 @@ include("common.php");
 //Make sure the file exists and can be loaded
 $jsondata = get_share_data($_GET["username"], $_COOKIE["credential"], 'gracefuldeath_html');
 //Load and return only the task list
-$sharedata = convert_shares_to_public_schema($jsondata, $_GET["username"]);
+$sharedata = convert_shares_to_public_schema($jsondata, $_GET["username"], $_COOKIE["credential"]);
 ?>
 
 <html>
@@ -48,7 +48,7 @@ foreach($sharedata->shares as $thisshare)
             break;
         default:
             $imagePreview = make_url_from_contentid($thisshare['guid'], $_GET["username"], "image");
-            $imageLoad = make_url_from_contentid($thisshare['guid'], $_GET["username"], "i");
+            $imageLoad = make_url_from_contentid($thisshare['guid'], $_GET["username"], "ithumb");
             $imageDownload = make_url_from_contentid($thisshare['guid'], $_GET["username"], "download");
             echo "<td class='shareDescriptor'><img src='" . $imageLoad . "' style='height: 64px' vertical-align:middle></td>";
             echo "<td class='shareContent'><div class='shareLinks'><b>Public View Link:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b> <a href='" . $imagePreview . "' target='_blank'>" . $imagePreview . "</a><br>";
