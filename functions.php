@@ -114,6 +114,27 @@ function add_share_item($newshareitem, $oldsharedata, $username, $credential, $c
     return $updatedsharedata;
 }
 
+function delete_share_item($itemid, $username, $credential, $errorhandler = 'default_error_handler') {
+    //Make sure the file exists and can be loaded
+    $jsondata = get_share_data($username, $credential, $errorhandler);
+
+    //Load and return only the task list
+    $updatedsharedata = remove_share_item($itemid, $jsondata, $username, $credential, $errorhandler);
+    if (isset($updatedsharedata)) {
+        $file = "data/" . strtolower($username) . "/sharelog.json";
+        $written = file_put_contents($file, json_encode($updatedsharedata, JSON_PRETTY_PRINT));
+
+        //Output the results
+        if (!$written) {
+            $errorhandler("failed to write to file " . $file);
+        } else {
+            return $updatedsharedata;
+        }
+    } else {
+        $errorhandler("failed to build new share data");
+    }
+}
+
 function remove_share_item($itemid, $oldsharedata, $username, $credential, $errorhandler = 'default_error_handler') {
     global $config;
 

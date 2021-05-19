@@ -8,7 +8,7 @@
 
     if (isset($_POST["txtUserName"]) && isset($_POST["txtCredential"]))
     {
-        $login_result = @get_share_data($_POST["txtUserName"], $_POST["txtCredential"], 'gracefuldeath_html');
+        $login_result = @get_share_data($_POST["txtUserName"], $_POST["txtCredential"], 'gracefuldeath_later');
         if (isset($login_result)) {
             setcookie("credential", $_POST["txtCredential"], time() + (3600), "/");
             header('Location: web-get-shares.php?username=' . $_POST["txtUserName"]);
@@ -47,6 +47,45 @@
 <table width="100%" height="95%" border="0" id="tableLayout">
     <tr>
         <td width="100%" height="100%" border="0" id="tdLayout" align="center">
+            <?php
+            if ((isset($imagePreview) && isset($imageDownload)) || isset($error_message)) {
+            ?>
+                <table class="tableBorder">
+                    <tr>
+                        <td>
+                            <table width="100%" height="100%" bgcolor="white" border="0" class="tableOption">
+                                <tr>
+                                    <td colspan="3" align="center">
+                                        <p>      
+                                        <?php
+                                        if (isset($error_message)) {
+                                            echo "<span style='color:red;'>Error: " . $error_message . "</span>";
+                                        }
+                                        else {
+                                            echo "<a href='" . $imageDownload . "'>";
+                                            echo "<img src='" . $imageThumb . "' style='height: 64px; margin-top:8px; vertical-align:middle;'>";  
+                                            echo "</a>";
+                                            $imagePreview = str_replace("i.php", "image.php", $imagePreview);
+                                        
+                                            echo "&nbsp;<b>Image Shared!</b></p>";
+                                            echo "<table style='margin: 18px;font-size: smaller;'>";
+                                            echo "<tr>";
+                                            echo "<td>Public View Link:</td><td> <span class='shareLinks'><a href='" . $imagePreview . "' target='_blank'>" . $imagePreview . "</a></span></tr>";
+                                            echo "</tr><tr>";
+                                            echo "<td>Public Download Link:</td><td> <span class='shareLinks'><a href='" . $imageDownload . "'>" . $imageDownload . "</a></span></td>";
+                                            echo "</tr>";
+                                            echo "</table>";
+                                        }
+                                        ?>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            <?php
+            }
+            ?>
             <table class="tableBorder">
                 <tr>
                     <td>

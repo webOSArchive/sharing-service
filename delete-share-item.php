@@ -5,9 +5,8 @@ include("functions.php");
 header('Content-Type: application/json');
 
 $auth = get_authorization();
-print_r($auth);
-die;
-if (!isset($auth['password']))
+
+if (!isset($auth['credential']))
     gracefuldeath_json("no password in request");
 
 //Look for an item to delete
@@ -22,26 +21,11 @@ if (!isset($_GET["itemid"])) {
     $itemid = $_GET["itemid"];
 }
 
-//Make sure the file exists and can be loaded
-$jsondata = get_share_data($auth['username'], $auth['credential'], 'gracefuldeath_json');
-
-//Load and return only the task list
-$updatedsharedata = remove_share_item($itemid, $jsondata, $auth['username'], $auth['password'], 'gracefuldeath_json');
+//Perform the deletion
+$updatedsharedata = delete_share_item($itemid, $auth['username'], $auth['credential'], 'gracefuldeath_json');
 if (isset($updatedsharedata)) {
-    $file = "data/" . strtolower($auth['username']) . "/sharelog.json";
-    $written = file_put_contents($file, json_encode($updatedsharedata, JSON_PRETTY_PRINT));
-
-    //Output the results
-    if (!$written) {
-        gracefuldeath_json("failed to write to file " . $file);
-    } else {
-        echo "{\"success\":\"share item ". $itemid ." deleted from " . $auth['username'] . " share space\"}";
-    }
-} else {
-    gracefuldeath_json("failed to build new share data");
+    die ("{\"success\":\"share item ". $itemid ." deleted from " . $itemid . " share space\"}");
 }
-exit();
 
-print_r (json_encode($sharedata));
 exit();
 ?>

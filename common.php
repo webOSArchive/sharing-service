@@ -61,7 +61,7 @@ function get_share_data($username, $credential, $errorhandler = 'gracefuldeath_j
 
     $file = "data/" . $username . "/sharelog.json";
     if (!file_exists($file)) {
-        $errorhandler("share user or service name not found or data file could not be opened.");
+        $errorhandler("share user or service name not found or data file could not be opened: ". $username);
         return;
     }
 
@@ -112,9 +112,11 @@ function is_JSON($string){
 function convert_shares_to_public_schema($data, $username, $credential) {
     class userdata {};
     $thisuserdata = new userdata();
-    $thisuserdata->accessLevel = "share";
+    $thisuserdata->accesslevel = "share";
     if (base64_encode($credential) == $data['password'])
-        $thisuserdata->accessLevel = "admin";
+        $thisuserdata->accesslevel = "admin";
+    $thisuserdata->sharetype = $data['sharetype'];
+    $thisuserdata->sharephrase = $data['sharephrase'];
     $thisuserdata->shares = array_reverse($data['shares']);
     //for each share, if its an image type, add a thumbnail
     $newShares = [];

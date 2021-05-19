@@ -12,9 +12,10 @@ td {
 }
 
 h2 {
-    padding-top: 18px;
+    padding-top: 4px;
     margin-bottom: 4px;
     vertical-align: middle;
+    font-weight: normal;
 }
 
 h2 div {
@@ -123,8 +124,11 @@ a:hover {
     border-bottom: 1px solid white;
 }
 
+.shareSpaceTitle { }
 .shareDescriptor { min-width: 120px; padding: 8px; text-align: center; }
 .shareContent { padding: 18px; text-align: left; }
 .shareLinks { margin-top: 12px; font-size: smaller; color: black }
 .shareLinks a { color: darkblue; }
+.shareDelete { margin-top: 12px; font-size: smaller; color: black }
+.shareDelete a { color: darkred; }
 .cancel a { color: darkred; font-size: smaller;}
