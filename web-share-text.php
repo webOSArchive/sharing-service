@@ -14,7 +14,9 @@
             $newshareid = add_share_text($_POST['txtContent'], $auth['username'], $auth['credential'], $_POST['optContentType'], 'gracefuldeath_later');
 
             if (isset($newshareid)) {
-                gracefuldeath_later("SUCCESS! This is not actually an error!");
+                //gracefuldeath_later("SUCCESS! This is not actually an error!");
+                $textThumb = make_url_from_contentid($newshareid, $auth['username'], "tthumb");
+                $textPreview = make_url_from_contentid($newshareid, $auth['username'], "t");
             }
         } else {
             gracefuldeath_later("Content-Type not specified");
@@ -35,7 +37,7 @@
     <tr>
         <td width="100%" height="100%" border="0" id="tdLayout" align="center">
         <?php
-        if ((isset($imagePreview) && isset($imageDownload)) || isset($error_message)) {
+        if ((isset($textThumb) && isset($textPreview)) || isset($error_message)) {
         ?>
             <table class="tableBorder">
                 <tr>
@@ -49,17 +51,14 @@
                                         echo "<span style='color:red;'>Error: " . $error_message . "</span>";
                                     }
                                     else {
-                                        echo "<a href='" . $imageDownload . "'>";
-                                        echo "<img src='" . $imagePreview . "' style='height: 64px; margin-top:8px; vertical-align:middle;'>";  
+                                        echo "<a href='" . $textPreview . "'>";
+                                        echo "<img src='" . $textThumb . "' style='border: 1px solid black; height: 64px; margin-top:8px; vertical-align:middle;'>";  
                                         echo "</a>";
-                                        $imagePreview = str_replace("i.php", "image.php", $imagePreview);
                                     
-                                        echo "&nbsp;<b>Image Shared!</b></p>";
+                                        echo "&nbsp;<b>Text Shared!</b></p>";
                                         echo "<table style='margin: 18px;font-size: smaller;'>";
                                         echo "<tr>";
-                                        echo "<td>Public View Link:</td><td> <span class='shareLinks'><a href='" . $imagePreview . "' target='_blank'>" . $imagePreview . "</a></span></tr>";
-                                        echo "</tr><tr>";
-                                        echo "<td>Public Download Link:</td><td> <span class='shareLinks'><a href='" . $imageDownload . "'>" . $imageDownload . "</a></span></td>";
+                                        echo "<td>Public View Link:</td><td> <span class='shareLinks'><a href='" . $textPreview . "' target='_blank'>" . $textPreview . "</a></span></tr>";
                                         echo "</tr>";
                                         echo "</table>";
                                     }
