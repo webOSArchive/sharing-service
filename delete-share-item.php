@@ -25,6 +25,8 @@ if (!isset($_GET["itemid"])) {
 $updatedsharedata = delete_share_item($itemid, $auth['username'], $auth['credential'], 'gracefuldeath_json');
 if (isset($updatedsharedata)) {
     die ("{\"success\":\"share item ". $itemid ." deleted from " . $itemid . " share space\"}");
+} else {
+    gracefuldeath_json("delete failed.");
 }
 
 exit();

@@ -9,8 +9,17 @@
 
     if(isset($_POST['txtContent']) && $_POST['txtContent'] != "")
     {
-        echo "Saving content: " . $_POST['txtContent'];
-    } 
+        if (isset($_POST['optContentType'])) {
+
+            $newshareid = add_share_text($_POST['txtContent'], $auth['username'], $auth['credential'], $_POST['optContentType'], 'gracefuldeath_later');
+
+            if (isset($newshareid)) {
+                gracefuldeath_later("SUCCESS! This is not actually an error!");
+            }
+        } else {
+            gracefuldeath_later("Content-Type not specified");
+        }
+    }
 ?>
 
 <html>
@@ -81,9 +90,9 @@
                                             <tr><td>Share Phrase:  </td><td><input type="text" id="txtSharephrase" name="txtSharephrase" value="<?php echo $_POST['txtSharephrase']?>"></td></tr>
                                             <tr><td>Type: </td>
                                                 <td>
-                                                <select>
-                                                    <option value="text">Text</option>
-                                                    <option value="json">JSON</option>
+                                                <select id="optContentType" name="optContentType">
+                                                    <option value="text/plain">Text</option>
+                                                    <option value="application/json">JSON</option>
                                                 </select>
                                                 </td>
                                             </tr>

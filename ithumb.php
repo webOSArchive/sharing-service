@@ -2,27 +2,22 @@
 include ("common.php");
 
 //Handle more specific queries
-$img = null;
+$itemid = null;
 $imgSize = 128;
 if (isset($_GET["size"]))
     $imgSize = $_GET["size"];
-if (isset($_GET['img']) && $_GET['img'] != "") {
-    $img = $_GET['img'];
+if (isset($_GET['itemid']) && $_GET['itemid'] != "") {
+    $itemid = $_GET['itemid'];
 } else { //Accept a blanket query
     if (isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'] != "")
-        $img = $_SERVER['QUERY_STRING'];
+        $itemid = $_SERVER['QUERY_STRING'];
 }
-if (!isset($img)) {    //Deal with no usable request
+if (!isset($itemid)) {    //Deal with no usable request
     header($_SERVER["SERVER_PROTOCOL"] . " 400 Bad Request");
     die;
 }
 
-
-$sharehandle = $_SERVER['QUERY_STRING'];
-if (!isset($sharehandle) || $sharehandle == "")
-    graceful_death("content request not specified!");
-
-$sharehandle = base64url_decode($sharehandle);
+$sharehandle = base64url_decode($itemid);
 $shareparts = explode("|", $sharehandle);
 
 if (count($shareparts) > 1) {

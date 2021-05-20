@@ -1,7 +1,7 @@
 {
     "sharephrase": "Share Phrase",
     "password": "Hashed password",
-    "sharetype": "any",
+    "sharetype": "all",
     "sharelength": 10,
     "shares": [{
         "guid": "999",

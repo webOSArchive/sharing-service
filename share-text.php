@@ -9,64 +9,21 @@ $auth = get_authorization();
 //Make sure we can get the input
 $postraw = file_get_contents('php://input', false, null, 0, $config['maxtextlength']); //TODO: better error for cropped text
 if (!isset($postraw) || $postraw == "")
-    gracefuldeath_json("no data posted to share");
-
-//Make sure the file exists and can be loaded
-$jsondata = get_share_data($auth['username'], $auth['credential'], 'gracefuldeath_json');
-
-//Make sure this share content is valid and allowed
-$allowedtype = $jsondata['sharetype'];
-if (!isset($postraw) || $postraw == "") {
     gracefuldeath_json("no contentData in post payload");
-}
+
 $request_headers = get_request_headers();
-if (isset($request_headers["content-type"]) && $request_headers["content-type"] != "") {
-    $reqtype = explode(";", $request_headers["content-type"]);
-    $reqtype = $reqtype[0];
-    if (!in_array($reqtype, $supported_content_types))
-        gracefuldeath_json("shared content-type, " . $reqtype . ", not supported by this service");  //TODO: could list
-    if ($reqtype == "text/plain") {
-        if ($allowedtype != "all" && $allowedtype != "string" && $allowedtype != "text/plain")
-            gracefuldeath_json("shared content-type not allowed. this user or service instance only allows ". $allowedtype);
-	else
-	    $postdata = $postraw;
-    }
-    else if ($reqtype == "application/json") {
-        if ($allowedtype != "all" && $allowedtype != "string" && $allowedtype != "application/json")
-            gracefuldeath_json("shared content-type not allowed. this user or service instance only allows ". $allowedtype);
-        else {
-            //Make sure we're not getting junk
-            if (!is_JSON($postraw)) {
-                gracefuldeath_json("posted json could not be parsed: it may be too long or malformed");
-            } else {
-                $postdata = json_decode($postraw);
-            }
-        }
-    }
-    else {
-        gracefuldeath_json("shared content-type not allowed on this endpoint");
-    }
-} else {
+if (!isset($request_headers["content-type"]) || $request_headers["content-type"] == "")
     gracefuldeath_json("content-type not specified");
-}
 
-//Get and update share file
-$newid = uniq_alphaid();
-$sharedata = get_share_data($auth['username'], $auth['credential'], 'gracefuldeath_json');
-$updatedsharedata = add_share_item($postdata, $sharedata, $auth['username'], $auth['credential'], $reqtype, $newid, 'gracefuldeath_json');
-if (isset($updatedsharedata)) {
-    $file = "data/" . strtolower($auth['username']) . "/sharelog.json";
-    $written = file_put_contents($file, json_encode($updatedsharedata, JSON_PRETTY_PRINT));
+$reqtype = explode(";", $request_headers["content-type"]);
+$reqtype = $reqtype[0];
 
-    //Output the results
-    if (!$written) {
-        gracefuldeath_json("failed to write to file " . $file);
-    } else {
-        echo "{\"success\":\"" . make_url_from_contentid($newid, $auth['username'], "t") . "\"}";
-    }
+$newshareid = add_share_text($postraw, $auth['username'], $auth['credential'], $reqtype, 'gracefuldeath_json');
+
+if (isset($newshareid)) {
+    die ("{\"success\":\"" . make_url_from_contentid($newshareid, $auth['username'], "t") . "\"}");
 } else {
-    gracefuldeath_json("failed to build new share data");
+    gracefuldeath_json("share text failed");
 }
-exit();
 
 ?>

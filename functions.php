@@ -82,11 +82,63 @@ function create_new_user($username, $sharephrase, $password, $errorhandler = 'de
     return;
 }
 
+function add_share_text($postdata, $username, $credential, $reqtype, $errorhandler = 'default_error_handler') {
+    global $supported_content_types;
+
+    //Make sure the file exists and can be loaded
+    $sharedata = get_share_data($username, $credential, $errorhandler);
+
+    //Make sure this share content is valid and allowed
+    $allowedtype = $sharedata['sharetype'];
+
+    if (!in_array($reqtype, $supported_content_types)) {
+        print_r($supported_content_types);
+        $errorhandler("shared content-type, " . $reqtype . ", not supported by this service");  //TODO: could list
+    }
+    if ($reqtype == "text/plain") {
+        if ($allowedtype != "all" && $allowedtype != "string" && $allowedtype != "text/plain")
+            $errorhandler("shared content-type not allowed. this user or service instance only allows ". $allowedtype);
+    }
+    else if ($reqtype == "application/json") {
+        if ($allowedtype != "all" && $allowedtype != "string" && $allowedtype != "application/json")
+            $errorhandler("shared content-type not allowed. this user or service instance only allows ". $allowedtype);
+        else {
+            //Make sure we're not getting junk
+            if (!is_JSON($postdata)) {
+                $errorhandler("posted json could not be parsed: it may be too long or malformed");
+            } else {
+                $postdata = json_decode($postdata);
+            }
+        }
+    }
+    else {
+        $errorhandler("shared content-type not allowed on this endpoint");
+    }
+
+    //Get and update share file
+    $newid = uniq_alphaid();
+    $updatedsharedata = add_share_item($postdata, $sharedata, $username, $credential, $reqtype, $newid, $errorhandler);
+    if (isset($updatedsharedata)) {
+        $file = "data/" . strtolower($username) . "/sharelog.json";
+        $written = file_put_contents($file, json_encode($updatedsharedata, JSON_PRETTY_PRINT));
+
+        //Output the results
+        if (!$written) {
+            $errorhandler("failed to write to file " . $file);
+        } else {
+            return $newid;
+        }
+    } else {
+        $errorhandler("failed to build new share data");
+    }
+}
+
 function add_share_item($newshareitem, $oldsharedata, $username, $credential, $contenttype, $newid, $errorhandler = 'default_error_handler'){
+
     global $config;
 
     if (!isset($newshareitem) || !isset($oldsharedata) || !isset($credential) || !isset($contenttype) || !isset($newid)) {
-        $errorhandler("functional call missing required parameters!");
+        $errorhandler("add_share_item function call missing required parameters!");
         return;
     }
     if (($oldsharedata['sharephrase'] != $credential && base64_decode($oldsharedata['password']) != $credential) || $credential == $config['readonlykey']) {
@@ -139,7 +191,7 @@ function remove_share_item($itemid, $oldsharedata, $username, $credential, $erro
     global $config;
 
     if (!isset($itemid) || !isset($oldsharedata) || !isset($credential)) {
-        $errorhandler("functional call missing required parameters!");
+        $errorhandler("remove_share_item function call missing required parameters!");
         return;
     }
     if (base64_decode($oldsharedata['password']) != $credential || $credential == $config['readonlykey']) {
