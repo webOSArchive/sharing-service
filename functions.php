@@ -116,7 +116,7 @@ function add_share_text($postdata, $username, $credential, $reqtype, $errorhandl
     }
 
     //Get and update share file
-    $newid = uniq_alphaid();
+    $newid = short_uniqid();
     $updatedsharedata = add_share_item($postdata, $sharedata, $username, $credential, $reqtype, $newid, $errorhandler);
     if (isset($updatedsharedata)) {
         $file = "data/" . strtolower($username) . "/sharelog.json";
