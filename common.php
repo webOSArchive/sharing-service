@@ -165,7 +165,7 @@ function make_url_from_contentid($contentid, $user, $type) {
 
 function short_uniqid() {
     $newid = uniqid();      //eg: 6098638061285
-    $newid = substr($newid, 5);
+    $newid = substr($newid, 6);
     $randletter = chr(97 + mt_rand(0, 25));
     return $randletter . $newid;
 }

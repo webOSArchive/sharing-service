@@ -26,6 +26,9 @@
                     gracefuldeath_later('The type of file you uploaded is not allowed by this user or service.');
                     $valid_file = false;
                 }
+                $allowedtype = $sharedata['sharetype'];
+                if ($allowedtype != "all" && strrpos($allowedtype, "image") === false)
+                    gracefuldeath_later("This user or service instance does not allow images.");
                 if ($valid_file) {
 
                     $newfile = $newid . ".";
