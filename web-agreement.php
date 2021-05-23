@@ -32,9 +32,7 @@
                                     This Sharing Service is free to use, and free to host. If you want to host it yourself, visit the <a href="https://github.com/codepoet80/sharing-service">GitHub repo</a> for more information. If you want to use this hosted version, there are a few things you need to agree to...
                                         <div style="width: 80%; margin: 20px; text-align:left">
                                        <small >
-                                        <?php
-                                        echo file_get_contents("tandc.html");
-                                        ?>
+                                        <?php include("tandc.php"); ?>
                                         </small>
                                         </div>
                                     <a href="web-new-user.php?agreed">I Agree</a> &nbsp;&nbsp; <a href="index.php">Disagree</a><br/>
