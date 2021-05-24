@@ -6,6 +6,7 @@
     "shares": [{
         "guid": "999",
         "contenttype": "text\/plain",
-        "content": "Welcome to the sharing service!"
+        "content": "Welcome to the sharing service!",
+        "timestamp": "2021-01-01 14:49:57"
     }]
 }
