@@ -307,7 +307,6 @@ lousie
 lovely
 lowest
 lumbar
-malign
 mantic
 manual
 marine
@@ -603,7 +602,6 @@ wooden
 woolen
 woolly
 worthy
-yankee
 yearly
 yeller
 yellow

@@ -1227,7 +1227,6 @@ wool
 word
 work
 writ
-yank
 yard
 yarn
 yawl
@@ -8802,8 +8801,6 @@ machinegun
 mackintosh
 magistrate
 mainstream
-malfeasant
-malignancy
 management
 manservant
 manuscript
