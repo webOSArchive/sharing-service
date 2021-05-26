@@ -40,7 +40,7 @@ function get_authorization($errorhandler = 'gracefuldeath_json') {
     else {
         //check for encoding
         if (base64_encode(base64_decode($_GET["sharephrase"])) !== $_GET["sharephrase"]){
-            $errorhandler("refusing to use querystring share-phrase in the clear: base64 encode and retry");
+            $errorhandler("refusing to use querystring share-phrase in the clear; encode and retry");
         }
         $credential = $_GET["sharephrase"];
     }
@@ -53,7 +53,7 @@ function get_authorization($errorhandler = 'gracefuldeath_json') {
     else {
         //check for encoding
         if (base64_encode(base64_decode($_GET["password"])) !== $_GET["password"]){
-            $errorhandler("refusing to use querystring password in the clear: base64 encode and retry");
+            $errorhandler("refusing to use querystring password in the clear; encode and retry");
         }
         $credential = $_GET["password"];
     }
@@ -91,7 +91,7 @@ function get_share_data($username, $credential, $errorhandler = 'gracefuldeath_j
     $checkphrase = $jsondata['sharephrase'];
     $adminpass = $jsondata['password'];
     if ($credential != $checkphrase && base64_encode($credential) != $adminpass && $credential != $config['readonlykey']) {
-        $errorhandler("not authorized: credentials do not match any known key");
+        $errorhandler("credentials do not match any known key");
         return;
     }
 

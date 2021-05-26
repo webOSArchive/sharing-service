@@ -6,72 +6,14 @@
         'credential' => strtolower($_POST['txtSharephrase']),
     );
     $error_message = null;
-
-    if($_FILES['frmImage']['name'])
-    {
-        if(!$_FILES['frmImage']['error'])
-        {
-            //Make sure the share exists and can be loaded
-            $sharedata = get_share_data($auth['username'], $auth['credential'], 'gracefuldeath_later');
-            if ($sharedata) {
-                $newid = short_uniqid();
-
-                $valid_file = true;
-                //Make sure the uploaded image is allowed
-                if($_FILES['frmImage']['size'] > ($config['maximagesize'])) {
-                    gracefuldeath_later("Your image is too large to share here. Please reduce the file size to be less than " . ($config['maximagesize'] / 1024000) . " MB");
-                    $valid_file = false;
-                }
-                if (!in_array($_FILES['frmImage']['type'], $supported_content_types)) {
-                    gracefuldeath_later('The type of file you uploaded is not allowed by this user or service.');
-                    $valid_file = false;
-                }
-                $allowedtype = $sharedata['sharetype'];
-                if ($allowedtype != "all" && strrpos($allowedtype, "image") === false)
-                    gracefuldeath_later("This user or service instance does not allow images.");
-                if ($valid_file) {
-
-                    $newfile = $newid . ".";
-                    switch ($_FILES['frmImage']['type']){
-                        case "image/gif":
-                            $newfile = $newfile . "gif";
-                            break;
-                        case "image/jpeg":
-                            $newfile = $newfile . "jpg";
-                            break;
-                        case "image/png":
-                            $newfile = $newfile . "png";
-                            break;
-                    }
-                    $newfile = "data/" . $auth['username'] . "/" . $newfile;
-                    
-                    //Move the image into place
-                    $postdata = $newfile;
-                    if (move_uploaded_file($_FILES['frmImage']['tmp_name'], $newfile)) {
-                        //Add a record to the user's share data
-                        $updatedsharedata = add_share_item($postdata, $sharedata, $auth['username'], $auth['credential'], $_FILES['frmImage']['type'], $newid, 'gracefuldeath_later');
-                        if (isset($updatedsharedata) && $updatedsharedata != "") {
-                            $file = "data/" . strtolower($auth['username']) . "/sharelog.json";
-                            $written = file_put_contents($file, json_encode($updatedsharedata, JSON_PRETTY_PRINT));
-                            if ($written) {
-                                $imageThumb = make_url_from_contentid($newid, $auth['username'], "ithumb");
-                                $imagePreview = make_url_from_contentid($newid, $auth['username'], "i");
-                                $imageDownload = make_url_from_contentid($newid, $auth['username'], "download");
-                            }
-                        } else {
-                            gracefuldeath_json("Failed to build new share data");
-                        }
-                    } else {
-                        gracefuldeath_later("Could not move uploaded file to share directory. Check server permissions.");
-                    }
-                }
-            }
+    if ($_FILES['frmImage']) {
+        $newImageItem = upload_share_file($auth['username'], $auth['credential'], $_FILES['frmImage'], 'gracefuldeath_later');
+        if ($newImageItem) {
+            $imageThumb = make_url_from_contentid($newImageItem->guid, $auth['username'], "ithumb");
+            $imagePreview = make_url_from_contentid($newImageItem->guid, $auth['username'], "i");
+            $imageDownload = make_url_from_contentid($newImageItem->guid, $auth['username'], "download");
         }
-        else
-        {
-            gracefuldeath_later("A server error occurred uploading your file (Code: " . $_FILES['frmImage']['error'] . ")<br>Your file may be too big, or the server may be misconfigured.");
-        }
-    } 
+    }
 ?>
 
 <html>
