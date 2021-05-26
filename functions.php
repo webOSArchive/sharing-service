@@ -92,7 +92,6 @@ function add_share_text($postdata, $username, $credential, $reqtype, $errorhandl
     $allowedtype = $sharedata['sharetype'];
 
     if (!in_array($reqtype, $supported_content_types)) {
-        print_r($supported_content_types);
         $errorhandler("shared content-type, " . $reqtype . ", not supported by this service");  //TODO: could list
     }
     if ($reqtype == "text/plain") {
@@ -117,7 +116,7 @@ function add_share_text($postdata, $username, $credential, $reqtype, $errorhandl
 
     //Get and update share file
     $newshareitem = make_share_item($postdata, $reqtype);
-    $updatedsharedata = add_share_item($postdata, $sharedata, $username, $credential, $errorhandler);
+    $updatedsharedata = add_share_item($newshareitem, $sharedata, $username, $credential, $errorhandler);
 
     if (isset($updatedsharedata)) {
         $file = "data/" . strtolower($username) . "/sharelog.json";
@@ -127,7 +126,7 @@ function add_share_text($postdata, $username, $credential, $reqtype, $errorhandl
         if (!$written) {
             $errorhandler("failed to write to file " . $file);
         } else {
-            return $newid;
+            return $newshareitem;
         }
     } else {
         $errorhandler("failed to build new share data in add_share_text");
@@ -220,7 +219,6 @@ function make_share_item($itemcontent, $contenttype, $newid) {
 
 function add_share_item($newshareentry, $oldsharedata, $username, $credential, $errorhandler = 'default_error_handler') {
     global $config;
-
     if (!isset($newshareentry) || !isset($oldsharedata) || !isset($username) || !isset($credential)) {
         $errorhandler("add share item function call missing required parameters");
         return;

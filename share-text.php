@@ -18,10 +18,10 @@ if (!isset($request_headers["content-type"]) || $request_headers["content-type"]
 $reqtype = explode(";", $request_headers["content-type"]);
 $reqtype = $reqtype[0];
 
-$newshareid = add_share_text($postraw, $auth['username'], $auth['credential'], $reqtype, 'gracefuldeath_json');
+$newshareitem = add_share_text($postraw, $auth['username'], $auth['credential'], $reqtype, 'gracefuldeath_json');
 
-if (isset($newshareid)) {
-    die ("{\"success\":\"" . make_url_from_contentid($newshareid, $auth['username'], "t") . "\"}");
+if (isset($newshareitem)) {
+    die (json_encode($newshareitem));
 } else {
     gracefuldeath_json("share text failed");
 }
