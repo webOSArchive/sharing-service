@@ -115,7 +115,7 @@ function add_share_text($postdata, $username, $credential, $reqtype, $errorhandl
     }
 
     //Get and update share file
-    $newshareitem = make_share_item($postdata, $reqtype);
+    $newshareitem = make_share_item($postdata, $reqtype, short_uniqid());
     $updatedsharedata = add_share_item($newshareitem, $sharedata, $username, $credential, $errorhandler);
 
     if (isset($updatedsharedata)) {
