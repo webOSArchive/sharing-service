@@ -4,7 +4,7 @@
 
     if (isset($_POST["txtUsername"]) && isset($_POST["txtSharephrase"]) && isset($_POST["txtPassword"]))
     {
-        $create_result = @create_new_user($_POST["txtUsername"], $_POST["txtSharephrase"], $_POST["txtPassword"], 'gracefuldeath_later');
+        $create_result = @create_new_user($_POST["txtUsername"], $_POST["txtSharephrase"], $_POST["txtPassword"], $_POST["txtCreateKey"], 'gracefuldeath_later');
         if (isset($create_result)) {
             setcookie("credential", $_POST["txtPassword"], time() + (3600), "/");
             header('Location: web-get-shares.php?username=' . $_POST["txtUsername"]);
@@ -84,6 +84,13 @@
                                             <tr><td>User Name: </td><td><input type="text" name="txtUsername" id="txtUserName"></td></tr>
                                             <tr><td>Share Phrase:  </td><td><input type="text" id="txtSharephrase" name="txtSharephrase" value="<?php include("random-words.php"); ?>">&nbsp;<img src="images/refresh.png" id="imgNewWords" style="display:none; height:20px;width:20px; vertical-align:middle" onclick="getNewWords()"></td></tr>
                                             <tr><td>Admin Password: </td><td><input type="text" id="txtPassword" name="txtPassword"></td></tr>
+                                            <?php
+                                            if (isset($config["createkey"]) && $config["createkey"] != "") {
+                                            ?>
+                                                <tr><td>Create Key: </td><td><input type="text" id="txtCreateKey" name="txtCreateKey"></td></tr>
+                                            <?php
+                                            }
+                                            ?>
                                         </table>
                                         <input type="submit" value="Let's Go!">
                                     </form>

@@ -1,5 +1,13 @@
 <?php
-function create_new_user($username, $sharephrase, $password, $errorhandler = 'default_error_handler') {
+function create_new_user($username, $sharephrase, $password, $createkey, $errorhandler = 'default_error_handler') {
+    global $config;
+
+    if (isset($config["createkey"]) && $config["createkey"] != "") {
+        if (!isset($createkey) || $createkey == "" || strtolower($createkey) != strtolower($config["createkey"])){
+            $errorhandler("a create key is required but was not found or did not match");
+            return;
+        }
+    }
     if (isset($username) && $username != "" && isset($sharephrase) && $sharephrase != "" && isset($password) && $password != "") {
 
         //check for valid username
@@ -7,7 +15,7 @@ function create_new_user($username, $sharephrase, $password, $errorhandler = 'de
         $username = strtolower($username);
         if (preg_match('/[^a-z]/', $username))
         {
-            $errorhandler("username not valid: must be one word, alphabetic characters only");
+            $errorhandler("username not valid - must be one word, alphabetic characters only");
             return;
         }
         if (in_array($username, $disallowed)) {

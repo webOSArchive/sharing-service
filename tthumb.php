@@ -1,4 +1,7 @@
 <?php
+// ithumb Endpoint
+//      This endpoint creates (if needed) and returns an image version of a text share as binary data that can be the source of an HTML img element
+//      It needs work.
 include ("common.php");
 
 //Handle more specific queries

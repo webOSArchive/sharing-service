@@ -1,6 +1,6 @@
 <?php
-// T (Text) Endpoint
-//      This endpoint supports returning the content of a text or JSON share
+// Q (Query) Endpoint
+//      This endpoint supports querying a URI for the sharedata payload
 include("common.php");
 
 $sharehandle = $_SERVER['QUERY_STRING'];

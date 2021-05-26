@@ -1,5 +1,6 @@
 <?php
-
+// Download Endpoint
+//      This endpoint returns a shared image as a file that can be downloaded
 include("common.php");
 
 $sharehandle = $_SERVER['QUERY_STRING'];

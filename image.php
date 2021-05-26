@@ -1,4 +1,6 @@
 <?php
+// image Endpoint
+//      This endpoint loads a shared image into a webpage
 function base64url_encode($data)
 {
   $b64 = base64_encode($data);

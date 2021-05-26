@@ -1,5 +1,6 @@
 <?php
-
+// I (img) Endpoint
+//      This endpoint supports returning the binary data of an image share that can be the source of an HTML img element
 include("common.php");
 
 $sharehandle = $_SERVER['QUERY_STRING'];
@@ -23,8 +24,6 @@ if (count($shareparts) > 1) {
         //print_r($value);
         if ($contentid == $value['guid'])
         {
-            //echo $value['content'] . "<br>";
-            //echo $value['contenttype'] . "<br>";
             header('Content-Type '. $value['contenttype']);
             $fp = fopen($value['content'], 'rb');
             fpassthru($fp);
