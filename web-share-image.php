@@ -2,23 +2,25 @@
     include("common.php");
     include("functions.php");
 
+    $username = "";
     if (isset($_POST['txtUsername']))
         $username = $_POST['txtUsername'];
     if (isset($_GET['username']))
         $username = $_GET['username'];
 
+    $credential = "";
     if (isset($_POST['txtSharephrase']))
         $credential = $_POST['txtSharephrase'];
-    if (isset($_GET['username']))
+    if (isset($_COOKIE["credential"]))
         $credential = $_COOKIE["credential"];
 
     $auth = array(
         'username' => strtolower($username),
-        'credential' => strtolower($_POST['txtSharephrase']),
+        'credential' => strtolower($credential),
     );
     $error_message = null;
 
-    if ($_FILES['frmImage']) {
+    if ($_FILES && $_FILES['frmImage']) {
         $newImageItem = upload_share_file($auth['username'], $auth['credential'], $_FILES['frmImage'], 'gracefuldeath_later');
         if ($newImageItem) {
             $imageThumb = make_url_from_contentid($newImageItem->guid, $auth['username'], "ithumb");

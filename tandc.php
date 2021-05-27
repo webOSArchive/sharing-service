@@ -9,10 +9,12 @@ $config = include('config.php');
     <li>If your share space goes unused for more than 30 days, it may be automatically purged.</li>
     <li>Lost passwords cannot be recovered or reset. Please record your credentials in a secure location.</li>
     <?php
-    if (isset($config["createkey"]) && $config["createkey"] != "") {
-    ?>
-        <li><i>The administrator of this service has required a create key, which will need to be provided to create a new account.</i></li>
-    <?php
+    if (isset($config["createkey"]) && $config["createkey"] != "" && strrpos($_SERVER['REQUEST_URI'], "web-agreement")) {
+        echo "<li><i>The administrator of this service has required a create key, which will need to be provided to create a new account in a web browser. ";
+        if (isset($config["admincontact"]) && $config["admincontact"] != "") {
+            echo "<a href=\"javascript:document.location=atob('" . base64_encode("mailto:" . $config["admincontact"] . "?subject=Sharing Service") . "')\">Click here</a> to contact the administrator.";
+        }
+        echo "</i></li>";
     }
     ?>
 </ul>

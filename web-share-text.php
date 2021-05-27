@@ -2,19 +2,21 @@
     include("common.php");
     include("functions.php");
 
+    $username = "";
     if (isset($_POST['txtUsername']))
         $username = $_POST['txtUsername'];
     if (isset($_GET['username']))
         $username = $_GET['username'];
 
+    $credential = "";
     if (isset($_POST['txtSharephrase']))
         $credential = $_POST['txtSharephrase'];
-    if (isset($_GET['username']))
+    if (isset($_COOKIE["credential"]))
         $credential = $_COOKIE["credential"];
 
     $auth = array(
         'username' => strtolower($username),
-        'credential' => strtolower($_POST['txtSharephrase']),
+        'credential' => strtolower($credential),
     );
     $error_message = null;
 
@@ -24,7 +26,7 @@
             $newshare = add_share_text($_POST['txtContent'], $auth['username'], $auth['credential'], $_POST['optContentType'], 'gracefuldeath_later');
             if (isset($newshare)) {
                 $textThumb = make_url_from_contentid($newshare->guid, $auth['username'], "tthumb");
-                $textPreview = make_url_from_contentid($newshareid->guid, $auth['username'], "t");
+                $textPreview = make_url_from_contentid($newshare->guid, $auth['username'], "t");
             }
         } else {
             gracefuldeath_later("Content-Type not specified");
