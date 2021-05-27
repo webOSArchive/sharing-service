@@ -15,28 +15,22 @@ if (count($shareparts) > 1) {
     $contentid = $shareparts[1];
 
     if (!is_dir("data/" . $username)) {
-        gracefuldeath_html("user does not exist!");
+        gracefuldeath_json("user does not exist!");
     }
 
     //Make sure the file exists and can be loaded
-    $jsondata = get_share_data($username, $config['readonlykey'], 'gracefuldeath_html');
+    $jsondata = get_share_data($username, $config['readonlykey'], 'gracefuldeath_json');
     foreach ($jsondata['shares'] as $share => $value) {
         //print_r($value);
         if ($contentid == $value['guid'])
         {
-            if ($value['contenttype'] == "application/json") {
-                header('Content-Type: application/json');
-                print_r(json_encode($value['content'], JSON_PRETTY_PRINT));
-            }
-            else {
-                header('Content-Type: text/plain');
-                print_r($value['content']);
-            }
+            header('Content-Type: application/json');
+            print_r(json_encode($value, JSON_PRETTY_PRINT));
         }
     }
 
 } else {
-    gracefuldeath_html("content request malformed!");
+    gracefuldeath_json("content request malformed!");
 }
 
 
