@@ -860,7 +860,6 @@ halfway
 handier
 happier
 hardest
-harmful
 harsher
 hateful
 haughty
@@ -1269,7 +1268,6 @@ wouldbe
 younger
 aberrant
 abnormal
-abortive
 absolute
 abstract
 abundant
@@ -1986,7 +1984,6 @@ valuable
 variable
 vascular
 vehement
-venereal
 venetian
 vertical
 vicelike

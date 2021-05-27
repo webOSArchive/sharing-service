@@ -90,7 +90,7 @@ function get_share_data($username, $credential, $errorhandler = 'gracefuldeath_j
     //Make sure the file belongs to the requesting user
     $checkphrase = $jsondata['sharephrase'];
     $adminpass = $jsondata['password'];
-    if ($credential != $checkphrase && base64_encode($credential) != $adminpass && $credential != $config['readonlykey']) {
+    if ($credential != $checkphrase && !password_verify($credential, $adminpass) && $credential != $config['readonlykey']) {
         $errorhandler("credentials do not match any known key");
         return;
     }
@@ -126,7 +126,7 @@ function convert_shares_to_public_schema($data, $username, $credential) {
     class userdata {};
     $thisuserdata = new userdata();
     $thisuserdata->accesslevel = "share";
-    if (base64_encode($credential) == $data['password'])
+    if (password_verify($credential, $data['password']))
         $thisuserdata->accesslevel = "admin";
     $thisuserdata->sharetype = $data['sharetype'];
     $thisuserdata->sharephrase = $data['sharephrase'];
