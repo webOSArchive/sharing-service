@@ -94,7 +94,7 @@ function add_share_text($postdata, $username, $credential, $reqtype, $errorhandl
     global $config;
     global $supported_content_types;
 
-    $postdata = strip_tags($postdata, $config['allowedhtml'])
+    $postdata = strip_tags($postdata, $config['allowedhtml']);
 
     //Make sure the file exists and can be loaded
     $sharedata = get_share_data($username, $credential, $errorhandler);
