@@ -9,8 +9,8 @@
         $username = $_GET['username'];
 
     $credential = "";
-    if (isset($_POST['txtSharephrase']))
-        $credential = $_POST['txtSharephrase'];
+    if (isset($_POST['txtCredential']))
+        $credential = $_POST['txtCredential'];
     if (isset($_COOKIE["credential"]))
         $credential = $_COOKIE["credential"];
 
@@ -43,7 +43,7 @@
         }
 
         function togglePassword(){
-            var passBox = document.getElementById("txtSharephrase");
+            var passBox = document.getElementById("txtCredential");
             if(passBox.type == "text")
                 passBox.type = "password";
             else
@@ -109,7 +109,7 @@
                                         </div>
                                         <table style="margin: 18px;">
                                             <tr><td>User Name: </td><td><input type="text" name="txtUsername" id="txtUsername" value="<?php echo $username ?>"></td></tr>
-                                            <tr><td>Share Phrase:  </td><td><input type="password" id="txtSharephrase" name="txtSharephrase" value="<?php echo $credential ?>">&nbsp;<img src="images/eyeball.png" id="imgTogglePass" style="display:none;height:20px;width:20px; vertical-align:middle" onclick="togglePassword()"></td></tr>
+                                            <tr><td>Share Phrase:  </td><td><input type="password" id="txtCredential" name="txtCredential" value="<?php echo $credential ?>">&nbsp;<img src="images/eyeball.png" id="imgTogglePass" style="display:none;height:20px;width:20px; vertical-align:middle" onclick="togglePassword()"></td></tr>
                                             <tr><td>Photo: </td><td><input type="file" name="frmImage" accept="image/gif, image/jpeg, image/png" /></td></tr>
                                         </table>
                                         <input type="submit" value="Share">

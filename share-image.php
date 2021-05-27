@@ -6,7 +6,7 @@ header('Content-Type: application/json');
 
 $auth = array(
     'username' => strtolower($_POST['username']),
-    'credential' => strtolower($_POST['sharephrase']),
+    'credential' => strtolower($_POST['credential']),
 );
 
 $error_message = null;

@@ -31,32 +31,20 @@ function get_authorization($errorhandler = 'gracefuldeath_json') {
         $errorhandler("username not specified");
     $username = $_GET["username"];
 
-    //Look for a sharephrase
-    if (!isset($_GET["sharephrase"])){
-        if (array_key_exists('share-phrase', $request_headers)) {
-            $credential = $request_headers['share-phrase'];
+    //Look for a credential
+    if (!isset($_GET["credential"])){
+        if (array_key_exists('credential', $request_headers)) {
+            $credential = $request_headers['credential'];
         }
     }
     else {
         //check for encoding
-        if (base64_encode(base64_decode($_GET["sharephrase"])) !== $_GET["sharephrase"]){
-            $errorhandler("refusing to use querystring share-phrase in the clear; encode and retry");
+        if (base64_encode(base64_decode($_GET["credential"])) !== $_GET["credential"]){
+            $errorhandler("refusing to use querystring credential in the clear; encode and retry");
         }
-        $credential = $_GET["sharephrase"];
+        $credential = $_GET["credential"];
     }
-    //Look for a password
-    if (!isset($_GET["password"])){
-        if (array_key_exists('password', $request_headers)) {
-            $credential = $request_headers['password'];
-        }
-    }
-    else {
-        //check for encoding
-        if (base64_encode(base64_decode($_GET["password"])) !== $_GET["password"]){
-            $errorhandler("refusing to use querystring password in the clear; encode and retry");
-        }
-        $credential = $_GET["password"];
-    }
+
     if (!isset($credential))
         $errorhandler("no credential in request");
     $credential = strtolower($credential);

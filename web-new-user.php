@@ -2,9 +2,9 @@
     include("common.php");
     include("functions.php");
 
-    if (isset($_POST["txtUsername"]) && isset($_POST["txtSharephrase"]) && isset($_POST["txtPassword"]))
+    if (isset($_POST["txtUsername"]) && isset($_POST["txtCredential"]) && isset($_POST["txtPassword"]))
     {
-        $create_result = @create_new_user($_POST["txtUsername"], $_POST["txtSharephrase"], $_POST["txtPassword"], $_POST["txtCreateKey"], 'gracefuldeath_later');
+        $create_result = @create_new_user($_POST["txtUsername"], $_POST["txtCredential"], $_POST["txtPassword"], $_POST["txtCreateKey"], 'gracefuldeath_later');
         if (isset($create_result)) {
             setcookie("credential", $_POST["txtPassword"], time() + (3600), "/");
             header('Location: web-get-shares.php?username=' . $_POST["txtUsername"]);
@@ -31,7 +31,7 @@
                 var xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function() {
                     if (this.readyState === 4) {
-                        document.getElementById("txtSharephrase").value = this.responseText;
+                        document.getElementById("txtCredential").value = this.responseText;
                     }
                 };
                 xhr.open("GET", "random-words.php");
@@ -82,7 +82,7 @@
                                     <form method="POST">
                                         <table style="margin: 18px;">
                                             <tr><td>User Name: </td><td><input type="text" name="txtUsername" id="txtUserName"></td></tr>
-                                            <tr><td>Share Phrase:  </td><td><input type="text" id="txtSharephrase" name="txtSharephrase" value="<?php include("random-words.php"); ?>">&nbsp;<img src="images/refresh.png" id="imgNewWords" style="display:none; height:20px;width:20px; vertical-align:middle" onclick="getNewWords()"></td></tr>
+                                            <tr><td>Share Phrase:  </td><td><input type="text" id="txtCredential" name="txtCredential" value="<?php include("random-words.php"); ?>">&nbsp;<img src="images/refresh.png" id="imgNewWords" style="display:none; height:20px;width:20px; vertical-align:middle" onclick="getNewWords()"></td></tr>
                                             <tr><td>Admin Password: </td><td><input type="text" id="txtPassword" name="txtPassword"></td></tr>
                                             <?php
                                             if (isset($config["createkey"]) && $config["createkey"] != "") {

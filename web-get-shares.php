@@ -1,10 +1,6 @@
 <?php
 if (!isset($_GET["username"]) || !isset($_COOKIE["credential"])) {
     header('Location: web-login.php?username=' . $_GET["username"]);
-} else {
-    //echo "Welcome to your share space!<br>";
-    //echo $_GET["username"] . "<br>";
-    //echo $_COOKIE["credential"] . "<br>";
 }
 include("common.php");
 
@@ -41,17 +37,17 @@ if ($sharedata->accesslevel != 'admin') {
 <body class="login" onload="swapTech()">
 <div class="login-header"><?php echo $_GET["username"] ?> | <a href="index.php">Log Out</a>&nbsp;</div>
 <div style="margin: 10px;">
-<div class="shareSpaceTitle">
-    <b>Share Phrase: </b><img src="images/eyeball.png" id="imgTogglePass" style="display:inline;height:20px;width:20px;margin-top:-2px;vertical-align:middle" onclick="togglePassword()" title="<?php echo $sharedata->sharephrase; ?>">&nbsp;<span id="spnSharePhrase" style="display:none"><?php echo $sharedata->sharephrase; ?></span><br>
-    <b>Share Type: </b><?php echo $sharedata->sharetype; ?>
-</div>
-<table>
 <?php
-
 if ($sharedata->accesslevel == 'admin') {
+    ?>
+    <div class="shareSpaceTitle">
+        <b>Share Phrase: </b><img src="images/eyeball.png" id="imgTogglePass" style="display:inline;height:20px;width:20px;margin-top:-2px;vertical-align:middle" onclick="togglePassword()" title="<?php echo $sharedata->sharephrase; ?>">&nbsp;<span id="spnSharePhrase" style="display:none"><?php echo $sharedata->sharephrase; ?></span><br>
+        <b>Share Type: </b><?php echo $sharedata->sharetype; ?>
+    </div>
+    <?php
     foreach($sharedata->shares as $thisshare)
     {
-        echo "<tr>";
+        echo "<table><tr>";
         switch ($thisshare['contenttype']) {
             case "text/plain":
                 $textLink = make_url_from_contentid($thisshare['guid'], $_GET["username"], "t");
@@ -77,14 +73,17 @@ if ($sharedata->accesslevel == 'admin') {
                 break;
             }
         echo "<div class='shareDelete'><a href='web-delete-item.php?username=" . $_GET["username"] . "&itemid=" . $thisshare['guid'] . "'>Delete</a></div>";
-        echo "</td></tr>";
+        echo "</td></tr></table>";
     }
 } else {
-    echo "not allowed";
+    ?>
+    <div class="shareSpaceTitle">
+        <b>Wrong Access Level: </b>The credentials provided can only be used to share with this account.<br/>Login with the admin password to view previous shares.<br>
+    </div>
+<?php
 }
-
 ?>
-</table>
+
 </div>
 </body>
 </html>
