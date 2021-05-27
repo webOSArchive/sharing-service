@@ -6,6 +6,7 @@
     header("Cache-Control: post-check=0, pre-check=0", false);
     header("Pragma: no-cache");
 
+    //User logged in
     if (isset($_POST["txtUserName"]) && isset($_POST["txtCredential"]))
     {
         $login_result = @get_share_data($_POST["txtUserName"], $_POST["txtCredential"], 'gracefuldeath_later');
@@ -14,7 +15,9 @@
             header('Location: web-get-shares.php?username=' . $_POST["txtUserName"]);
         }
     }
-    $lastUsername = $_POST["txtUserName"];
+    //User was bounced here
+    if (isset($_POST["txtUserName"])
+        $lastUsername = $_POST["txtUserName"];
     if (isset($_GET["username"]))
         $lastUsername = $_GET["username"];
 ?>
