@@ -44,7 +44,7 @@
 
 </head>
 <body class="login" onload="swapTech()">
-<div class="login-header"><a href="index.php">Cancel</a>&nbsp;</div>
+<div class="login-header"><?php include("header.php");?><a href="index.php">Cancel</a>&nbsp;</div>
 <table width="100%" height="95%" border="0" id="tableLayout">
     <tr>
         <td width="100%" height="100%" border="0" id="tdLayout" align="center">
