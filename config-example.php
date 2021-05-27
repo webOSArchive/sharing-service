@@ -10,6 +10,7 @@ return array(
     'maximagesize' => 3072000,  //in bytes
     'maxtextlength' => 5000,    //in bytes
     'admincontact' => 'your@email',  //will be encoded in the agreement webpage
-    'allowedhtml' => '<p><b><i><u><br><ul><li><font>'   //HTML could mess up the client, or be used as an attack, allow only certain safer tags
+    'allowedhtml' => '<p><b><i><u><br><ul><li><font>',   //HTML could mess up the client, or be used as an attack, allow only certain safer tags
+    'allowhttps' => false   //if your server supports https, set to true to advertise the option. requiring https is up to your server (redirect) config.
 );
 ?>
