@@ -15,9 +15,9 @@
 <body class="login">
 <div class="login-header"><a href="web-login.php">Login</a>&nbsp;</div>
 
-<table width="100%" height="95%" style="padding-bottom: 20px;"><tr><td width="100%" align="center" valign="middle">
+<table width="100%" height="95%" style="padding-bottom: 20px;"><tr><td width="100%"align="center" valign="middle">
 <div id="container">
-<div class="row" >
+<div class="row">
   <div class="column" >
    <div class="columnContent">
         <table width="360" height="100%" border="0" class="tableOption">

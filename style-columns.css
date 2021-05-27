@@ -12,6 +12,9 @@
      min-height:100%;
      position:relative;
      max-width: 1000px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
   }
   .table {
     border:0px; 
@@ -31,7 +34,7 @@
     min-height: 300px;
   }
   .columnContent {
-    align-content: center; text-align: center; margin-bottom: 18px;
+    align-content: center; text-align: center; margin-bottom: 18px; margin-left: 9px; margin-right: 9px;
   }
   
   /* Clear floats after the columns */

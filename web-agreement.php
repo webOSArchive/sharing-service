@@ -26,7 +26,7 @@
                     <td>
                         <table width="100%" height="100%" bgcolor="white" border="0" class="tableOption">
                             <tr>
-                                <td colspan="3" align="center">
+                                <td colspan="3" align="center" style="padding-left: 22px; padding-right: 22px;">
                                     <p><img src="images/share-new.png" style="height: 64px; width: 64px; margin-top:8px; vertical-align:middle;" id="imgIcon"/>
                                     &nbsp;<b>Create your own Share Space</b></p>
                                     This Sharing Service is free to use, and free to host. If you want to host it yourself, visit the <a href="https://github.com/codepoet80/sharing-service">GitHub repo</a> for more information. If you want to use this hosted version, there are a few things you need to agree to...
