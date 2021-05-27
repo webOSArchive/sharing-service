@@ -91,7 +91,10 @@ function create_new_user($username, $sharephrase, $password, $createkey, $errorh
 }
 
 function add_share_text($postdata, $username, $credential, $reqtype, $errorhandler = 'default_error_handler') {
+    global $config;
     global $supported_content_types;
+
+    $postdata = strip_tags($postdata, $config['allowedhtml'])
 
     //Make sure the file exists and can be loaded
     $sharedata = get_share_data($username, $credential, $errorhandler);
