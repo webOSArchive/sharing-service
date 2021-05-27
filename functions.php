@@ -38,7 +38,7 @@ function create_new_user($username, $sharephrase, $password, $createkey, $errorh
             $errorhandler("password not valid - use only letters, numbers and spaces");
             return;
         } else {
-            $password = base64_encode($password);
+            $password = password_hash($password, PASSWORD_DEFAULT);
         }
 
         //re-run the username uniqueness check
@@ -231,7 +231,7 @@ function add_share_item($newshareentry, $oldsharedata, $username, $credential, $
         $errorhandler("add share item function call missing required parameters");
         return;
     }
-    if (($oldsharedata['sharephrase'] != $credential && base64_decode($oldsharedata['password']) != $credential) || $credential == $config['readonlykey']) {
+    if (($oldsharedata['sharephrase'] != $credential && !password_verify($credential, $oldsharedata['password'])) || $credential == $config['readonlykey']) {
         $errorhandler("credentials not valid or read-only");
         return;
     }
@@ -274,7 +274,7 @@ function remove_share_item($itemid, $oldsharedata, $username, $credential, $erro
         $errorhandler("remove share item function call missing required parameters!");
         return;
     }
-    if (base64_decode($oldsharedata['password']) != $credential || $credential == $config['readonlykey']) {
+    if (!password_verify($credential, $oldsharedata['password']) || $credential == $config['readonlykey']) {
         $errorhandler("credentials not valid or read-only");
         return;
     }
