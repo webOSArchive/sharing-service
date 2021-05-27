@@ -16,7 +16,7 @@
         }
     }
     //User was bounced here
-    if (isset($_POST["txtUserName"])
+    if (isset($_POST["txtUserName"]))
         $lastUsername = $_POST["txtUserName"];
     if (isset($_GET["username"]))
         $lastUsername = $_GET["username"];
