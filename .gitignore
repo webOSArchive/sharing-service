@@ -2,3 +2,4 @@ config.php
 data/*
 .htaccess
 docker/
+sharelog.json
