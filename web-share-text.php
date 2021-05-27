@@ -10,13 +10,10 @@
     if(isset($_POST['txtContent']) && $_POST['txtContent'] != "")
     {
         if (isset($_POST['optContentType'])) {
-
-            $newshareid = add_share_text($_POST['txtContent'], $auth['username'], $auth['credential'], $_POST['optContentType'], 'gracefuldeath_later');
-
-            if (isset($newshareid)) {
-                //gracefuldeath_later("SUCCESS! This is not actually an error!");
-                $textThumb = make_url_from_contentid($newshareid, $auth['username'], "tthumb");
-                $textPreview = make_url_from_contentid($newshareid, $auth['username'], "t");
+            $newshare = add_share_text($_POST['txtContent'], $auth['username'], $auth['credential'], $_POST['optContentType'], 'gracefuldeath_later');
+            if (isset($newshare)) {
+                $textThumb = make_url_from_contentid($newshare->guid, $auth['username'], "tthumb");
+                $textPreview = make_url_from_contentid($newshareid->guid, $auth['username'], "t");
             }
         } else {
             gracefuldeath_later("Content-Type not specified");
