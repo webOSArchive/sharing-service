@@ -127,7 +127,6 @@ function convert_shares_to_public_schema($data, $username, $credential) {
             $share['thumbnail'] = make_url_from_contentid($share['guid'], $username, 'ithumb');
         } else {
             $share['thumbnail'] = make_url_from_contentid($share['guid'], $username, 'tthumb');
-
         }
         //Filter out types not allowed by the current share config
         if ($data['sharetype'] == "all" 

@@ -20,12 +20,18 @@ if (count($shareparts) > 1) {
 
     //Make sure the file exists and can be loaded
     $jsondata = get_share_data($username, $config['readonlykey'], 'gracefuldeath_json');
-    foreach ($jsondata['shares'] as $share => $value) {
-        //print_r($value);
-        if ($contentid == $value['guid'])
+    foreach ($jsondata['shares'] as $shares => $share) {
+        if ($contentid == $share['guid'])
         {
+            //add thumb
+            if (strrpos($share['contenttype'], "image") !== false) {
+                $share['content'] = make_url_from_contentid($share['guid'], $username, 'i');
+                $share['thumbnail'] = make_url_from_contentid($share['guid'], $username, 'ithumb');
+            } else {
+                $share['thumbnail'] = make_url_from_contentid($share['guid'], $username, 'tthumb');
+            }
             header('Content-Type: application/json');
-            print_r(json_encode($value, JSON_PRETTY_PRINT));
+            print_r(json_encode($share, JSON_PRETTY_PRINT));
         }
     }
 

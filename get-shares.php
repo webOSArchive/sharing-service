@@ -4,7 +4,7 @@ include("common.php");
 header('Content-Type: application/json');
 
 $auth = get_authorization();
-
+//gracefuldeath_json("early death");
 //Load share data
 $sharedata = get_share_data($auth['username'], $auth['credential'], 'gracefuldeath_json');
 //Convert to public schema
