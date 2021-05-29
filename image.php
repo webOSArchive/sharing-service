@@ -32,6 +32,14 @@ function is_valid_base64($str){
 <body>
 <?php
 $source = $_SERVER['QUERY_STRING'];
+
+//handle Facebook
+if (strpos($source, "&fbclid")) {
+    $source = str_replace("%3D", "=", $source);
+    $stripFB = explode("&fbclid", $source);
+    $source = $stripFB[0];
+}
+
 if (is_valid_base64($source))
 	$isource = $source;
 else

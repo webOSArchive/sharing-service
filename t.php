@@ -7,6 +7,12 @@ $sharehandle = $_SERVER['QUERY_STRING'];
 if (!isset($sharehandle) || $sharehandle == "")
     graceful_death("content request not specified!");
 
+if (strpos($sharehandle, "&fbclid")) {
+    $sharehandle = str_replace("%3D", "=", $sharehandle);
+    $stripFB = explode("&fbclid", $sharehandle);
+    $sharehandle = $stripFB[0];
+}
+
 $sharehandle = base64url_decode($sharehandle);
 $shareparts = explode("|", $sharehandle);
 
