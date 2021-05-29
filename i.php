@@ -3,9 +3,18 @@
 //      This endpoint supports returning the binary data of an image share that can be the source of an HTML img element
 include("common.php");
 
-$sharehandle = $_SERVER['QUERY_STRING'];
-if (!isset($sharehandle) || $sharehandle == "")
-    graceful_death("content request not specified!");
+if (isset($_GET["size"]))
+    $imgSize = $_GET["size"];
+if (isset($_GET['img']) && $_GET['img'] != "") {
+    $sharehandle = $_GET['img'];
+} else { //Accept a blanket query
+    if (isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'] != "")
+        $sharehandle = $_SERVER['QUERY_STRING'];
+}
+if (!isset($sharehandle)) {    //Deal with no usable request
+    header($_SERVER["SERVER_PROTOCOL"] . " 400 Bad Request");
+    die;
+}
 
 $sharehandle = base64url_decode($sharehandle);
 $shareparts = explode("|", $sharehandle);
