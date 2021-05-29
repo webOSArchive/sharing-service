@@ -24,17 +24,19 @@ if (count($shareparts) > 1) {
         //print_r($value);
         if ($contentid == $value['guid'])
         {
-            //echo $value['content'] . "<br>";
-            //echo $value['contenttype'] . "<br>";
-            header('Content-Description: File Transfer');
-            header('Content-Type: application/octet-stream');
-            header('Content-Disposition: attachment; filename="'.basename($value['content']).'"');
-            header('Expires: 0');
-            header('Cache-Control: must-revalidate');
-            header('Pragma: public');
-            header('Content-Length: ' . filesize($value['content']));
-            flush(); // Flush system output buffer
-            readfile($value['content']);
+            if (strpos($_SERVER['HTTP_USER_AGENT'], "hpwOS") || strpos($_SERVER['HTTP_USER_AGENT'], "webOS")) {
+                echo '<img src="i.php?'. $_SERVER['QUERY_STRING'] . '">';
+            } else {
+                header('Content-Description: File Transfer');
+                header('Content-Type: application/octet-stream');
+                header('Content-Disposition: attachment; filename="'.basename($value['content']).'"');
+                header('Expires: 0');
+                header('Cache-Control: must-revalidate');
+                header('Pragma: public');
+                header('Content-Length: ' . filesize($value['content']));
+                flush(); // Flush system output buffer
+                readfile($value['content']);
+            }
         }
     }
 
