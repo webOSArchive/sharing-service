@@ -4,6 +4,12 @@
 include("common.php");
 
 $sharehandle = $_SERVER['QUERY_STRING'];
+//handle Facebook
+if (strpos($_SERVER['QUERY_STRING'], "&fbclid")) {
+    $sharehandle = str_replace("%3D", "=");
+    $stripFB = explode("&fbclid", $sharehandle);
+    $sharehandle = $stripFB[0];
+}
 if (!isset($sharehandle) || $sharehandle == "")
     graceful_death("content request not specified!");
 
