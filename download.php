@@ -13,10 +13,8 @@ if (strpos($sharehandle, "&fbclid")) {
     $stripFB = explode("&fbclid", $sharehandle);
     $sharehandle = $stripFB[0];
 }
-
 $sharehandle = base64url_decode($sharehandle);
 $shareparts = explode("|", $sharehandle);
-
 if (count($shareparts) > 1) {
     $username = $shareparts[0];
     $contentid = $shareparts[1];
@@ -31,7 +29,9 @@ if (count($shareparts) > 1) {
         //print_r($value);
         if ($contentid == $value['guid'])
         {
-            if (strpos($_SERVER['HTTP_USER_AGENT'], "hpwOS") || strpos($_SERVER['HTTP_USER_AGENT'], "webOS")) {
+
+	    $client = strtolower($_SERVER['HTTP_USER_AGENT']);
+            if (strpos($client, "hpwos") || strpos($client, "webos") || strpos($client, "android")) {
                 echo '<img src="i.php?'. $_SERVER['QUERY_STRING'] . '">';
             } else {
                 header('Content-Description: File Transfer');
