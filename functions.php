@@ -8,6 +8,7 @@ function create_new_user($username, $sharephrase, $password, $createkey, $errorh
             return;
         }
     }
+    $username = strtolower($username);
     if (isset($username) && $username != "" && isset($sharephrase) && $sharephrase != "" && isset($password) && $password != "") {
 
         //check for valid username
