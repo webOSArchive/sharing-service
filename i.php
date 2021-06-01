@@ -18,9 +18,8 @@ if (!isset($sharehandle)) {    //Deal with no usable request
 
 $sharehandle = base64url_decode($sharehandle);
 $shareparts = explode("|", $sharehandle);
-
 if (count($shareparts) > 1) {
-    $username = $shareparts[0];
+    $username = strtolower($shareparts[0]);
     $contentid = $shareparts[1];
 
     if (!is_dir("data/" . $username)) {
