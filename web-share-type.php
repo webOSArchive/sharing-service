@@ -23,7 +23,7 @@
             <tr>
                 <td colspan="3" align="center">
                     <a href="web-share-image.php?<?php echo $_SERVER['QUERY_STRING']?>">
-                    <img src="images/share-image.png" style="margin-top:8px;" id="imgIcon"/><br/><br/>
+                    <img src="images/share-image.png" style="margin-top:8px;" id="imgIcon" border="0"/><br/><br/>
                     <b>Share an image</b><br/>
                     </a>
                     &nbsp;
@@ -38,7 +38,7 @@
             <tr>
                 <td colspan="3" align="center">
                     <a href="web-share-text.php?<?php echo $_SERVER['QUERY_STRING']?>">
-                    <img src="images/share-text.png" style="margin-top:8px;" id="imgIcon"/><br/><br/>
+                    <img src="images/share-text.png" style="margin-top:8px;" id="imgIcon" border="0"/><br/><br/>
                     <b>Share some text or JSON</b><br/>
                     </a>
                     &nbsp;

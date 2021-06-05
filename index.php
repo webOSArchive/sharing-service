@@ -24,7 +24,7 @@
             <tr>
                 <td colspan="3" align="center">
                     <a href="web-share-type.php">
-                    <img src="images/share-plus.png" style="margin-top:8px;" id="imgIcon"/><br/><br/>
+                    <img src="images/share-plus.png" style="margin-top:8px;" id="imgIcon" border="0"/><br/><br/>
                     <b>Share with someone</b><br/>
                     </a>
                     &nbsp;
@@ -39,7 +39,7 @@
             <tr>
                 <td colspan="3" align="center">
                     <a href="web-agreement.php">
-                    <img src="images/share-new.png" style="margin-top:8px;" id="imgIcon"/><br/><br/>
+                    <img src="images/share-new.png" style="margin-top:8px;" id="imgIcon" border="0"/><br/><br/>
                     <b>Create a Share space</b><br/>
                     </a>
                     &nbsp;
