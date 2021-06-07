@@ -39,7 +39,7 @@ if (count($shareparts) > 1) {
         }
     }
     if (!$found) {
-        $fp = fopen('images/icon-256.png', 'rb');
+        $fp = fopen('images/share-missing.png', 'rb');
         fpassthru($fp);
     }
 
