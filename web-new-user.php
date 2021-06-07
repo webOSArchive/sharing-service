@@ -14,13 +14,8 @@
 
 <html>
 <head>
-    <title>webOS Share</title>
-    <link rel="shortcut icon" href="favicon.ico">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="images/icon.png" type="image/png">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1" />
-    <meta http-equiv="pragma" content="no-cache">
-
+    <title>Share Service</title>
+    <?php include("web-meta.php") ?>
     <script>
         function swapTech() {
             document.getElementById("imgNewWords").style.display = "inline";

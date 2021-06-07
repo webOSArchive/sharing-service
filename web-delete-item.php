@@ -27,9 +27,7 @@
 
 <html>
 <head>
-    <title>webOS Share</title>
-    <link rel="shortcut icon" href="favicon.ico">
-    <link rel="stylesheet" href="style.css">
+    <title>Share Service</title>
     <?php include("web-meta.php") ?>
     <?php
         if (isset($updatedsharedata)) {

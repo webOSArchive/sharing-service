@@ -6,10 +6,9 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>webOS Share</title>
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="style-columns.css">
-<?php include("web-meta.php") ?>
+    <title>Share Service</title>
+    <?php include("web-meta.php") ?>
+    <link rel="stylesheet" href="style-columns.css">
 </head>
 <body class="login">
 <div class="login-header"><a href="web-login.php">Cancel</a>&nbsp;</div>
