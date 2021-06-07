@@ -17,7 +17,6 @@
 <table width="100%" height="95%" style="padding-bottom: 20px;"><tr><td width="100%"align="center" valign="middle">
 <div style='max-width: 520px; color: dimgray; margin-bottom: 20px; margin-top: 10px; padding-left: 24px; padding-right: 24px; font-size: smaller'>
     <?php
-    setcookie("firsttime", true, time() + 2592000, "/");
     if (strpos($client, "hpwos") || strpos($client, "webos")) {
         echo "Welcome webOS User! This sharing service was made for you in mind, but the web front-end doesn't work on your current device. Instead, you can <a href='http://appcatalog.webosarchive.com/showMuseumDetails.php?search=share+space&app=1005788'>download the native webOS App called Share Space</a>, that works on Touchpad, Pre and all the other webOS phones!";
     } else {
