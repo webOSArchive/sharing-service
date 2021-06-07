@@ -203,6 +203,45 @@ function gracefuldeath_html($error) {
     echo "ERROR: " . $error;
 }
 
+function gracefuldeath_httpcode($code) {
+    $explanation = "An error has occured on the server and the request could not be processed";
+    if (!isset($code))
+        $code = 404;
+    switch($code) {
+        case 400: 
+            $code = "400 Bad Request";
+            $explanation = "The request was missing a required parameter and could not be processed";
+            break;
+        case 404:
+            $code = "404 Not Found";
+            $explanation = "The requested resource was not found or never existed";
+            break;
+        case 410:
+            $code = "410 Gone";
+            $explanation = "The requested content does not exist, it may have expired, been deleted, or you may have an out-of-date link";
+            break;
+        case 417:
+            $code = "417 Expectation Failed";
+            $explanation = "The user specified in the request was not found or never existed";
+            break;
+    }
+    header($_SERVER["SERVER_PROTOCOL"] . $code);
+    echo "<html><head>";
+    echo "<meta name='viewport' content='width=device-width, initial-scale=1'>";
+    echo "<title>Share Service - Error " . $code . "</title>";
+    echo "<link rel='stylesheet' href='style-columns.css'>";
+    include("web-meta.php");
+    echo "</head>";
+    echo "<body style='margin-left: 20px'><table border=0><tr>";
+    echo "<td><img src='images/icon-128.png'></td>";
+    echo "<td><h1>HTTP error: " . $code . "</h1></td>";
+    echo "</tr></table>";
+    echo "<p>" . $explanation . "<p>";
+    echo "<a href='index.php'>Go Home</a>";
+    echo "</body></html>";
+    die;
+}
+
 function gracefuldeath_later($message) {
     global $error_message;
     $error_message = $message;

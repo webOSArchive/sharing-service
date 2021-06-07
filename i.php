@@ -3,7 +3,7 @@
 //      This endpoint supports returning the binary data of an image share that can be the source of an HTML img element
 include("common.php");
 
-if (isset($_GET["size"]))
+if (isset($_GET["size"]))   //TODO: Accepted but not used at this time
     $imgSize = $_GET["size"];
 if (isset($_GET['img']) && $_GET['img'] != "") {
     $sharehandle = $_GET['img'];
@@ -12,8 +12,7 @@ if (isset($_GET['img']) && $_GET['img'] != "") {
         $sharehandle = $_SERVER['QUERY_STRING'];
 }
 if (!isset($sharehandle)) {    //Deal with no usable request
-    header($_SERVER["SERVER_PROTOCOL"] . " 400 Bad Request");
-    die;
+    gracefuldeath_httpcode(400);
 }
 
 $sharehandle = base64url_decode($sharehandle);
@@ -23,22 +22,27 @@ if (count($shareparts) > 1) {
     $contentid = $shareparts[1];
 
     if (!is_dir("data/" . $username)) {
-        gracefuldeath_html("user does not exist!");
+        gracefuldeath_httpcode(417);
     }
 
     //Make sure the file exists and can be loaded
-    $jsondata = get_share_data($username, $config['readonlykey'], 'gracefuldeath_html');
+    $jsondata = get_share_data($username, $config['readonlykey'], 'gracefuldeath_httpcode');
+    $found = false;
     foreach ($jsondata['shares'] as $share => $value) {
         //print_r($value);
         if ($contentid == $value['guid'])
         {
+            $found = true;
             header('Content-Type '. $value['contenttype']);
             $fp = fopen($value['content'], 'rb');
             fpassthru($fp);
         }
     }
+    if (!$found) {
+        gracefuldeath_httpcode(410);
+    }
 
 } else {
-    gracefuldeath_html("content request malformed!");
+    gracefuldeath_httpcode(400);
 }
 ?>

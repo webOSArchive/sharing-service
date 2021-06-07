@@ -20,7 +20,7 @@
     //Show appropriate instructions for platform
     $client = strtolower($_SERVER['HTTP_USER_AGENT']);
     if (strpos($client, "hpwos") || strpos($client, "webos")) {
-        echo "Welcome webOS User! This sharing service was made for you in mind, but the web front-end doesn't work on your current device. Instead, you can <a href='http://appcatalog.webosarchive.com/showMuseumDetails.php?search=share+space&app=1005788'>download the native webOS App called Share Space</a>, that works on Touchpad, Pre and all the other webOS phones!";
+        echo "Welcome webOS User! This sharing service was made with you in mind, but this web front-end doesn't work on your current device. Instead, you can <a href='http://appcatalog.webosarchive.com/showMuseumDetails.php?search=share+space&app=1005788'>download the native webOS App called Share Space</a>, that works on Touchpad, Pre and all the other webOS phones!";
     } else {
         echo "<span style='font-size: smaller; color: dimgray;'>The Share Service is a file sharing web app for retro devices -- but it works with modern devices too! You can create an account where you can share pictures or text with others, or they can share with you!</span>";
     }

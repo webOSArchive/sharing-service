@@ -15,8 +15,7 @@ if (isset($_GET['itemid']) && $_GET['itemid'] != "") {
         $itemid = $_SERVER['QUERY_STRING'];
 }
 if (!isset($itemid)) {    //Deal with no usable request
-    header($_SERVER["SERVER_PROTOCOL"] . " 400 Bad Request");
-    die;
+    gracefuldeath_httpcode(400);
 }
 
 $sharehandle = base64url_decode($itemid);
@@ -26,14 +25,16 @@ if (count($shareparts) > 1) {
     $contentid = $shareparts[1];
 
     if (!is_dir("data/" . $username)) {
-        gracefuldeath_html("user does not exist!");
+        gracefuldeath_httpcode(417);
     }
 
     //Make sure the file exists and can be loaded
-    $jsondata = get_share_data($username, $config['readonlykey'], 'gracefuldeath_html');
+    $jsondata = get_share_data($username, $config['readonlykey'], 'gracefuldeath_httpcode');
+    $found = false;
     foreach ($jsondata['shares'] as $share => $value) {
         if ($contentid == $value['guid'])
         {
+            $found = true;
             //Prepare the cache name
             $cacheID = "thumb-" . $value['guid'];
             $path = "data/" . $username;
@@ -54,9 +55,12 @@ if (count($shareparts) > 1) {
             exit;
         }
     }
+    if (!$found) {
+        gracefuldeath_httpcode(410);
+    }
 
 } else {
-    gracefuldeath_html("content request malformed!");
+    gracefuldeath_httpcode(400);
 }
 
 //Function to resize common image formats

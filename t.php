@@ -5,7 +5,7 @@ include("common.php");
 
 $sharehandle = $_SERVER['QUERY_STRING'];
 if (!isset($sharehandle) || $sharehandle == "")
-    graceful_death("content request not specified!");
+    gracefuldeath_httpcode(400);
 
 if (strpos($sharehandle, "&fbclid")) {
     $sharehandle = str_replace("%3D", "=", $sharehandle);
@@ -20,15 +20,17 @@ if (count($shareparts) > 1) {
     $contentid = $shareparts[1];
 
     if (!is_dir("data/" . $username)) {
-        gracefuldeath_html("user does not exist!");
+        gracefuldeath_httpcode(417);
     }
 
     //Make sure the file exists and can be loaded
-    $jsondata = get_share_data($username, $config['readonlykey'], 'gracefuldeath_html');
+    $jsondata = get_share_data($username, $config['readonlykey'], 'gracefuldeath_httpcode');
+    $found = false;
     foreach ($jsondata['shares'] as $share => $value) {
         //print_r($value);
         if ($contentid == $value['guid'])
         {
+            $found = true;
             if ($value['contenttype'] == "application/json") {
                 header('Content-Type: application/json');
                 print_r(json_encode($value['content'], JSON_PRETTY_PRINT));
@@ -39,9 +41,12 @@ if (count($shareparts) > 1) {
             }
         }
     }
+    if (!$found) {
+        gracefuldeath_httpcode(410);
+    }
 
 } else {
-    gracefuldeath_html("content request malformed!");
+    gracefuldeath_httpcode(400);
 }
 
 

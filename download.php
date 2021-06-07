@@ -5,7 +5,7 @@ include("common.php");
 
 $sharehandle = $_SERVER['QUERY_STRING'];
 if (!isset($sharehandle) || $sharehandle == "")
-    gracefuldeath_html("content request not specified!");
+    gracefuldeath_httpcode(400);
 
 //handle Facebook
 if (strpos($sharehandle, "&fbclid")) {
@@ -20,17 +20,18 @@ if (count($shareparts) > 1) {
     $contentid = $shareparts[1];
 
     if (!is_dir("data/" . $username)) {
-        gracefuldeath_html("user does not exist!");
+        gracefuldeath_httpcode(417);
     }
 
     //Make sure the file exists and can be loaded
-    $jsondata = get_share_data($username, $config['readonlykey'], 'gracefuldeath_html');
+    $jsondata = get_share_data($username, $config['readonlykey'], 'gracefuldeath_httpcode');
+    $found = false;
     foreach ($jsondata['shares'] as $share => $value) {
         //print_r($value);
         if ($contentid == $value['guid'])
         {
-
-	    $client = strtolower($_SERVER['HTTP_USER_AGENT']);
+            $found = true;
+	        $client = strtolower($_SERVER['HTTP_USER_AGENT']);
             if (strpos($client, "hpwos") || strpos($client, "webos") || strpos($client, "android")) {
                 echo '<img src="i.php?'. $_SERVER['QUERY_STRING'] . '">';
             } else {
@@ -46,8 +47,11 @@ if (count($shareparts) > 1) {
             }
         }
     }
+    if (!$found) {
+        gracefuldeath_httpcode(410);
+    }
 
 } else {
-    gracefuldeath_html("content request malformed!");
+    gracefuldeath_httpcode(400);
 }
 ?>
