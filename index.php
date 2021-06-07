@@ -20,10 +20,10 @@
     if (strpos($client, "hpwos") || strpos($client, "webos")) {
         echo "Welcome webOS User! This sharing service was made for you in mind, but the web front-end doesn't work on your current device. Instead, you can <a href='http://appcatalog.webosarchive.com/showMuseumDetails.php?search=share+space&app=1005788'>download the native webOS App called Share Space</a>, that works on Touchpad, Pre and all the other webOS phones!";
     } else {
-        if (!isset($_COOKIE["firsttime"]) || $_COOKIE["firsttime"] == true) {
+        if (!isset($_COOKIE["firsttime"]) || $_COOKIE["firsttime"] == "true") {
             echo "The Share Service is a file sharing web app for retro devices -- but it works with modern devices too! You can create an account where you can share pictures or text with others, or they can share with you!";
         }
-        setcookie("firsttime", false, time() + 2592000, "/");
+        setcookie("firsttime", "false", time() + 2592000, "/");
     }
     ?>
 </div>
