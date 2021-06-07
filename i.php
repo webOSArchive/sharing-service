@@ -39,7 +39,8 @@ if (count($shareparts) > 1) {
         }
     }
     if (!$found) {
-        gracefuldeath_httpcode(410);
+        $fp = fopen('images/icon-256.png', 'rb');
+        fpassthru($fp);
     }
 
 } else {
