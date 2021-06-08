@@ -15,10 +15,20 @@
 <div class="login-header"><a href="web-login.php">Login</a>&nbsp;</div>
 
 <table width="100%" height="95%" style="padding-bottom: 20px;"><tr><td width="100%"align="center" valign="middle">
+<div style='max-width: 520px; margin-bottom: 20px; margin-top: 10px; padding-left: 24px; padding-right: 24px;'>
+    <?php
+    //Show appropriate instructions for platform
+    $client = strtolower($_SERVER['HTTP_USER_AGENT']);
+    if (strpos($client, "hpwos") || strpos($client, "webos")) {
+        echo "Welcome webOS User! This sharing service was made with you in mind, but this web front-end doesn't work on your current device. Instead, you can <a href='http://appcatalog.webosarchive.com/showMuseumDetails.php?search=share+space&app=1005788'>download the native webOS App called Share Space</a>, that works on Touchpad, Pre and all the other webOS phones!";
+    } else {
+        echo "<span style='font-size: smaller; color: dimgray;'>The Share Service is a file sharing web app for retro devices -- but it works with modern devices too! You can create an account where you can share pictures or text with others, or they can share with you!</span>";
+    }
+    ?>
+</div>
+<div id="container">
 
 <div class="row">
-
-<div id="container">
   <div class="column" >
    <div class="columnContent">
         <table width="360" height="100%" border="0" class="tableOption">
