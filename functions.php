@@ -162,6 +162,17 @@ function upload_share_file($username, $credential, $fileItem, $errorhandler) {
                     $errorhandler("image is too large to share here; reduce the file size to be less than " . ($config['maximagesize'] / 1024000) . " MB");
                     $valid_file = false;
                 }
+                //try to find type for poorly typed images
+                if ($fileItem['type'] == "application/octet-stream") {
+                    $ext = explode(".", $fileItem['name']);
+                    $ext = strtolower(end($ext));
+                    if ($ext == "jpg")
+                        $fileItem['type'] = "image/jpeg";
+                    else if ($ext == "png")
+                        $fileItem['type'] = "image/png";
+                    else if ($ext == "gif")
+                        $fileItem['type'] = "image/gif";
+                }
                 if (!in_array($fileItem['type'], $supported_content_types)) {
                     $errorhandler("upload file type, " . $fileItem['type'] . ", is not allowed by this user or service instance");
                     $valid_file = false;
