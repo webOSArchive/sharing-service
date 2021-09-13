@@ -9,7 +9,7 @@
             setcookie("credential", $_POST["txtPassword"], time() + (3600), "/");
             header('Location: web-get-shares.php?username=' . $_POST["txtUsername"]);
         }
-    } 
+    }
 ?>
 
 <html>

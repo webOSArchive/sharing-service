@@ -114,7 +114,7 @@ function convert_shares_to_public_schema($data, $username, $credential) {
     class userdata {};
     $thisuserdata = new userdata();
     $thisuserdata->accesslevel = "share";
-    if (password_verify($credential, $data['password']))
+    if (password_verify(strtolower($credential), $data['password']))
         $thisuserdata->accesslevel = "admin";
     $thisuserdata->sharetype = $data['sharetype'];
     $thisuserdata->sharephrase = $data['sharephrase'];
