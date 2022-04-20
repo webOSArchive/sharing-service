@@ -36,8 +36,9 @@ if (count($shareparts) > 1) {
                 print_r(json_encode($value['content'], JSON_PRETTY_PRINT));
             }
             else {
-                header('Content-Type: text/plain');
-                print_r($value['content']);
+                header('Content-Type: text/html');
+		        $content = strip_tags($value['content'], "<br><p><b><u><i><em><ul><li><a>");
+                print_r(turnUrlIntoHyperlink($content));
             }
         }
     }
@@ -47,6 +48,29 @@ if (count($shareparts) > 1) {
 
 } else {
     gracefuldeath_httpcode(400);
+}
+
+function turnUrlIntoHyperlink($string){
+    //https://stackoverflow.com/questions/23366790/php-find-all-links-in-the-text
+    //The Regular Expression filter
+    $reg_exUrl = "/(?i)\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))/";
+
+    // Check if there is a url in the text
+    if(preg_match_all($reg_exUrl, $string, $url)) {
+        // Loop through all matches
+        foreach($url[0] as $newLinks){
+            if(strstr( $newLinks, ":" ) === false){
+                $link = 'http://'.$newLinks;
+            }else{
+                $link = $newLinks;
+            }
+            // Create Search and Replace strings
+            $search  = $newLinks;
+            $replace = '<a href="'.$link.'">'.$link.'</a>';
+            $string = str_replace($search, $replace, $string);
+        }
+    }
+    return $string;
 }
 
 
