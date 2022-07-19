@@ -95,7 +95,7 @@
                                     <p class="explainer">Enter the credentials for this Share space.<br>For read-only access, use the Share phrase, to make changes, use the Admin password.</p>
                                     <form method="POST">
                                         <table style="margin: 18px;">
-                                            <tr><td>User Name: </td><td><input type="text" name="txtUserName" id="txtUserName" value="<?php if (isset($listUsername)) { echo $lastUsername } ?>"></td></tr>
+                                            <tr><td>User Name: </td><td><input type="text" name="txtUserName" id="txtUserName" value="<?php if (isset($listUsername)) { echo $lastUsername; } ?>"></td></tr>
                                             <tr><td>Password:  </td><td><input type="password" id="txtCredential" name="txtCredential">&nbsp;<img src="images/eyeball.png" id="imgTogglePass" style="display:none;height:20px;width:20px; vertical-align:middle" onclick="togglePassword()"></td></tr>
                                         </table>
                                         <input type="submit" value="Let's Go!">
