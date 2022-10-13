@@ -20,7 +20,7 @@
     //Show appropriate instructions for platform
     $client = strtolower($_SERVER['HTTP_USER_AGENT']);
     if (strpos($client, "hpwos") || strpos($client, "webos")) {
-        echo "Welcome webOS User! This sharing service was made with you in mind, but this web front-end doesn't work on your current device. Instead, you can <a href='http://appcatalog.webosarchive.com/showMuseumDetails.php?search=share+space&app=1005788'>download the native webOS App called Share Space</a>, that works on Touchpad, Pre and all the other webOS phones!";
+        echo "Welcome webOS User! This sharing service was made with you in mind, but this web front-end doesn't work on your current device. Instead, you can <a href='	https://appcatalog.webosarchive.org/app/ShareSpace'>download the native webOS App called Share Space</a>, that works on Touchpad, Pre and all the other webOS phones!";
     } 
     ?>
 </div>
