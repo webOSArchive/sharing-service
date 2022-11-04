@@ -10,3 +10,15 @@
 <link rel="stylesheet" href="style.css">
 <meta name="viewport" content="width=device-width, initial-scale=0.8, user-scalable=1" />
 <meta http-equiv="pragma" content="no-cache">
+<?php
+  //Figure out what protocol the client wanted
+  if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
+    $protocol = "https";
+  else
+    $protocol = "http";
+?>
+<!-- Notification Code -->
+<link rel="stylesheet" href="<?php echo $protocol ?>://www.webosarchive.org/notifications/notifications.css">
+<script src="<?php echo $protocol ?>://www.webosarchive.org/notifications/notifications.js"></script>
+<script src="<?php echo $protocol ?>://www.webosarchive.org/tldnotice.js"></script>
+<!-- End Notification Code -->
