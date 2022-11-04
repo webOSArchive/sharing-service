@@ -6,7 +6,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Share Service</title>
 <link rel="stylesheet" href="style-columns.css">
 <?php include("web-meta.php") ?>

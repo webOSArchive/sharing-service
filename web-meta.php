@@ -1,3 +1,4 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" sizes="256x256" href="images/icon-256.png">
 <link rel="shortcut icon" sizes="196x196" href="images/icon-196.png">
 <link rel="shortcut icon" sizes="128x128" href="images/icon-128.png">
