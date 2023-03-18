@@ -7,9 +7,8 @@ $config = include('config.php');
         echo "<li><i>This server allows you to share up to " . $config['maxsharelength'] . " items per share space.</i></li>";
     }
     if (isset($config['termsandconditions'])) {
-        while (list($key, $val) = each($config['termsandconditions']))
-        {
-        echo "<li>$val</li>";
+        foreach ($config['termsandconditions'] as $key => $val) {
+                echo "<li>$val</li>";
         }
     } else {
         echo "Administrator: you can define your terms and conditions by creating a config.php file -- use the config-example.php as a reference.";
