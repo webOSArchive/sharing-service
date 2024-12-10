@@ -2,6 +2,7 @@
 // ithumb Endpoint
 //      This endpoint creates (if needed) and returns a smaller version of an image share as binary data that can be the source of an HTML img element
 include ("common.php");
+require __DIR__ . '/vendor/autoload.php';
 
 //Handle more specific queries
 $itemid = null;
