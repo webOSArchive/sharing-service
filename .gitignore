@@ -3,3 +3,7 @@ data/*
 .htaccess
 docker/
 sharelog.json
+composer.json
+composer.lock
+libheif/
+vendor/
