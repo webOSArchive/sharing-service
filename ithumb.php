@@ -68,29 +68,42 @@ if (count($shareparts) > 1) {
 function resize_img($newWidth, $targetFile, $originalFile) {
 
     $info = getimagesize($originalFile);
-    $mime = $info['mime'];
+    if (is_array($info))
+        $mime = $info['mime'];
+    else
+        $mime = "unknown";
 
     switch ($mime) {
             case 'image/jpeg':
+                $image_create_func = 'imagecreatefromjpeg';
+                $image_save_func = 'imagejpeg';
+                $new_image_ext = 'jpg';
+                break;
+
+            case 'image/png':
+                $image_create_func = 'imagecreatefrompng';
+                $image_save_func = 'imagepng';
+                $new_image_ext = 'png';
+                break;
+
+            case 'image/gif':
+                $image_create_func = 'imagecreatefromgif';
+                $image_save_func = 'imagegif';
+                $new_image_ext = 'gif';
+                break;
+
+            default: 
+                $fileIsHeic = Maestroerror\HeicToJpg::isHeic($originalFile);
+                if ($fileIsHeic) {
+                    error_log("HEIC detected, attempting conversion!");
+                    Maestroerror\HeicToJpg::convert($originalFile, __DIR__ . "/vendor/bin/heif-converter-linux")->saveAs($originalFile);
                     $image_create_func = 'imagecreatefromjpeg';
                     $image_save_func = 'imagejpeg';
                     $new_image_ext = 'jpg';
-                    break;
-
-            case 'image/png':
-                    $image_create_func = 'imagecreatefrompng';
-                    $image_save_func = 'imagepng';
-                    $new_image_ext = 'png';
-                    break;
-
-            case 'image/gif':
-                    $image_create_func = 'imagecreatefromgif';
-                    $image_save_func = 'imagegif';
-                    $new_image_ext = 'gif';
-                    break;
-
-            default: 
+                } else {
                     throw new Exception('Unknown image type.');
+                }
+                break;
     }
 
     $img = $image_create_func($originalFile);
