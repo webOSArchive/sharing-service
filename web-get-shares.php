@@ -1,13 +1,13 @@
 <?php
 if (!isset($_GET["username"]) || !isset($_COOKIE["credential"])) {
-    header('Location: web-login.php?username=' . $_GET["username"]);
+    header('Location: web-login.php?username=' . urlencode($_GET["username"]));
 }
 include("common.php");
 
 $jsondata = get_share_data($_GET["username"], $_COOKIE["credential"], 'gracefuldeath_html');
 $sharedata = convert_shares_to_public_schema($jsondata, $_GET["username"], $_COOKIE["credential"]);
 if ($sharedata->accesslevel != 'admin') {
-    header('Location: web-share-type.php?username=' . $_GET["username"]);
+    header('Location: web-share-type.php?username=' . urlencode($_GET["username"]));
 }
 ?>
 
@@ -32,14 +32,14 @@ if ($sharedata->accesslevel != 'admin') {
     </script>
 </head>
 <body class="login" onload="swapTech()">
-<div class="login-header"><?php echo $_GET["username"] ?> | <a href="index.php">Log Out</a>&nbsp;</div>
+<div class="login-header"><?php echo safe_html_output($_GET["username"]) ?> | <a href="index.php">Log Out</a>&nbsp;</div>
 <div style="margin: 10px;">
 <?php
 if ($sharedata->accesslevel == 'admin') {
     ?>
     <div class="shareSpaceTitle">
-        <b>Share Phrase: </b><img src="images/eyeball.png" id="imgTogglePass" style="display:inline;height:20px;width:20px;margin-top:-2px;vertical-align:middle" onclick="togglePassword()" title="<?php echo $sharedata->sharephrase; ?>">&nbsp;<span id="spnSharePhrase" style="display:none"><?php echo $sharedata->sharephrase; ?></span><br>
-        <b>Share Type: </b><?php echo $sharedata->sharetype; ?>
+        <b>Share Phrase: </b><img src="images/eyeball.png" id="imgTogglePass" style="display:inline;height:20px;width:20px;margin-top:-2px;vertical-align:middle" onclick="togglePassword()" title="<?php echo safe_html_output($sharedata->sharephrase); ?>">&nbsp;<span id="spnSharePhrase" style="display:none"><?php echo safe_html_output($sharedata->sharephrase); ?></span><br>
+        <b>Share Type: </b><?php echo safe_html_output($sharedata->sharetype); ?>
     </div>
     <?php
     foreach($sharedata->shares as $thisshare)
@@ -49,27 +49,27 @@ if ($sharedata->accesslevel == 'admin') {
             case "text/plain":
                 $textLink = make_url_from_contentid($thisshare['guid'], $_GET["username"], "t");
                 $imageLoad = make_url_from_contentid($thisshare['guid'], $_GET["username"], "tthumb");
-                echo "<td class='shareDescriptor'><img src='" . $imageLoad . "' style='border:1px solid black; height: 64px' vertical-align:middle></td>";
-                echo "<td class='shareContent'>Shared on: " . $thisshare['timestamp'] . " UTC <br>";
-                echo "<div class='shareLinks'><b>Public View Link:</b> <a href='" . $textLink . "' target='_blank'>" . $textLink . "</a></div>";
+                echo "<td class='shareDescriptor'><img src='" . safe_html_output($imageLoad) . "' style='border:1px solid black; height: 64px' vertical-align:middle></td>";
+                echo "<td class='shareContent'>Shared on: " . safe_html_output($thisshare['timestamp']) . " UTC <br>";
+                echo "<div class='shareLinks'><b>Public View Link:</b> <a href='" . safe_html_output($textLink) . "' target='_blank'>" . safe_html_output($textLink) . "</a></div>";
                 break;
             case "application/json":
                 $textLink = make_url_from_contentid($thisshare['guid'], $_GET["username"], "t");
                 $imageLoad = make_url_from_contentid($thisshare['guid'], $_GET["username"], "tthumb");
-                echo "<td class='shareDescriptor'><img src='" . $imageLoad . "' style='border:1px solid black; height: 64px' vertical-align:middle></td>";
-                echo "<td class='shareContent'>Shared on: " . $thisshare['timestamp'] . " UTC <br>";
-                echo "<div class='shareLinks'><b>Public View Link:</b> <a href='" . $textLink . "' target='_blank'>" . $textLink . "</a></div>";
+                echo "<td class='shareDescriptor'><img src='" . safe_html_output($imageLoad) . "' style='border:1px solid black; height: 64px' vertical-align:middle></td>";
+                echo "<td class='shareContent'>Shared on: " . safe_html_output($thisshare['timestamp']) . " UTC <br>";
+                echo "<div class='shareLinks'><b>Public View Link:</b> <a href='" . safe_html_output($textLink) . "' target='_blank'>" . safe_html_output($textLink) . "</a></div>";
                 break;
             default:
                 $imagePreview = make_url_from_contentid($thisshare['guid'], $_GET["username"], "image");
                 $imageLoad = make_url_from_contentid($thisshare['guid'], $_GET["username"], "ithumb");
                 $imageDownload = make_url_from_contentid($thisshare['guid'], $_GET["username"], "download");
-                echo "<td class='shareDescriptor'><img src='" . $imageLoad . "' style='height: 64px' vertical-align:middle></td>";
-                echo "<td class='shareContent'>Shared on: " . $thisshare['timestamp'] . " UTC <br><div class='shareLinks'><b>Public View Link:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b> <a href='" . $imagePreview . "' target='_blank'>" . $imagePreview . "</a><br>";
-                echo "<b>Public Download Link:</b> <a href='" . $imageDownload . "'>" . $imageDownload . "</a></div>";
+                echo "<td class='shareDescriptor'><img src='" . safe_html_output($imageLoad) . "' style='height: 64px' vertical-align:middle></td>";
+                echo "<td class='shareContent'>Shared on: " . safe_html_output($thisshare['timestamp']) . " UTC <br><div class='shareLinks'><b>Public View Link:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b> <a href='" . safe_html_output($imagePreview) . "' target='_blank'>" . safe_html_output($imagePreview) . "</a><br>";
+                echo "<b>Public Download Link:</b> <a href='" . safe_html_output($imageDownload) . "'>" . safe_html_output($imageDownload) . "</a></div>";
                 break;
             }
-        echo "<div class='shareDelete'><a href='web-delete-item.php?username=" . $_GET["username"] . "&itemid=" . $thisshare['guid'] . "'>Delete</a></div>";
+        echo "<div class='shareDelete'><a href='web-delete-item.php?username=" . urlencode($_GET["username"]) . "&itemid=" . urlencode($thisshare['guid']) . "'>Delete</a></div>";
         echo "</td></tr></table>";
     }
 } else {

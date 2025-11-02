@@ -31,9 +31,14 @@ if (count($shareparts) > 1) {
         if ($contentid == $value['guid'])
         {
             $found = true;
-	        $client = strtolower($_SERVER['HTTP_USER_AGENT']);
+            // Validate file path to prevent path traversal
+            if (!validate_file_path($value['content'], $username)) {
+                error_log("Path traversal attempt in download.php: " . $value['content']);
+                gracefuldeath_httpcode(403);
+            }
+            $client = strtolower($_SERVER['HTTP_USER_AGENT']);
             if (strpos($client, "hpwos") || strpos($client, "webos") || strpos($client, "android")) {
-                echo '<img src="i.php?'. $_SERVER['QUERY_STRING'] . '">';
+                echo '<img src="i.php?'. safe_html_output($_SERVER['QUERY_STRING']) . '">';
             } else {
                 header('Content-Description: File Transfer');
                 header('Content-Type: application/octet-stream');

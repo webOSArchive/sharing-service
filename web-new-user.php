@@ -54,7 +54,7 @@
                                     <td colspan="3" align="center">
                                         <p>      
                                         <?php
-                                            echo "<span style='color:red;'>Error: " . $error_message . "</span>";
+                                            echo "<span style='color:red;'>Error: " . safe_html_output($error_message) . "</span>";
                                         ?>
                                     </td>
                                 </tr>

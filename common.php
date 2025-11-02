@@ -15,6 +15,51 @@ $supported_content_types = [
     "application/json"
 ];
 
+// Security helper function: Safely encode output for HTML context
+function safe_html_output($string) {
+    if ($string === null) {
+        return '';
+    }
+    return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
+}
+
+// Security helper function: Validate file paths to prevent path traversal
+function validate_file_path($filepath, $username = null) {
+    // Get the absolute path and resolve any .. or . components
+    $realPath = realpath($filepath);
+
+    // If realpath returns false, the file doesn't exist yet (which might be OK for writes)
+    // In that case, check the directory
+    if ($realPath === false) {
+        $dirPath = dirname($filepath);
+        $realDirPath = realpath($dirPath);
+        if ($realDirPath === false) {
+            return false; // Directory doesn't exist
+        }
+        $realPath = $realDirPath . '/' . basename($filepath);
+    }
+
+    // Get the base data directory
+    $baseDataDir = realpath(__DIR__ . '/data');
+
+    // Ensure the file is within the data directory
+    if (strpos($realPath, $baseDataDir) !== 0) {
+        error_log("Path traversal attempt detected: " . $filepath);
+        return false;
+    }
+
+    // If username is provided, ensure file is within that user's directory
+    if ($username !== null) {
+        $userDir = realpath(__DIR__ . '/data/' . strtolower($username));
+        if ($userDir === false || strpos($realPath, $userDir) !== 0) {
+            error_log("Path traversal attempt: file outside user directory: " . $filepath);
+            return false;
+        }
+    }
+
+    return true;
+}
+
 //This function gets the authorization data sent and validates that it exists, but does NOT perform the authorization
 function get_authorization($errorhandler = 'gracefuldeath_json') {
     global $config;

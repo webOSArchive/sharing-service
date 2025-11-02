@@ -37,7 +37,9 @@ if (count($shareparts) > 1) {
             }
             else {
                 header('Content-Type: text/html');
-		        $content = strip_tags($value['content'], "<br><p><b><u><i><em><ul><li><a>");
+                // First encode all HTML entities for security
+                $content = safe_html_output($value['content']);
+                // Then convert URLs to hyperlinks on the encoded content
                 print_r(turnUrlIntoHyperlink($content));
             }
         }
@@ -53,20 +55,27 @@ if (count($shareparts) > 1) {
 function turnUrlIntoHyperlink($string){
     //https://stackoverflow.com/questions/23366790/php-find-all-links-in-the-text
     //The Regular Expression filter
-    $reg_exUrl = "/(?i)\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))/";
+    $reg_exUrl = "/(?i)\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»""'']))/";
 
     // Check if there is a url in the text
     if(preg_match_all($reg_exUrl, $string, $url)) {
         // Loop through all matches
         foreach($url[0] as $newLinks){
-            if(strstr( $newLinks, ":" ) === false){
-                $link = 'http://'.$newLinks;
+            // Decode the URL since the string is already HTML-encoded
+            $decodedLink = html_entity_decode($newLinks, ENT_QUOTES, 'UTF-8');
+            if(strstr($decodedLink, ":" ) === false){
+                $link = 'http://'.$decodedLink;
             }else{
-                $link = $newLinks;
+                $link = $decodedLink;
             }
-            // Create Search and Replace strings
+            // Validate URL scheme to prevent javascript: and data: URLs
+            $parsedUrl = parse_url($link);
+            if (isset($parsedUrl['scheme']) && !in_array(strtolower($parsedUrl['scheme']), ['http', 'https', 'ftp'])) {
+                continue; // Skip invalid/dangerous schemes
+            }
+            // Create Search and Replace strings with proper encoding
             $search  = $newLinks;
-            $replace = '<a href="'.$link.'">'.$link.'</a>';
+            $replace = '<a href="'.safe_html_output($link).'">'.safe_html_output($decodedLink).'</a>';
             $string = str_replace($search, $replace, $string);
         }
     }

@@ -66,20 +66,20 @@
                                     <p>      
                                     <?php
                                     if (isset($error_message)) {
-                                        echo "<span style='color:red;'>Error: " . $error_message . "</span>";
+                                        echo "<span style='color:red;'>Error: " . safe_html_output($error_message) . "</span>";
                                     }
                                     else {
-                                        echo "<a href='" . $imageDownload . "'>";
-                                        echo "<img src='" . $imageThumb . "' style='height: 64px; margin-top:8px; vertical-align:middle;'>";  
+                                        echo "<a href='" . safe_html_output($imageDownload) . "'>";
+                                        echo "<img src='" . safe_html_output($imageThumb) . "' style='height: 64px; margin-top:8px; vertical-align:middle;'>";
                                         echo "</a>";
                                         $imagePreview = str_replace("i.php", "image.php", $imagePreview);
-                                    
+
                                         echo "&nbsp;<b>Image Shared!</b></p>";
                                         echo "<table style='margin: 18px;font-size: smaller;'>";
                                         echo "<tr>";
-                                        echo "<td>Public View Link:</td><td> <span class='shareLinks'><a href='" . $imagePreview . "' target='_blank'>" . $imagePreview . "</a></span></tr>";
+                                        echo "<td>Public View Link:</td><td> <span class='shareLinks'><a href='" . safe_html_output($imagePreview) . "' target='_blank'>" . safe_html_output($imagePreview) . "</a></span></tr>";
                                         echo "</tr><tr>";
-                                        echo "<td>Public Download Link:</td><td> <span class='shareLinks'><a href='" . $imageDownload . "'>" . $imageDownload . "</a></span></td>";
+                                        echo "<td>Public Download Link:</td><td> <span class='shareLinks'><a href='" . safe_html_output($imageDownload) . "'>" . safe_html_output($imageDownload) . "</a></span></td>";
                                         echo "</tr>";
                                         echo "</table>";
                                     }
@@ -106,8 +106,8 @@
                                         Enter the info for the person or service you want to share with, then pick an image to share with them...<br>
                                         </div>
                                         <table style="margin: 18px;">
-                                            <tr><td>User Name: </td><td><input type="text" name="txtUsername" id="txtUsername" value="<?php echo $username ?>"></td></tr>
-                                            <tr><td>Share Phrase:  </td><td><input type="password" id="txtCredential" name="txtCredential" value="<?php echo $credential ?>">&nbsp;<img src="images/eyeball.png" id="imgTogglePass" style="display:none;height:20px;width:20px; vertical-align:middle" onclick="togglePassword()"></td></tr>
+                                            <tr><td>User Name: </td><td><input type="text" name="txtUsername" id="txtUsername" value="<?php echo safe_html_output($username) ?>"></td></tr>
+                                            <tr><td>Share Phrase:  </td><td><input type="password" id="txtCredential" name="txtCredential" value="<?php echo safe_html_output($credential) ?>">&nbsp;<img src="images/eyeball.png" id="imgTogglePass" style="display:none;height:20px;width:20px; vertical-align:middle" onclick="togglePassword()"></td></tr>
                                             <tr><td>Photo: </td><td><input type="file" name="frmImage" accept="image/gif, image/jpeg, image/png" /></td></tr>
                                         </table>
                                         <input type="submit" value="Share">

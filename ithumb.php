@@ -36,12 +36,25 @@ if (count($shareparts) > 1) {
         if ($contentid == $value['guid'])
         {
             $found = true;
+            // Validate source file path to prevent path traversal
+            if (!validate_file_path($value['content'], $username)) {
+                error_log("Path traversal attempt in ithumb.php (source): " . $value['content']);
+                gracefuldeath_httpcode(403);
+            }
+
             //Prepare the cache name
             $cacheID = "thumb-" . $value['guid'];
             $path = "data/" . $username;
 
             //Fetch and cache the file if its not already cached
             $path = $path . "/" . $cacheID . ".png";
+
+            // Validate cache path to prevent path traversal
+            if (!validate_file_path($path, $username)) {
+                error_log("Path traversal attempt in ithumb.php (cache): " . $path);
+                gracefuldeath_httpcode(403);
+            }
+
             if (!file_exists($path)) {
                 resize_img($imgSize, $path, $value['content']);
             }

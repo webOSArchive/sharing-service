@@ -70,17 +70,17 @@
                                     <p>      
                                     <?php
                                     if (isset($error_message)) {
-                                        echo "<span style='color:red;'>Error: " . $error_message . "</span>";
+                                        echo "<span style='color:red;'>Error: " . safe_html_output($error_message) . "</span>";
                                     }
                                     else {
-                                        echo "<a href='" . $textPreview . "'>";
-                                        echo "<img src='" . $textThumb . "' style='border: 1px solid black; height: 64px; margin-top:8px; vertical-align:middle;'>";  
+                                        echo "<a href='" . safe_html_output($textPreview) . "'>";
+                                        echo "<img src='" . safe_html_output($textThumb) . "' style='border: 1px solid black; height: 64px; margin-top:8px; vertical-align:middle;'>";
                                         echo "</a>";
-                                    
+
                                         echo "&nbsp;<b>Text Shared!</b></p>";
                                         echo "<table style='margin: 18px;font-size: smaller;'>";
                                         echo "<tr>";
-                                        echo "<td>Public View Link:</td><td> <span class='shareLinks'><a href='" . $textPreview . "' target='_blank'>" . $textPreview . "</a></span></tr>";
+                                        echo "<td>Public View Link:</td><td> <span class='shareLinks'><a href='" . safe_html_output($textPreview) . "' target='_blank'>" . safe_html_output($textPreview) . "</a></span></tr>";
                                         echo "</tr>";
                                         echo "</table>";
                                     }
@@ -107,8 +107,8 @@
                                         Enter the info for the person or service you want to share with, the type of text, then type or paste the content to share...
                                         </div>
                                         <table style="margin: 18px;">
-                                            <tr><td>User Name: </td><td><input type="text" name="txtUsername" id="txtUsername" value="<?php echo $username ?>"></td></tr>
-                                            <tr><td>Share Phrase:  </td><td><input type="password" id="txtCredential" name="txtCredential" value="<?php echo $credential ?>">&nbsp;<img src="images/eyeball.png" id="imgTogglePass" style="display:none;height:20px;width:20px; vertical-align:middle" onclick="togglePassword()"></td></tr>
+                                            <tr><td>User Name: </td><td><input type="text" name="txtUsername" id="txtUsername" value="<?php echo safe_html_output($username) ?>"></td></tr>
+                                            <tr><td>Share Phrase:  </td><td><input type="password" id="txtCredential" name="txtCredential" value="<?php echo safe_html_output($credential) ?>">&nbsp;<img src="images/eyeball.png" id="imgTogglePass" style="display:none;height:20px;width:20px; vertical-align:middle" onclick="togglePassword()"></td></tr>
                                             <tr><td>Type: </td>
                                                 <td>
                                                 <select id="optContentType" name="optContentType">

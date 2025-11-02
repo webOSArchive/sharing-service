@@ -33,6 +33,11 @@ if (count($shareparts) > 1) {
         if ($contentid == $value['guid'])
         {
             $found = true;
+            // Validate file path to prevent path traversal
+            if (!validate_file_path($value['content'], $username)) {
+                error_log("Path traversal attempt in i.php: " . $value['content']);
+                gracefuldeath_httpcode(403);
+            }
             header('Content-Type '. $value['contenttype']);
             $fp = fopen($value['content'], 'rb');
             fpassthru($fp);

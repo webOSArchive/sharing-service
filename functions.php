@@ -196,7 +196,14 @@ function upload_share_file($username, $credential, $fileItem, $errorhandler) {
                             break;
                     }
                     $newfile = "data/" . $username . "/" . $newfile;
-                    
+
+                    // Validate destination path to prevent path traversal
+                    if (!validate_file_path($newfile, $username)) {
+                        error_log("Path traversal attempt in upload_share_file: " . $newfile);
+                        $errorhandler("Invalid file path");
+                        return;
+                    }
+
                     //Move the image into place
                     if (move_uploaded_file($fileItem['tmp_name'], $newfile)) {
 
@@ -314,11 +321,13 @@ function remove_share_content($oldsharedata, $itemid, $username) {
         {
             if (strrpos($value['contenttype'], "image") !== false) {
                 $file = $value['content'];
-                if (file_exists($file)) {
+                // Validate file path to prevent path traversal before deletion
+                if (validate_file_path($file, $username) && file_exists($file)) {
                     unlink($file);
                 }
                 $file = str_replace($itemid, "thumb-".$itemid, $file);
-                if (file_exists($file)) {
+                // Validate thumbnail path to prevent path traversal before deletion
+                if (validate_file_path($file, $username) && file_exists($file)) {
                     unlink($file);
                 }
             }
