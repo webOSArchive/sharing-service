@@ -38,7 +38,7 @@ Look for the first-run block:
 
 Keep these values — you need them to connect the app and create accounts.
 
-Your server is now running on port **8080**. Use `http://your-pi-hostname:8080/` as the server address in the app.
+Your server is now running on port **8080**. Use `http://your-server-hostname:8080/` as the server address in the app.
 
 ---
 
@@ -79,8 +79,8 @@ Use the HTTPS URL from Cloudflare as your server address in the app. **Force HTT
 
 ### Other Options
 
-- **Tailscale**: Install Tailscale on both the Pi and your devices. Use the Pi's Tailscale IP with HTTP. Good for a private mesh between your own devices.
-- **DuckDNS + Certbot**: Free dynamic DNS and Let's Encrypt certificate. More complex, requires ports 80/443 to be forwarded on your router.
+- **Tailscale**: Install Tailscale on both the Pi and your modern devices. Use the Pi's Tailscale IP with HTTP. Good for a private mesh between your own devices, doesn't work for webOS.
+- **DuckDNS + Certbot**: Free dynamic DNS and Let's Encrypt certificate. More complex, requires ports 80/443 to be forwarded on your router, should work for webOS as long as you can SSL-Bump.
 
 ---
 
@@ -91,7 +91,7 @@ In the Share Space app on your webOS device, go to **Preferences > Server**:
 | Field | Value |
 |---|---|
 | Use Custom Server | On |
-| Server URL | `http://your-pi:8080/` (or your Cloudflare URL) |
+| Server URL | `http://your-server:8080/` (or your Cloudflare URL) |
 | Client ID | From the first-run log output |
 | Create Key | From the first-run log output (needed to create accounts) |
 
