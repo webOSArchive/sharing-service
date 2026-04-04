@@ -11,6 +11,10 @@ if (array_key_exists('client-id', $request_headers) && in_array($request_headers
     gracefuldeath_json("no allowed client-id in request headers");
 }
 
+if (isset($config['allow_new_users']) && $config['allow_new_users'] === false) {
+    gracefuldeath_json("new account creation is disabled on this server");
+}
+
 //Make sure we can get the input
 $postjson = file_get_contents('php://input'); 
 try {

@@ -45,11 +45,20 @@ if [ "$FIRST_RUN" = true ]; then
         > "$CREDS_FILE"
 fi
 
+# Convert ALLOW_NEW_USERS env var to a PHP boolean for config.php
+# Accepts "false" or "0" to disable; anything else (including unset) leaves it enabled
+if [ "${ALLOW_NEW_USERS:-true}" = "false" ] || [ "${ALLOW_NEW_USERS:-true}" = "0" ]; then
+    PHP_ALLOW_NEW_USERS="false"
+else
+    PHP_ALLOW_NEW_USERS="true"
+fi
+
 # Write config.php from current values (regenerated each start so env var
 # overrides are always picked up without manual file edits)
 cat > "$CONFIG_FILE" << PHPEOF
 <?php
 return array(
+    'allow_new_users' => ${PHP_ALLOW_NEW_USERS},
     'clientids' => array('${CLIENT_ID}'),
     'createkey' => '${CREATE_KEY}',
     'readonlykey' => '${READONLY_KEY}',

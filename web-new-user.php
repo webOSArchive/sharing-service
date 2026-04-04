@@ -2,6 +2,11 @@
     include("common.php");
     include("functions.php");
 
+    if (isset($config['allow_new_users']) && $config['allow_new_users'] === false) {
+        gracefuldeath_html("New account creation is disabled on this server.");
+        die;
+    }
+
     if (isset($_POST["txtUsername"]) && isset($_POST["txtCredential"]) && isset($_POST["txtPassword"]))
     {
         $create_result = @create_new_user($_POST["txtUsername"], $_POST["txtCredential"], $_POST["txtPassword"], $_POST["txtCreateKey"], 'gracefuldeath_later');

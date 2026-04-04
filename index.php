@@ -32,6 +32,13 @@
 </head>
 <body class="login">
 <div class="login-header"><a href="web-login.php">Login</a>&nbsp;</div>
+<?php if ($isCommunityService) { ?>
+<div style="background-color:#cc6600; color:white; padding:10px; text-align:center; font-size:small;">
+    <b>Notice:</b> This service will be shut down later in 2026, please begin migrating to self-hosting. New accounts on this service are no longer permitted.
+    Visit <a href="https://github.com/webosarchive/sharing-service" style="color:white;">GitHub</a>
+    to learn how to self-host Share Space on your own hardware.
+</div>
+<?php } ?>
 
 <table width="100%" height="95%" style="padding-bottom: 20px;"><tr><td width="100%" align="center" valign="middle">
 <div style="max-width: 520px; margin-bottom: 20px; margin-top: 10px; padding-left: 24px; padding-right: 24px;">

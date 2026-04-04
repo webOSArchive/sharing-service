@@ -8,6 +8,12 @@ return array(
         'changeme',
     ),
 
+    // Set to false to prevent any new accounts from being created.
+    // Useful once you have set up your accounts and want to lock the server down.
+    // The createkey below provides lighter-weight protection; this disables account
+    // creation entirely regardless of what key is provided.
+    'allow_new_users' => true,
+
     // Key required to create new accounts. Leave empty to allow anyone to register.
     // For a private household server, set this to something only you know.
     // Use only lowercase letters and numbers.

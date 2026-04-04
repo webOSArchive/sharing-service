@@ -1,6 +1,10 @@
 <?php
     setcookie("credential", "", time() - 3600, "/");
     include("common.php");
+    if (isset($config['allow_new_users']) && $config['allow_new_users'] === false) {
+        gracefuldeath_html("New account creation is disabled on this server.");
+        die;
+    }
 ?>
 
 <html>

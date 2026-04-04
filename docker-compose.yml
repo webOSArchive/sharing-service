@@ -13,6 +13,7 @@ services:
       # Optional overrides. If not set, random values are generated on first run
       # and saved to data/.credentials. Run 'docker logs <container>' to see them.
       #
+      # ALLOW_NEW_USERS: set to "false" to disable new account creation entirely
       # CLIENT_ID: key the app must send with every request (like an API key)
       # CREATE_KEY: key required to create new user accounts in the app
       # READONLY_KEY: internal key, should be long and random, not shared
@@ -21,6 +22,7 @@ services:
       # ADMIN_CONTACT: email shown to users when a create key is required
       # SITE_NAME: shown on the web landing page
       # WELCOME_MESSAGE: shown on the web landing page
+      - ALLOW_NEW_USERS=${ALLOW_NEW_USERS:-true}
       - CLIENT_ID=${CLIENT_ID:-}
       - CREATE_KEY=${CREATE_KEY:-}
       - READONLY_KEY=${READONLY_KEY:-}
