@@ -1,0 +1,34 @@
+services:
+  sharespace:
+    build: .
+    ports:
+      # Binds to port 8080 on the host. Change the left side to use a different
+      # host port, e.g. "80:80" if you want to serve on the standard HTTP port.
+      - "8080:80"
+    volumes:
+      # Share data and generated credentials are stored here.
+      # This directory is created automatically on first run.
+      - ./data:/var/www/html/data
+    environment:
+      # Optional overrides. If not set, random values are generated on first run
+      # and saved to data/.credentials. Run 'docker logs <container>' to see them.
+      #
+      # CLIENT_ID: key the app must send with every request (like an API key)
+      # CREATE_KEY: key required to create new user accounts in the app
+      # READONLY_KEY: internal key, should be long and random, not shared
+      # SHORT_URL: alternate short domain for share links (leave empty to use host)
+      # MAX_SHARES: max items per user before oldest roll off (default 20)
+      # ADMIN_CONTACT: email shown to users when a create key is required
+      # SITE_NAME: shown on the web landing page
+      # WELCOME_MESSAGE: shown on the web landing page
+      - CLIENT_ID=${CLIENT_ID:-}
+      - CREATE_KEY=${CREATE_KEY:-}
+      - READONLY_KEY=${READONLY_KEY:-}
+      - SHORT_URL=${SHORT_URL:-}
+      - MAX_SHARES=${MAX_SHARES:-20}
+      - MAX_IMAGE_SIZE=${MAX_IMAGE_SIZE:-3072000}
+      - MAX_TEXT_LENGTH=${MAX_TEXT_LENGTH:-5000}
+      - ADMIN_CONTACT=${ADMIN_CONTACT:-}
+      - SITE_NAME=${SITE_NAME:-}
+      - WELCOME_MESSAGE=${WELCOME_MESSAGE:-}
+    restart: unless-stopped

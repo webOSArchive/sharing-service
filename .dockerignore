@@ -1,0 +1,15 @@
+# Never bake secrets or user data into the image
+config.php
+data/
+
+# Composer artifacts are installed fresh during build
+vendor/
+composer.json
+composer.lock
+
+# Development and documentation files
+.git/
+.gitignore
+libheif/
+README.md
+LICENSE

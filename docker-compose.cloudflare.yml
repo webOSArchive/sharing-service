@@ -1,0 +1,38 @@
+# Cloudflare Tunnel add-on for HTTPS access from the internet
+#
+# This file extends docker-compose.yml with a Cloudflare Tunnel sidecar that
+# gives your server a free HTTPS URL without port forwarding or certificates.
+#
+# QUICK TUNNEL (no account needed, temporary URL, good for testing):
+#   docker compose -f docker-compose.yml -f docker-compose.cloudflare.yml up
+#   Watch the cloudflared logs for your assigned https://*.trycloudflare.com URL.
+#
+# PERSISTENT TUNNEL (free Cloudflare account required, permanent URL):
+#   1. Sign up at https://cloudflare.com and add a domain (or use their free subdomain)
+#   2. Go to Zero Trust > Networks > Tunnels > Create a tunnel
+#   3. Copy the tunnel token and set it: export CLOUDFLARE_TOKEN=your-token-here
+#   4. docker compose -f docker-compose.yml -f docker-compose.cloudflare.yml up
+#
+# In the app, use the HTTPS URL from Cloudflare as your server address.
+# You do NOT need to enable "Force HTTPS" in app preferences -- the URL itself
+# will already be https://.
+
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      - TUNNEL_TOKEN=${CLOUDFLARE_TOKEN:-}
+    depends_on:
+      - sharespace
+    # When no token is set, cloudflared falls back to a quick tunnel pointed at
+    # the sharespace service on the internal Docker network.
+    entrypoint: >
+      sh -c '
+        if [ -z "$$TUNNEL_TOKEN" ]; then
+          exec cloudflared tunnel --no-autoupdate --url http://sharespace:80;
+        else
+          exec cloudflared tunnel --no-autoupdate run --token $$TUNNEL_TOKEN;
+        fi
+      '
