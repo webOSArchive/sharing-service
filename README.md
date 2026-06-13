@@ -4,9 +4,9 @@ A simple, retro-device friendly sharing service backend for the [Share Space](ht
 
 Don't @ me for using tables for layout. This web UI was designed to work with old and new browsers.
 
-# Self-host only
+## Self-host only
 
-webOS Archive provided this as a hosted service for nearly 5 years, as of June 2026 that hosted service is no longer available.
+webOS Archive provided this as a hosted service for nearly 5 years. As of June 2026 that hosted service is no longer available.
 
 Self-host this service, or use a public offering from someone you trust. Community member NotAlexNoyle has a hosted offering at [https://riverstonerelay.org/](https://riverstonerelay.org/) you may want to consider.
 
